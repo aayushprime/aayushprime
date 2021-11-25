@@ -2,6 +2,8 @@
 title: "First"
 date: 2021-11-21T18:54:20+05:45
 draft: false
+ShowToc: true
+TocOpen: true
 ---
 ## Welcome!  
 This is the first post of my blog!  
