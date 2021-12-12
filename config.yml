@@ -25,19 +25,19 @@ params:
   defaultTheme: dark
   assets:
     favicon: /favicon.ico
-    profileMode:
-      enabled: true
-      title: Aayush Lamichhane
-      subtitle: Computers don't lie. Yet.
-      imageUrl: /profile.jpeg
-      imageTitle: Cool person(not really)     # optional
-      imageWidth: 120   # custom size
-      imageHeight: 120   # custom size
-      buttons:
-      - name: Search
-        url: /search
-      - name: Github
-        url: https://github.com/aayushprime
+  profileMode:
+    enabled: true
+    title: Aayush Lamichhane
+    subtitle: Computers don't lie. Yet.
+    imageUrl: /profile.jpeg
+    imageTitle: Cool person(not really)     # optional
+    imageWidth: 120   # custom size
+    imageHeight: 120   # custom size
+    buttons:
+    - name: Search
+      url: /search
+    - name: Github
+      url: https://github.com/aayushprime
 
     # homeInfoParams:
     #     Title: Hi there wave
