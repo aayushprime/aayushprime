@@ -1,65 +1,65 @@
-baseurl: "https://lamichhaneaayush.com.np/"
-languageCode: "en-us"
+baseurl: https://lamichhaneaayush.com.np/
+languageCode: en-us
 title: aayushprime
-theme: 'hugo-PaperMod'
+theme: hugo-PaperMod
 
 languages:
-    en:
-        languageName: "English"
-        weight: 1
-        menu:
-            main:
-                - name: Search
-                  url: search/
-                  weight: 40
-                - name: Blog 
-                  url: posts/
-                  weight: 30
-                - name: About 
-                  url: about/
-                  weight: 20
-                - name: CV
-                  url: cv/
-                  weight: 10
+  en:
+    languageName: English
+    weight: 1
+    menu:
+      main:
+      - name: Search
+        url: search/
+        weight: 40
+      - name: Blog
+        url: posts/
+        weight: 30
+      - name: About
+        url: about/
+        weight: 20
+      - name: CV
+        url: cv/
+        weight: 10
 params:
+  defaultTheme: dark
+  assets:
+    favicon: /favicon.ico
     profileMode:
-        enabled: true
-        title: "Aayush Lamichhane" 
-        subtitle: "Computers don't lie. Yet."
-        imageUrl: "/profile.jpeg" 
-        imageTitle: "Cool person(not really)" # optional
-        imageWidth: 120 # custom size
-        imageHeight: 120 # custom size
-        buttons:
-            - name: Search
-              url: "/search"
-            - name: Github
-              url: "https://github.com/aayushprime"
+      enabled: true
+      title: Aayush Lamichhane
+      subtitle: Computers don't lie. Yet.
+      imageUrl: /profile.jpeg
+      imageTitle: Cool person(not really)     # optional
+      imageWidth: 120   # custom size
+      imageHeight: 120   # custom size
+      buttons:
+      - name: Search
+        url: /search
+      - name: Github
+        url: https://github.com/aayushprime
 
     # homeInfoParams:
     #     Title: Hi there wave
     #     Content: Can be Info, links, about...
-        
 
     socialIcons: # optional
-        - name: "Facebook"
-          url: "https://www.facebook.com/aayushprime"
-        - name: "Twitter"
-          url: "https://twitter.com/laay_ush"
-        - name: "Discord"
-          url: "https://discord.com/users/545281855986073610"
-    
+    - name: Facebook
+      url: https://www.facebook.com/aayushprime
+    - name: Twitter
+      url: https://twitter.com/laay_ush
+    - name: Discord
+      url: https://discord.com/users/545281855986073610
     fuseOpts:
-        isCaseSensitive: false
-        shouldSort: true
-        location: 0
-        distance: 1000
-        threshold: 0.4
-        minMatchCharLength: 0
-        keys: ["title", "permalink", "summary", "content"]
-    
+      isCaseSensitive: false
+      shouldSort: true
+      location: 0
+      distance: 1000
+      threshold: 0.4
+      minMatchCharLength: 0
+      keys: [title, permalink, summary, content]
     cover:
-        responsiveImages: false
+      responsiveImages: false
     ShowShareButtons: true
     ShowReadingTime: true
     ShowBreadCrumbs: true
@@ -70,16 +70,16 @@ markup:
     anchorLineNos: false
     codeFences: true
     guessSyntax: false
-    hl_Lines: ""
-    lineAnchors: ""
+    hl_Lines: ''
+    lineAnchors: ''
     lineNoStart: 1
-    lineNos: true 
+    lineNos: true
     lineNumbersInTable: true
     noClasses: true
     style: monokai
     tabWidth: 4
 outputs:
-    home:
-        - HTML
-        - RSS
-        - JSON # is necessary
+  home:
+  - HTML
+  - RSS
+  - JSON       # is necessary
