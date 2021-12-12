@@ -11,10 +11,15 @@ languages:
             main:
                 - name: Search
                   url: search/
-                  weight: 10
-
-                - name: Posts 
+                  weight: 40
+                - name: Blog 
                   url: posts/
+                  weight: 30
+                - name: About 
+                  url: about/
+                  weight: 20
+                - name: CV
+                  url: cv/
                   weight: 10
 params:
     profileMode:
