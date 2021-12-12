@@ -20,7 +20,6 @@
 <link rel=alternate type=application/rss+xml href=https://lamichhaneaayush.com.np/posts/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript><meta property="og:title" content="Posts">
 <meta property="og:description" content>
 <meta property="og:type" content="website">
@@ -30,8 +29,8 @@
 <meta name=twitter:description content>
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://lamichhaneaayush.com.np/posts/"}]}</script>
 </head>
-<body class=list id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<body class="list dark" id=top>
+<script>localStorage.getItem("pref-theme")==="light"&&document.body.classList.remove('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -66,7 +65,7 @@
 </nav>
 </header>
 <main class=main>
-<header class=page-header><div class=breadcrumbs><a href=https://lamichhaneaayush.com.np/>Home</a></div>
+<header class=page-header>
 <h1>Posts</h1>
 </header>
 <article class=post-entry>
@@ -83,7 +82,7 @@ I tried to solve the first challenge. It was pretty straight forward. Except, I 
 Here is my first attempt,
 1 2 3 4 5 6 7 8 9 10 11 12 def part1(lines): prev = lines[0] more = 0 for i in range(len(lines) - 1): if lines[i+1] > prev: more += 1 prev = lines[i+1] print(more) if __name__ =='__main__': with open('....</p>
 </section>
-<footer class=entry-footer><span title="2021-12-01 18:06:19 +0545 +0545">December 1, 2021</span>&nbsp;·&nbsp;2 min</footer>
+<footer class=entry-footer><span title="2021-12-01 18:06:19 +0545 +0545">December 1, 2021</span></footer>
 <a class=entry-link aria-label="post link to String Bug" href=https://lamichhaneaayush.com.np/posts/string-bug/></a>
 </article>
 <article class=post-entry>
@@ -96,7 +95,7 @@ Here is my first attempt,
 What is this about? In an attempt to make myself “productive”, I try to write about anything I find interesting.
 Tell me something interesting at lamichhaneaayush5@gmail.com</p>
 </section>
-<footer class=entry-footer><span title="2021-11-21 18:54:20 +0545 +0545">November 21, 2021</span>&nbsp;·&nbsp;1 min</footer>
+<footer class=entry-footer><span title="2021-11-21 18:54:20 +0545 +0545">November 21, 2021</span></footer>
 <a class=entry-link aria-label="post link to First" href=https://lamichhaneaayush.com.np/posts/first/></a>
 </article>
 </main>
