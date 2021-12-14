@@ -23,6 +23,7 @@ languages:
         weight: 10
 params:
   defaultTheme: dark
+  favicon: favicon.ico
   assets:
     favicon: /favicon.ico
   profileMode:
