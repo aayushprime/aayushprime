@@ -1,5 +1,5 @@
 ---
-title: "Google Sheets as a Database?"
+title: "Google Sheets as Database?"
 date: 2021-12-14T22:46:33+05:45
 draft: false 
 searchHidden: false
