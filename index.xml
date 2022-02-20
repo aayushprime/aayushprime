@@ -8,7 +8,13 @@ So, to get started, the official way to do this is from the google developers we
 https://developers.google.com/sheets/api/guides/concepts
 It is not so easy to understand for a beginner(which I am).</description></item><item><title>About</title><link>https://lamichhaneaayush.com.np/about/</link><pubDate>Sun, 12 Dec 2021 00:00:00 +0000</pubDate><guid>https://lamichhaneaayush.com.np/about/</guid><description>Hi, I&amp;rsquo;m Aayush👋 I&amp;rsquo;m a Computer Engineering student at Pulchowk.
 Passionate about: Opensource, AI, Blockchain, Graphics
-Major Interests Programming Blockchain AI/ML</description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>Today the coding calendar Advent of Code started.
+Major Interests Programming Blockchain AI/ML</description></item><item><title>CV</title><link>https://lamichhaneaayush.com.np/cv/</link><pubDate>Sun, 12 Dec 2021 00:00:00 +0000</pubDate><guid>https://lamichhaneaayush.com.np/cv/</guid><description>Personal Information Name : Aayush Lamichhane
+Employment Status : Student
+College : Pulchowk Campus, IOE
+Level : Undergraduate (Computer Engineering)
+Year : 3rd
+Email : lamichhaneaayush5@gmail.com
+Skills Programming Languages: Python, C/C++, JavaScript Frameworks: React, Express, Flask, Django Machine Learning: Intermediate Deep Learning: Intermediate Linux Administration and server management: Intermediate Version control using Git Certificates Completed Gajabaar Infosecurity Mentorship program Completed Qubit by Qubit&amp;rsquo;s Introduction to Quantum Computing Course sponsored by IBM Quantum Attended 3rd NAAMII Winter School in AI Coursera Neural Networks and Deep Learning, Improving Deep Neural Networks, Structuring Machine Learning Projects Academic and Non-Academic Projects Realtime text similarity Identification Academic Minor project Real time text similarity matching by generating sentence embeddings Different algorithms used, Average Word embeddings, Smooth Inversee Frequency,Sentence Transformers regexpy: Basic regex expression matching using NFA Uses Thompson Construction to construct a NFA Searches the NFA to determine if it is a match Sorting Visualizer Visualization of different sorting algorithms Include visualization for Quicksort, Mergesort, Shellshort, Insertionsort etc.</description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>Today the coding calendar Advent of Code started.
 You should try it too, Advent of Code.
 I tried to solve the first challenge. It was pretty straight forward. Except, I was stumped by a simple problem.
 Here is my first attempt,
