@@ -30,7 +30,7 @@ I had to parse the file to get all values, but when parsing the second line I th
 ```
 old = eval( "line 2 after the equal part" )
 ```
-The cleaver part was that I was skipping having to translate whatever symbol was present in the input (one of `+`, `-` , `/` or `*`)
+The clever part was that I was skipping having to translate whatever symbol was present in the input (one of `+`, `-` , `/` or `*`)
 This was fine for the `test` input, but it became slow when I ran it against the larger input.   
 I ran `python -m cProfile main.py` to find out that it was `eval` that took a bunch of time. It was being invoked a lot of time because it was called in the update loop.  
 So, I thought,  
