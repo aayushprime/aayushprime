@@ -21,6 +21,10 @@ languages:
       - name: CV
         url: cv/
         weight: 10
+      - name: GitHub
+        url: https://github.com/aayushprime
+        weight: 2
+
 params:
   defaultTheme: dark
   favicon: favicon.ico
@@ -66,6 +70,7 @@ params:
   #   ShowBreadCrumbs: true
   #   ShowPostNavLinks: true
   #   ShowCodeCopyButtons: true
+
 markup:
   highlight:
     anchorLineNos: false
