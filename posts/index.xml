@@ -1,17 +1,51 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on aayushprime</title><link>https://lamichhaneaayush.com.np/posts/</link><description>Recent content in Posts on aayushprime</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 10 Jan 2023 20:49:42 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Python: Solving slow eval</title><link>https://lamichhaneaayush.com.np/posts/solveeval/</link><pubDate>Tue, 10 Jan 2023 20:49:42 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/solveeval/</guid><description>Welcome to another one of my interesting findings, where I explore some stuff for fun and profit just fun
-A while back I was solving AOC and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a if else ladder. The input file had the following structure
-Starting items: 91, 65 Operation: new = old * 13 Test: divisible by 5 If true: throw to monkey 7 If false: throw to monkey 4 I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself.</description></item><item><title>Why does my drive mount as read only?</title><link>https://lamichhaneaayush.com.np/posts/fstab-problem/</link><pubDate>Mon, 17 Jan 2022 20:29:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/fstab-problem/</guid><description>Today I tried to write an fstab entry so that my drive would automount on boot.
-It went as smoothly as I had hoped (at first).
-So, I ran sudo blkid to find the UUID of the drive I wanted to mount and added the entry UUID=288C1E6C8C1E3532 /hdrive auto defaults 0 0 following the steps in this wonderful article. (Some options are different after I realized what I wanted.)
-Article</description></item><item><title>Google Sheets as Database?</title><link>https://lamichhaneaayush.com.np/posts/google-sheets/</link><pubDate>Tue, 14 Dec 2021 22:46:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/google-sheets/</guid><description>I recently learned that Google Sheets can be used as a database (although with caveats I hear). And I love it.
-It is so much easier to see what is in the spreadsheet than on a sqlite file.
-Plus, google sheets works everywhere!
-So, to get started, the official way to do this is from the google developers website.
-https://developers.google.com/sheets/api/guides/concepts
-It is not so easy to understand for a beginner(which I am).</description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>Today the coding calendar Advent of Code started.
-You should try it too, Advent of Code.
-I tried to solve the first challenge. It was pretty straight forward. Except, I was stumped by a simple problem.
-Here is my first attempt,
-1 2 3 4 5 6 7 8 9 10 11 12 def part1(lines): prev = lines[0] more = 0 for i in range(len(lines) - 1): if lines[i+1] &amp;gt; prev: more += 1 prev = lines[i+1] print(more) if __name__ ==&amp;#39;__main__&amp;#39;: with open(&amp;#39;.</description></item><item><title>First</title><link>https://lamichhaneaayush.com.np/posts/first/</link><pubDate>Sun, 21 Nov 2021 18:54:20 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/first/</guid><description>Welcome! This is the first post of my blog!
-What is this about? In an attempt to make myself &amp;ldquo;productive&amp;rdquo;, I try to write about anything I find interesting.
-Tell me something interesting at lamichhaneaayush5@gmail.com</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on aayushprime</title><link>https://lamichhaneaayush.com.np/posts/</link><description>Recent content in Posts on aayushprime</description><generator>Hugo -- 0.134.0</generator><language>en</language><lastBuildDate>Tue, 10 Jan 2023 20:49:42 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Python: Solving slow eval</title><link>https://lamichhaneaayush.com.np/posts/solveeval/</link><pubDate>Tue, 10 Jan 2023 20:49:42 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/solveeval/</guid><description>&lt;p>Welcome to another one of my interesting findings, where I explore some stuff for fun &lt;del>and profit&lt;/del> &lt;strong>just fun&lt;/strong>&lt;/p>
+&lt;p>A while back I was solving &lt;a href="https://adventofcode.com/">AOC&lt;/a> and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a &lt;code>if else&lt;/code> ladder.
+The input file had the following structure&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-Monkey" data-lang="Monkey"> Starting items: 91, 65
+Operation: new = old * 13
+Test: divisible by 5
+If true: throw to monkey 7
+If false: throw to monkey 4
+&lt;/code>&lt;/pr</description></item><item><title>Why does my drive mount as read only?</title><link>https://lamichhaneaayush.com.np/posts/fstab-problem/</link><pubDate>Mon, 17 Jan 2022 20:29:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/fstab-problem/</guid><description>&lt;p>Today I tried to write an &lt;code>fstab&lt;/code> entry so that my drive would automount on boot.&lt;br>
+It went as smoothly as I had hoped (at first).&lt;br>
+So, I ran &lt;code>sudo blkid&lt;/code> to find the UUID of the drive I wanted to mount and added the entry &lt;code>UUID=288C1E6C8C1E3532 /hdrive auto defaults 0 0&lt;/code> following the steps in this wonderful article. (Some options are different after I realized what I wanted.)&lt;br>
+&lt;a href="https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/">Article&lt;/a>&lt;br>
+Then I ran &lt;code>sudo mount -a&lt;/code> to check if the mounts were working properly. But here the problem began. The drive was mounted as readonly. There is no mention of readonly mount in the options.&lt;br>
+In fact I learnt that &lt;code>defaults&lt;/code> option is shorthand for &lt;code>rw&lt;/code> (read write) and bunch of other options.
+Then I tried various mount options and got sick of rebooting. I tried directly mounting as &lt;code>ntfs&lt;/code> instead of &lt;code>auto&lt;/code>. But it didn&amp;rsquo;t work.&lt;br>
+After lot of struggle I figured out the problem. It was because of my Windows Installation!&lt;br>
+I have dual boot setup. And turns out windows stores some files for faster booting (fast boot) in the harddisk thus linux cannot mount the drive cleanly and can only mount it as a read only drive. So to fix this I had to boot to windows and change the fast boot setting. Here&amp;rsquo;s how,&lt;/p></description></item><item><title>Google Sheets as Database?</title><link>https://lamichhaneaayush.com.np/posts/google-sheets/</link><pubDate>Tue, 14 Dec 2021 22:46:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/google-sheets/</guid><description>&lt;p>I recently learned that Google Sheets can be used as a database (although with caveats I hear). And I love it.&lt;br>
+It is so much &lt;strong>easier&lt;/strong> to see what is in the spreadsheet than on a sqlite file.&lt;br>
+Plus, google sheets works everywhere!&lt;br>
+So, to get started, the official way to do this is from the google developers website.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="https://developers.google.com/sheets/api/guides/concepts">https://developers.google.com/sheets/api/guides/concepts&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>It is not so easy to understand for a beginner(which I am).
+So, upon further looking around I came across this wonderful python library that makes things so much easier.
+It&amp;rsquo;s &lt;code>gspread&lt;/code>.&lt;/p></description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>&lt;p>Today the coding calendar Advent of Code started.&lt;/p>
+&lt;blockquote>
+&lt;p>You should try it too, &lt;a href="https://adventofcode.com">Advent of Code&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;p>I tried to solve the first challenge. It was pretty straight forward.
+Except, I was stumped by a simple problem.&lt;br>
+Here is my first attempt,&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>First</title><link>https://lamichhaneaayush.com.np/posts/first/</link><pubDate>Sun, 21 Nov 2021 18:54:20 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/first/</guid><description>&lt;h2 id="welcome">Welcome!&lt;/h2>
+&lt;p>This is the first post of my blog!&lt;/p>
+&lt;h2 id="what-is-this-about">What is this about?&lt;/h2>
+&lt;p>In an attempt to make myself &amp;ldquo;productive&amp;rdquo;, I try to write about anything I find interesting.&lt;/p>
+&lt;p>Tell me something interesting at &lt;a href="mailto:lamichhaneaayush5@gmail.com">lamichhaneaayush5@gmail.com&lt;/a>&lt;/p></description></item></channel></rss>
