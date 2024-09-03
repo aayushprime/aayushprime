@@ -2,21 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on aayushprime</title>
-    <link>http://example.org/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on aayushprime</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 21 Nov 2021 18:54:20 +0545</lastBuildDate><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.133.1</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 10 Jan 2023 20:49:42 +0545</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python: Solving slow eval</title>
+      <link>http://localhost:1313/posts/solveeval/</link>
+      <pubDate>Tue, 10 Jan 2023 20:49:42 +0545</pubDate>
+      <guid>http://localhost:1313/posts/solveeval/</guid>
+      <description>Welcome to another one of my interesting findings, where I explore some stuff for fun and profit just fun
+A while back I was solving AOC and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a if else ladder. The input file had the following structure
+Starting items: 91, 65 Operation: new = old * 13 Test: divisible by 5 If true: throw to monkey 7 If false: throw to monkey 4 I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself.</description>
+    </item>
+    <item>
+      <title>Why does my drive mount as read only?</title>
+      <link>http://localhost:1313/posts/fstab-problem/</link>
+      <pubDate>Mon, 17 Jan 2022 20:29:33 +0545</pubDate>
+      <guid>http://localhost:1313/posts/fstab-problem/</guid>
+      <description>Today I tried to write an fstab entry so that my drive would automount on boot.
+It went as smoothly as I had hoped (at first).
+So, I ran sudo blkid to find the UUID of the drive I wanted to mount and added the entry UUID=288C1E6C8C1E3532 /hdrive auto defaults 0 0 following the steps in this wonderful article. (Some options are different after I realized what I wanted.)
+Article</description>
+    </item>
+    <item>
+      <title>Google Sheets as Database?</title>
+      <link>http://localhost:1313/posts/google-sheets/</link>
+      <pubDate>Tue, 14 Dec 2021 22:46:33 +0545</pubDate>
+      <guid>http://localhost:1313/posts/google-sheets/</guid>
+      <description>I recently learned that Google Sheets can be used as a database (although with caveats I hear). And I love it.
+It is so much easier to see what is in the spreadsheet than on a sqlite file.
+Plus, google sheets works everywhere!
+So, to get started, the official way to do this is from the google developers website.
+https://developers.google.com/sheets/api/guides/concepts
+It is not so easy to understand for a beginner(which I am).</description>
+    </item>
+    <item>
+      <title>String Bug</title>
+      <link>http://localhost:1313/posts/string-bug/</link>
+      <pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate>
+      <guid>http://localhost:1313/posts/string-bug/</guid>
+      <description>Today the coding calendar Advent of Code started.
+You should try it too, Advent of Code.
+I tried to solve the first challenge. It was pretty straight forward. Except, I was stumped by a simple problem.
+Here is my first attempt,
+1 2 3 4 5 6 7 8 9 10 11 12 def part1(lines): prev = lines[0] more = 0 for i in range(len(lines) - 1): if lines[i+1] &amp;gt; prev: more += 1 prev = lines[i+1] print(more) if __name__ ==&amp;#39;__main__&amp;#39;: with open(&amp;#39;.</description>
+    </item>
     <item>
       <title>First</title>
-      <link>http://example.org/posts/first/</link>
+      <link>http://localhost:1313/posts/first/</link>
       <pubDate>Sun, 21 Nov 2021 18:54:20 +0545</pubDate>
-      
-      <guid>http://example.org/posts/first/</guid>
+      <guid>http://localhost:1313/posts/first/</guid>
       <description>Welcome! This is the first post of my blog!
 What is this about? In an attempt to make myself &amp;ldquo;productive&amp;rdquo;, I try to write about anything I find interesting.
 Tell me something interesting at lamichhaneaayush5@gmail.com</description>
     </item>
-    
   </channel>
 </rss>
