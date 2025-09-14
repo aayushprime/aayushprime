@@ -1,220 +1,220 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on aayushprime</title><link>https://lamichhaneaayush.com.np/posts/</link><description>Recent content in Posts on aayushprime</description><generator>Hugo -- 0.148.2</generator><language>en</language><lastBuildDate>Tue, 17 Jun 2025 16:33:48 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnels: Expose your local server to the internet.</title><link>https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/</link><pubDate>Tue, 17 Jun 2025 16:33:48 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/</guid><description>&lt;p>How can you quickly expose your local server to the internet?&lt;br>
-There&amp;rsquo;s ngrok which is as easy as &lt;code>ngrok http 8000&lt;/code> but it has a free tier and the domain changing every time is a hassle.&lt;/p>
-&lt;p>So I use Cloudflare tunnels. It is free and you can use your own domain.&lt;/p>
-&lt;p>Add you domain to Cloudflare and then install the &lt;code>cloudflared&lt;/code> tool.&lt;/p>
-&lt;p>Then create a tunnel using the following command:&lt;/p></description></item><item><title>Why is my Golang server (not) crashing?</title><link>https://lamichhaneaayush.com.np/posts/golang-silent-panic/</link><pubDate>Tue, 03 Jun 2025 15:47:09 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/golang-silent-panic/</guid><description>&lt;p>I was hit by one of these &amp;ldquo;you didn&amp;rsquo;t know this, now suffer&amp;rdquo; moments today.
-I was working on a websocket server and was gradually adding new functionality. Out of nowhere, the server started disconnecting the client. Without any error whatsoever. I even wasted some time thinking maybe the client was doing something wrong.&lt;/p>
-&lt;p>Then with no luck with anything I tried, I tried to use the debugger. The debugger would execute the last line of a function and then the client would disconnect.
-This is the exact function&lt;/p></description></item><item><title>Tmux Snippets (take your commands with you everywhere!)</title><link>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</link><pubDate>Sun, 18 May 2025 17:18:22 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</guid><description>&lt;p>Wouldn&amp;rsquo;t it be great if you could take your commands with you everywhere?
-Sure aliases are great but can you really put a price on the feeling of just getting the command you want when you are in a ssh session?&lt;/p>
-&lt;p>So here it is. Use tmux snippets. Your terminal remembers your commands for you.&lt;/p>
-&lt;h2 id="installation">Installation&lt;/h2>
-&lt;p>Use tmux plugin manager &lt;code>tpm&lt;/code> to install the plugin.&lt;/p>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>set -g @plugin &lt;span style="color:#e6db74">&amp;#39;nyuyuyu/tmux-pet&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>Use &lt;code>prefix + I&lt;/code> (Uppercase I) to install the plugin using TPM.&lt;/p></description></item><item><title>Where are my bits getting lost?</title><link>https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/</link><pubDate>Wed, 02 Apr 2025 20:29:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/</guid><description>&lt;p>Today I was trying to implement the Snowflake Id generator for &lt;a href="https://fly.io/dist-sys/">Fly.io Gossip Glomers&lt;/a> second challenge, &lt;code>Unique Id&lt;/code> generation.
-Here&amp;rsquo;s what I came up with.&lt;/p>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> (
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;encoding/json&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;strconv&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;time&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">maelstrom&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/jepsen-io/maelstrom/demo/go&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Snowflake&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">sequenceNumber&lt;/span> &lt;span style="color:#66d9ef">uint64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">selfId&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lastTs&lt;/span> &lt;span style="color:#66d9ef">int64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">nextId&lt;/span>(&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">Snowflake&lt;/span>) &lt;span style="color:#66d9ef">uint64&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ts&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Now&lt;/span>().&lt;span style="color:#a6e22e">UnixMilli&lt;/span>() &lt;span style="color:#75715e">// this is 41 bits&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">lastTs&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#a6e22e">ts&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">sequenceNumber&lt;/span>&lt;span style="color:#f92672">++&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> } &lt;span style="color:#66d9ef">else&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">sequenceNumber&lt;/span> = &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">lastTs&lt;/span> = &lt;span style="color:#a6e22e">ts&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">id&lt;/span> &lt;span style="color:#66d9ef">uint64&lt;/span> = uint64(&lt;span style="color:#a6e22e">ts&lt;/span> &lt;span style="color:#f92672">&amp;lt;&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">22&lt;/span>) &lt;span style="color:#75715e">// (64 - 1 sign bit - 41 unix timestamp bits)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Printf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;shifted %d&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">id&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">id&lt;/span> = &lt;span style="color:#a6e22e">id&lt;/span> | ((uint64(&lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">selfId&lt;/span>) &lt;span style="color:#f92672">&amp;amp;&lt;/span> &lt;span style="color:#ae81ff">0x3f&lt;/span>) &lt;span style="color:#f92672">&amp;lt;&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">16&lt;/span>) &lt;span style="color:#75715e">// machine id is 10 bits&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Printf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;after self Id %d&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">id&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">id&lt;/span> = &lt;span style="color:#a6e22e">id&lt;/span> | ((&lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">sequenceNumber&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span> &lt;span style="color:#ae81ff">0xffff&lt;/span>) )
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">id&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">n&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">maelstrom&lt;/span>.&lt;span style="color:#a6e22e">NewNode&lt;/span>()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">sf&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">Snowflake&lt;/span>{}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">n&lt;/span>.&lt;span style="color:#a6e22e">Handle&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;generate&amp;#34;&lt;/span>, &lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#a6e22e">msg&lt;/span> &lt;span style="color:#a6e22e">maelstrom&lt;/span>.&lt;span style="color:#a6e22e">Message&lt;/span>) &lt;span style="color:#66d9ef">error&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">body&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">any&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">Unmarshal&lt;/span>(&lt;span style="color:#a6e22e">msg&lt;/span>.&lt;span style="color:#a6e22e">Body&lt;/span>, &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">body&lt;/span>); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">selfId&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">strconv&lt;/span>.&lt;span style="color:#a6e22e">Atoi&lt;/span>(&lt;span style="color:#a6e22e">msg&lt;/span>.&lt;span style="color:#a6e22e">Dest&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>:])
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Fatal&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Cannot parse destination as a number&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">msg&lt;/span>.&lt;span style="color:#a6e22e">Dest&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">sf&lt;/span>.&lt;span style="color:#a6e22e">selfId&lt;/span> = &lt;span style="color:#a6e22e">selfId&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">body&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;type&amp;#34;&lt;/span>] = &lt;span style="color:#e6db74">&amp;#34;generate_ok&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">body&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;id&amp;#34;&lt;/span>] = &lt;span style="color:#a6e22e">nextId&lt;/span>(&lt;span style="color:#a6e22e">sf&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">n&lt;/span>.&lt;span style="color:#a6e22e">Reply&lt;/span>(&lt;span style="color:#a6e22e">msg&lt;/span>, &lt;span style="color:#a6e22e">body&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> })
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">n&lt;/span>.&lt;span style="color:#a6e22e">Run&lt;/span>(); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Fatal&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>It wasn&amp;rsquo;t too bad for how simple its supposed to be. My solution wasn&amp;rsquo;t getting accepted by &lt;code>maelstrom&lt;/code> because there were duplicate Ids generated by my program. After looking at my code for very long and not finding any idea what went wrong, I asked ChatGPT, it suggested the &lt;code>sequenceNumber&lt;/code> bits were too few and must probably be overflowing. After looking at the maelstrom logs I found the lines which had duplicate Ids.&lt;/p></description></item><item><title>Python: Solving slow eval</title><link>https://lamichhaneaayush.com.np/posts/solveeval/</link><pubDate>Tue, 10 Jan 2023 20:49:42 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/solveeval/</guid><description>&lt;p>Welcome to another one of my interesting findings, where I explore some stuff for fun &lt;del>and profit&lt;/del> &lt;strong>just fun&lt;/strong>&lt;/p>
-&lt;p>A while back I was solving &lt;a href="https://adventofcode.com/">AOC&lt;/a> and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a &lt;code>if else&lt;/code> ladder.
-The input file had the following structure&lt;/p>
-&lt;pre tabindex="0">&lt;code class="language-Monkey" data-lang="Monkey"> Starting items: 91, 65
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on aayushprime</title><link>https://lamichhaneaayush.com.np/posts/</link><description>Recent content in Posts on aayushprime</description><generator>Hugo -- 0.150.0</generator><language>en</language><lastBuildDate>Tue, 17 Jun 2025 16:33:48 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnels: Expose your local server to the internet.</title><link>https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/</link><pubDate>Tue, 17 Jun 2025 16:33:48 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/</guid><description>&lt;p&gt;How can you quickly expose your local server to the internet?&lt;br&gt;
+There&amp;rsquo;s ngrok which is as easy as &lt;code&gt;ngrok http 8000&lt;/code&gt; but it has a free tier and the domain changing every time is a hassle.&lt;/p&gt;
+&lt;p&gt;So I use Cloudflare tunnels. It is free and you can use your own domain.&lt;/p&gt;
+&lt;p&gt;Add you domain to Cloudflare and then install the &lt;code&gt;cloudflared&lt;/code&gt; tool.&lt;/p&gt;
+&lt;p&gt;Then create a tunnel using the following command:&lt;/p&gt;</description></item><item><title>Why is my Golang server (not) crashing?</title><link>https://lamichhaneaayush.com.np/posts/golang-silent-panic/</link><pubDate>Tue, 03 Jun 2025 15:47:09 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/golang-silent-panic/</guid><description>&lt;p&gt;I was hit by one of these &amp;ldquo;you didn&amp;rsquo;t know this, now suffer&amp;rdquo; moments today.
+I was working on a websocket server and was gradually adding new functionality. Out of nowhere, the server started disconnecting the client. Without any error whatsoever. I even wasted some time thinking maybe the client was doing something wrong.&lt;/p&gt;
+&lt;p&gt;Then with no luck with anything I tried, I tried to use the debugger. The debugger would execute the last line of a function and then the client would disconnect.
+This is the exact function&lt;/p&gt;</description></item><item><title>Tmux Snippets (take your commands with you everywhere!)</title><link>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</link><pubDate>Sun, 18 May 2025 17:18:22 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</guid><description>&lt;p&gt;Wouldn&amp;rsquo;t it be great if you could take your commands with you everywhere?
+Sure aliases are great but can you really put a price on the feeling of just getting the command you want when you are in a ssh session?&lt;/p&gt;
+&lt;p&gt;So here it is. Use tmux snippets. Your terminal remembers your commands for you.&lt;/p&gt;
+&lt;h2 id="installation"&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Use tmux plugin manager &lt;code&gt;tpm&lt;/code&gt; to install the plugin.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;set -g @plugin &lt;span style="color:#e6db74"&gt;&amp;#39;nyuyuyu/tmux-pet&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Use &lt;code&gt;prefix + I&lt;/code&gt; (Uppercase I) to install the plugin using TPM.&lt;/p&gt;</description></item><item><title>Where are my bits getting lost?</title><link>https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/</link><pubDate>Wed, 02 Apr 2025 20:29:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/</guid><description>&lt;p&gt;Today I was trying to implement the Snowflake Id generator for &lt;a href="https://fly.io/dist-sys/"&gt;Fly.io Gossip Glomers&lt;/a&gt; second challenge, &lt;code&gt;Unique Id&lt;/code&gt; generation.
+Here&amp;rsquo;s what I came up with.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 5
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 6
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 7
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 8
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 9
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;10
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;11
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;12
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;13
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;14
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;15
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;16
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;17
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;18
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;19
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;20
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;21
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;22
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;23
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;24
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;25
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;26
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;27
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;28
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;29
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;30
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;31
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;32
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;33
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;34
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;35
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;36
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;37
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;38
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;39
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;40
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;41
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;42
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;43
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;44
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;45
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;46
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;47
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;48
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;49
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;50
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;51
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;52
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;53
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;54
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;55
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;56
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;57
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;58
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;59
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;60
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;61
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;62
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;package&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;encoding/json&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;log&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;strconv&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;time&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;maelstrom&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;github.com/jepsen-io/maelstrom/demo/go&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;type&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Snowflake&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;sequenceNumber&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;selfId&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;lastTs&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;int64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;func&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;nextId&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;s&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;Snowflake&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;uint64&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;ts&lt;/span&gt; &lt;span style="color:#f92672"&gt;:=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;time&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Now&lt;/span&gt;().&lt;span style="color:#a6e22e"&gt;UnixMilli&lt;/span&gt;() &lt;span style="color:#75715e"&gt;// this is 41 bits&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;s&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;lastTs&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ts&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;s&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;sequenceNumber&lt;/span&gt;&lt;span style="color:#f92672"&gt;++&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;s&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;sequenceNumber&lt;/span&gt; = &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;s&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;lastTs&lt;/span&gt; = &lt;span style="color:#a6e22e"&gt;ts&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;uint64&lt;/span&gt; = uint64(&lt;span style="color:#a6e22e"&gt;ts&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;22&lt;/span&gt;) &lt;span style="color:#75715e"&gt;// (64 - 1 sign bit - 41 unix timestamp bits)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;shifted %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt; = &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt; | ((uint64(&lt;span style="color:#a6e22e"&gt;s&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;selfId&lt;/span&gt;) &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0x3f&lt;/span&gt;) &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;16&lt;/span&gt;) &lt;span style="color:#75715e"&gt;// machine id is 10 bits&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;after self Id %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt; = &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt; | ((&lt;span style="color:#a6e22e"&gt;s&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;sequenceNumber&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0xffff&lt;/span&gt;) )
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;func&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;n&lt;/span&gt; &lt;span style="color:#f92672"&gt;:=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;maelstrom&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;NewNode&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;sf&lt;/span&gt; &lt;span style="color:#f92672"&gt;:=&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;Snowflake&lt;/span&gt;{}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;n&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Handle&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;generate&amp;#34;&lt;/span&gt;, &lt;span style="color:#66d9ef"&gt;func&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;maelstrom&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Message&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;error&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;body&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;map&lt;/span&gt;[&lt;span style="color:#66d9ef"&gt;string&lt;/span&gt;]&lt;span style="color:#66d9ef"&gt;any&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt; &lt;span style="color:#f92672"&gt;:=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;json&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Unmarshal&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Body&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;body&lt;/span&gt;); &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt; &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;nil&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;selfId&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt; &lt;span style="color:#f92672"&gt;:=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;strconv&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Atoi&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Dest&lt;/span&gt;[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;:])
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt; &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;nil&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Fatal&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;Cannot parse destination as a number&amp;#34;&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Dest&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;sf&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;selfId&lt;/span&gt; = &lt;span style="color:#a6e22e"&gt;selfId&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;body&lt;/span&gt;[&lt;span style="color:#e6db74"&gt;&amp;#34;type&amp;#34;&lt;/span&gt;] = &lt;span style="color:#e6db74"&gt;&amp;#34;generate_ok&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;body&lt;/span&gt;[&lt;span style="color:#e6db74"&gt;&amp;#34;id&amp;#34;&lt;/span&gt;] = &lt;span style="color:#a6e22e"&gt;nextId&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;sf&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;n&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Reply&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;body&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; })
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt; &lt;span style="color:#f92672"&gt;:=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;n&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Run&lt;/span&gt;(); &lt;span style="color:#a6e22e"&gt;err&lt;/span&gt; &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;nil&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;Fatal&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;err&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;It wasn&amp;rsquo;t too bad for how simple its supposed to be. My solution wasn&amp;rsquo;t getting accepted by &lt;code&gt;maelstrom&lt;/code&gt; because there were duplicate Ids generated by my program. After looking at my code for very long and not finding any idea what went wrong, I asked ChatGPT, it suggested the &lt;code&gt;sequenceNumber&lt;/code&gt; bits were too few and must probably be overflowing. After looking at the maelstrom logs I found the lines which had duplicate Ids.&lt;/p&gt;</description></item><item><title>Python: Solving slow eval</title><link>https://lamichhaneaayush.com.np/posts/solveeval/</link><pubDate>Tue, 10 Jan 2023 20:49:42 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/solveeval/</guid><description>&lt;p&gt;Welcome to another one of my interesting findings, where I explore some stuff for fun &lt;del&gt;and profit&lt;/del&gt; &lt;strong&gt;just fun&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A while back I was solving &lt;a href="https://adventofcode.com/"&gt;AOC&lt;/a&gt; and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a &lt;code&gt;if else&lt;/code&gt; ladder.
+The input file had the following structure&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code class="language-Monkey" data-lang="Monkey"&gt; Starting items: 91, 65
 Operation: new = old * 13
 Test: divisible by 5
 If true: throw to monkey 7
 If false: throw to monkey 4
-&lt;/code>&lt;/pre>&lt;p>I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself. And so, I created a variable called &lt;code>old&lt;/code> and whenever it needed updating I would use the following line&lt;/p></description></item><item><title>Why does my drive mount as read only?</title><link>https://lamichhaneaayush.com.np/posts/fstab-problem/</link><pubDate>Mon, 17 Jan 2022 20:29:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/fstab-problem/</guid><description>&lt;p>Today I tried to write an &lt;code>fstab&lt;/code> entry so that my drive would automount on boot.&lt;br>
-It went as smoothly as I had hoped (at first).&lt;br>
-So, I ran &lt;code>sudo blkid&lt;/code> to find the UUID of the drive I wanted to mount and added the entry &lt;code>UUID=288C1E6C8C1E3532 /hdrive auto defaults 0 0&lt;/code> following the steps in this wonderful article. (Some options are different after I realized what I wanted.)&lt;br>
-&lt;a href="https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/">Article&lt;/a>&lt;br>
-Then I ran &lt;code>sudo mount -a&lt;/code> to check if the mounts were working properly. But here the problem began. The drive was mounted as readonly. There is no mention of readonly mount in the options.&lt;br>
-In fact I learnt that &lt;code>defaults&lt;/code> option is shorthand for &lt;code>rw&lt;/code> (read write) and bunch of other options.
-Then I tried various mount options and got sick of rebooting. I tried directly mounting as &lt;code>ntfs&lt;/code> instead of &lt;code>auto&lt;/code>. But it didn&amp;rsquo;t work.&lt;br>
-After lot of struggle I figured out the problem. It was because of my Windows Installation!&lt;br>
-I have dual boot setup. And turns out windows stores some files for faster booting (fast boot) in the harddisk thus linux cannot mount the drive cleanly and can only mount it as a read only drive. So to fix this I had to boot to windows and change the fast boot setting. Here&amp;rsquo;s how,&lt;/p></description></item><item><title>Google Sheets as Database?</title><link>https://lamichhaneaayush.com.np/posts/google-sheets/</link><pubDate>Tue, 14 Dec 2021 22:46:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/google-sheets/</guid><description>&lt;p>I recently learned that Google Sheets can be used as a database (although with caveats I hear). And I love it.&lt;br>
-It is so much &lt;strong>easier&lt;/strong> to see what is in the spreadsheet than on a sqlite file.&lt;br>
-Plus, google sheets works everywhere!&lt;br>
-So, to get started, the official way to do this is from the google developers website.&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;a href="https://developers.google.com/sheets/api/guides/concepts">https://developers.google.com/sheets/api/guides/concepts&lt;/a>&lt;/p>&lt;/blockquote>
-&lt;p>It is not so easy to understand for a beginner(which I am).
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself. And so, I created a variable called &lt;code&gt;old&lt;/code&gt; and whenever it needed updating I would use the following line&lt;/p&gt;</description></item><item><title>Why does my drive mount as read only?</title><link>https://lamichhaneaayush.com.np/posts/fstab-problem/</link><pubDate>Mon, 17 Jan 2022 20:29:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/fstab-problem/</guid><description>&lt;p&gt;Today I tried to write an &lt;code&gt;fstab&lt;/code&gt; entry so that my drive would automount on boot.&lt;br&gt;
+It went as smoothly as I had hoped (at first).&lt;br&gt;
+So, I ran &lt;code&gt;sudo blkid&lt;/code&gt; to find the UUID of the drive I wanted to mount and added the entry &lt;code&gt;UUID=288C1E6C8C1E3532 /hdrive auto defaults 0 0&lt;/code&gt; following the steps in this wonderful article. (Some options are different after I realized what I wanted.)&lt;br&gt;
+&lt;a href="https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/"&gt;Article&lt;/a&gt;&lt;br&gt;
+Then I ran &lt;code&gt;sudo mount -a&lt;/code&gt; to check if the mounts were working properly. But here the problem began. The drive was mounted as readonly. There is no mention of readonly mount in the options.&lt;br&gt;
+In fact I learnt that &lt;code&gt;defaults&lt;/code&gt; option is shorthand for &lt;code&gt;rw&lt;/code&gt; (read write) and bunch of other options.
+Then I tried various mount options and got sick of rebooting. I tried directly mounting as &lt;code&gt;ntfs&lt;/code&gt; instead of &lt;code&gt;auto&lt;/code&gt;. But it didn&amp;rsquo;t work.&lt;br&gt;
+After lot of struggle I figured out the problem. It was because of my Windows Installation!&lt;br&gt;
+I have dual boot setup. And turns out windows stores some files for faster booting (fast boot) in the harddisk thus linux cannot mount the drive cleanly and can only mount it as a read only drive. So to fix this I had to boot to windows and change the fast boot setting. Here&amp;rsquo;s how,&lt;/p&gt;</description></item><item><title>Google Sheets as Database?</title><link>https://lamichhaneaayush.com.np/posts/google-sheets/</link><pubDate>Tue, 14 Dec 2021 22:46:33 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/google-sheets/</guid><description>&lt;p&gt;I recently learned that Google Sheets can be used as a database (although with caveats I hear). And I love it.&lt;br&gt;
+It is so much &lt;strong&gt;easier&lt;/strong&gt; to see what is in the spreadsheet than on a sqlite file.&lt;br&gt;
+Plus, google sheets works everywhere!&lt;br&gt;
+So, to get started, the official way to do this is from the google developers website.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://developers.google.com/sheets/api/guides/concepts"&gt;https://developers.google.com/sheets/api/guides/concepts&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;It is not so easy to understand for a beginner(which I am).
 So, upon further looking around I came across this wonderful python library that makes things so much easier.
-It&amp;rsquo;s &lt;code>gspread&lt;/code>.&lt;/p></description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>&lt;p>Today the coding calendar Advent of Code started.&lt;/p>
-&lt;blockquote>
-&lt;p>You should try it too, &lt;a href="https://adventofcode.com">Advent of Code&lt;/a>.&lt;/p>&lt;/blockquote>
-&lt;p>I tried to solve the first challenge. It was pretty straight forward.
-Except, I was stumped by a simple problem.&lt;br>
-Here is my first attempt,&lt;/p>
-&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-py" data-lang="py">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">part1&lt;/span>(lines):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prev &lt;span style="color:#f92672">=&lt;/span> lines[&lt;span style="color:#ae81ff">0&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> more &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> range(len(lines) &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> lines[i&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">&amp;gt;&lt;/span> prev:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> more &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prev &lt;span style="color:#f92672">=&lt;/span> lines[i&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(more)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(&lt;span style="color:#e6db74">&amp;#39;./input/day1.txt&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lines &lt;span style="color:#f92672">=&lt;/span> [a&lt;span style="color:#f92672">.&lt;/span>strip() &lt;span style="color:#66d9ef">for&lt;/span> a &lt;span style="color:#f92672">in&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> part1(lines)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>The thing is it gives correct result for the test data. So, I assumed it would work for the input data. But, the program always
-gave me 1 less than the actual answer. I couldn&amp;rsquo;t figure out why.&lt;br>
+It&amp;rsquo;s &lt;code&gt;gspread&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>&lt;p&gt;Today the coding calendar Advent of Code started.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You should try it too, &lt;a href="https://adventofcode.com"&gt;Advent of Code&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;I tried to solve the first challenge. It was pretty straight forward.
+Except, I was stumped by a simple problem.&lt;br&gt;
+Here is my first attempt,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 5
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 6
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 7
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 8
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 9
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;10
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;11
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-py" data-lang="py"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;part1&lt;/span&gt;(lines):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; lines[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; more &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; i &lt;span style="color:#f92672"&gt;in&lt;/span&gt; range(len(lines) &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; lines[i&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; prev:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; more &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; lines[i&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(more)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; __name__ &lt;span style="color:#f92672"&gt;==&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;with&lt;/span&gt; open(&lt;span style="color:#e6db74"&gt;&amp;#39;./input/day1.txt&amp;#39;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;as&lt;/span&gt; f:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; lines &lt;span style="color:#f92672"&gt;=&lt;/span&gt; [a&lt;span style="color:#f92672"&gt;.&lt;/span&gt;strip() &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; a &lt;span style="color:#f92672"&gt;in&lt;/span&gt; f&lt;span style="color:#f92672"&gt;.&lt;/span&gt;readlines()]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; part1(lines)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The thing is it gives correct result for the test data. So, I assumed it would work for the input data. But, the program always
+gave me 1 less than the actual answer. I couldn&amp;rsquo;t figure out why.&lt;br&gt;
 Notice, I use string comparison in the if condition on line 5.
-I knew using string for comparison of numbers was a bad idea but, the following IDLE experiments convinced me otherwise.&lt;/p></description></item><item><title>First</title><link>https://lamichhaneaayush.com.np/posts/first/</link><pubDate>Sun, 21 Nov 2021 18:54:20 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/first/</guid><description>&lt;h2 id="welcome">Welcome!&lt;/h2>
-&lt;p>This is the first post of my blog!&lt;/p>
-&lt;h2 id="what-is-this-about">What is this about?&lt;/h2>
-&lt;p>In an attempt to make myself &amp;ldquo;productive&amp;rdquo;, I try to write about anything I find interesting.&lt;/p>
-&lt;p>Tell me something interesting at &lt;a href="mailto:lamichhaneaayush5@gmail.com">lamichhaneaayush5@gmail.com&lt;/a>&lt;/p></description></item></channel></rss>
+I knew using string for comparison of numbers was a bad idea but, the following IDLE experiments convinced me otherwise.&lt;/p&gt;</description></item><item><title>First</title><link>https://lamichhaneaayush.com.np/posts/first/</link><pubDate>Sun, 21 Nov 2021 18:54:20 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/first/</guid><description>&lt;h2 id="welcome"&gt;Welcome!&lt;/h2&gt;
+&lt;p&gt;This is the first post of my blog!&lt;/p&gt;
+&lt;h2 id="what-is-this-about"&gt;What is this about?&lt;/h2&gt;
+&lt;p&gt;In an attempt to make myself &amp;ldquo;productive&amp;rdquo;, I try to write about anything I find interesting.&lt;/p&gt;
+&lt;p&gt;Tell me something interesting at &lt;a href="mailto:lamichhaneaayush5@gmail.com"&gt;lamichhaneaayush5@gmail.com&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
