@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo -- 0.150.0</generator><language>en</language><lastBuildDate>Thu, 18 Sep 2025 00:00:17 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://lamichhaneaayush.com.np/about/</link><pubDate>Thu, 18 Sep 2025 00:00:17 +0545</pubDate><guid>https://lamichhaneaayush.com.np/about/</guid><description>&lt;h2 id="hi-im-aayush"&gt;Hi, I&amp;rsquo;m Aayush👋&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo -- 0.152.2</generator><language>en</language><lastBuildDate>Sat, 08 Nov 2025 23:20:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>Flashing AOSP on my old phone</title><link>https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/</link><pubDate>Sat, 08 Nov 2025 23:20:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/</guid><description>&lt;p&gt;A collegue of mine convinced me to play Clash of Clans again, because apparently the waiting time is lesser now. I used to play that game a lot when it had only 10 town halls (now there&amp;rsquo;s 17). So to recover my old account, I rebooted my old phone. Its a Redmi Note 10. It was unbearably slow, some kind of app kept opening, crashing and opening again. Maybe it was because I hadn&amp;rsquo;t used it in a long time. And then I remembered, I could flash AOSP. Almost 10 years ago now, I fixed an old Tablet by flashing a custom rom. It used to be risky business, because you could brick the device. But fortunately I never had such misfortune.&lt;/p&gt;</description></item><item><title>About</title><link>https://lamichhaneaayush.com.np/about/</link><pubDate>Thu, 18 Sep 2025 00:00:17 +0545</pubDate><guid>https://lamichhaneaayush.com.np/about/</guid><description>&lt;h2 id="hi-im-aayush"&gt;Hi, I&amp;rsquo;m Aayush👋&lt;/h2&gt;
 &lt;p&gt;Backend/DevOps Enginneer at Bhoos Games.&lt;br&gt;
 Learning new things everyday.&lt;/p&gt;
 &lt;h1 id="interests"&gt;Interests&lt;/h1&gt;
@@ -191,12 +191,14 @@ It is so much &lt;strong&gt;easier&lt;/strong&gt; to see what is in the spreadsh
 Plus, google sheets works everywhere!&lt;br&gt;
 So, to get started, the official way to do this is from the google developers website.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://developers.google.com/sheets/api/guides/concepts"&gt;https://developers.google.com/sheets/api/guides/concepts&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://developers.google.com/sheets/api/guides/concepts"&gt;https://developers.google.com/sheets/api/guides/concepts&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;It is not so easy to understand for a beginner(which I am).
 So, upon further looking around I came across this wonderful python library that makes things so much easier.
 It&amp;rsquo;s &lt;code&gt;gspread&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>String Bug</title><link>https://lamichhaneaayush.com.np/posts/string-bug/</link><pubDate>Wed, 01 Dec 2021 18:06:19 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/string-bug/</guid><description>&lt;p&gt;Today the coding calendar Advent of Code started.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;You should try it too, &lt;a href="https://adventofcode.com"&gt;Advent of Code&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;You should try it too, &lt;a href="https://adventofcode.com"&gt;Advent of Code&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;I tried to solve the first challenge. It was pretty straight forward.
 Except, I was stumped by a simple problem.&lt;br&gt;
 Here is my first attempt,&lt;/p&gt;
