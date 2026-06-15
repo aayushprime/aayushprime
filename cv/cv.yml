@@ -1,0 +1,161 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jskherman/imprecv/main/cv.typ.schema.json
+
+personal:
+  name: Aayush Lamichhane
+  email: lamichhaneaayush5@gmail.com
+  phone: +977-9843805167
+  url: https://lamichhaneaayush.com.np
+  titles:
+    - Backend Developer
+    - DevOps Engineer
+  location:
+    city: Kathmandu
+    country: Nepal
+  profiles:
+    - network: LinkedIn
+      username: aayushlamichhane
+      url: https://linkedin.com/in/aayushlamichhane/
+    - network: GitHub
+      username: aayushprime
+      url: https://github.com/aayushprime
+
+summary: >
+  Backend & DevOps engineer with 3+ years building and operating scalable,
+  low-latency systems for remote-first products. Comfortable end to end across
+  the stack — Python and TypeScript services, real-time WebSocket servers,
+  Kubernetes, Terraform, and Grafana/Prometheus/Loki observability.
+
+work:
+  - organization: Bhoos Games
+    url: "bhoos.com"
+    location: Remote
+    positions:
+      - position: DevOps / Backend Developer
+        startDate: 2024-01-01
+        endDate: "present"
+        highlights:
+          - Engineered core backend systems in TypeScript/Node.js — a production unified-API framework (runs as either a remote server or a local in-process API via transparent proxying) and an end-to-end-encrypted, local-first payroll accounting backend with sync semantics inspired by the Signal protocol.
+          - Built the backend for real-time multiplayer board games on WebSocket servers, load-tested and tuned to sustain sub 100ms p99 latency at 10k concurrent connections.
+          - Deployed and operate a Grafana, Prometheus, and Loki observability stack, across 3 game backends, implemented proactive alerting on p95/p99 query latency, enabling issue detection within minutes rather than user-reported incidents.
+          - Automated server provisioning, deployments, and CI/CD pipelines, reducing release time from \~40 minutes to \~2 minutes.
+  - organization: Docsumo
+    url: "docsumo.com"
+    location: Remote
+    positions:
+      - position: Python Developer
+        startDate: 2023-04-01
+        endDate: 2024-01-01
+        highlights:
+          - Sustained 99.99% uptime across production APIs on the Site Reliability team by leading on-call incident response, improving alerting coverage, and debugging production failures.
+          - Built Terraform-based infrastructure to provision ephemeral, isolated per-developer environments, eliminating shared-cluster conflicts and reducing testing iteration time by an estimated ~40–50%.
+          - Deployed and operated microservices on Kubernetes with Celery for distributed, asynchronous task processing.
+          - Investigated recurring production outages caused by Redis saturation and lack of failover, and implemented a Redis Sentinel-based architecture to improve high availability and prevent cache-related downtime.
+
+projects:
+  - name: EaseAnnotate
+    url: "https://easeannotate.com"
+    affiliation: Personal Project
+    startDate: 2023-01-01
+    endDate: "present"
+    highlights:
+      - "Built and launched EaseAnnotate, a document-AI SaaS for annotating and extracting key information from unstructured documents; secured funding through Microsoft for Startups."
+      - "Engineered the extraction pipeline with transformer-based models (LayoutLM), serving [N] users and processing [N] documents."
+  - name: Receipt Scanner
+    url: "https://www.youtube.com/watch?v=ezt5WxrMHlE"
+    affiliation: Personal Project
+    startDate: 2022-06-01
+    endDate: 2022-12-01
+    highlights:
+      - "Built a key-information-extraction tool on a transformer-based LayoutLM architecture for custom field extraction from unstructured documents; containerized with Docker and automated build/deploy via GitHub Actions CI/CD."
+
+education:
+  - institution: Pulchowk Campus, IOE, Tribhuvan University
+    url: ""
+    area: Computer Engineering
+    studyType: Bachelor of Engineering
+    startDate: 2018-11-01
+    endDate: 2023-04-01
+    location: Lalitpur, Nepal
+    honors:
+      - "Ranked 7th of nearly 16,000 candidates in the national IOE entrance examination (2018)"
+    courses: ~
+    highlights: []
+
+certificates:
+  - name: AWS Academy Cloud Foundations
+    issuer: AWS Academy
+    date: 2025-11-10
+    id: ""
+    url: ""
+  - name: GAJABAAR Infosecurity Mentorship Program
+    issuer: GAJABAAR
+    date: 2025-11-10
+    id: ""
+    url: ""
+
+publications:
+  - name: "Structured Information Extraction from Nepali Scanned Documents using Layout Transformer and LLMs."
+    publisher: "CHiPSAL, COLING 2025, Abu Dhabi, UAE"
+    releaseDate: "2025-01-19"
+    url: "https://aclanthology.org/2025.chipsal-1.13/"
+    authors:
+      - Aayush Neupane
+      - "*Aayush Lamichhane*"
+      - Ankit Paudel
+      - Dr. Aman Shakya
+    highlights: []
+
+skills:
+  - category: Languages
+    skills:
+      - Python
+      - TypeScript
+      - JavaScript
+      - Bash
+  - category: Backend
+    skills:
+      - Node.js
+      - FastAPI
+      - Flask
+      - REST APIs
+      - WebSockets
+      - Celery
+  - category: DevOps & Cloud
+    skills:
+      - Docker
+      - Kubernetes
+      - Terraform
+      - NGINX
+      - CI/CD
+      - GitHub Actions
+      - AWS
+  - category: Observability
+    skills:
+      - Grafana
+      - Prometheus
+      - Loki
+  - category: Databases
+    skills:
+      - SQL
+      - NoSQL
+      - Redis
+  - category: Tools
+    skills:
+      - Git
+      - Linux
+      - Vim
+      - Tmux
+      - Godot
+  - category: Frontend
+    skills:
+      - React
+
+languages: ~
+
+interests: ~
+
+awards: []
+
+affiliations: []
+
+references: []
