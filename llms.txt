@@ -1,0 +1,15 @@
+# aayushprime
+- [About](https://lamichhaneaayush.com.np/about/)
+
+## Posts
+- [Flashing AOSP on my old phone](https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/)
+- [Reflections on two years on the industry.](https://lamichhaneaayush.com.np/posts/reflections-on-two-years/)
+- [Cloudflare Tunnels: Expose your local server to the internet.](https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/)
+- [Why is my Golang server (not) crashing?](https://lamichhaneaayush.com.np/posts/golang-silent-panic/)
+- [Tmux Snippets (take your commands with you everywhere!)](https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/)
+- [Where are my bits getting lost?](https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/)
+- [Python: Solving slow eval](https://lamichhaneaayush.com.np/posts/solveeval/)
+- [Why does my drive mount as read only?](https://lamichhaneaayush.com.np/posts/fstab-problem/)
+- [Google Sheets as Database?](https://lamichhaneaayush.com.np/posts/google-sheets/)
+- [String Bug](https://lamichhaneaayush.com.np/posts/string-bug/)
+- [First](https://lamichhaneaayush.com.np/posts/first/)
