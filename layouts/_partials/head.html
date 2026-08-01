@@ -1,0 +1,95 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{- if hugo.IsProduction | or (eq site.Params.env "production") | and (ne .Params.robotsNoIndex true) }}
+<meta name="robots" content="index, follow">
+{{- else }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
+
+{{- /* Title */}}
+<title>{{ if .IsHome }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ end }}{{ site.Title }}</title>
+
+{{- /* Meta */}}
+{{- if .IsHome }}
+{{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
+{{- else }}
+<meta name="keywords" content="{{ if .Params.keywords -}}
+    {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}
+    {{- range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- end -}}">
+{{- end }}
+<meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
+    {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
+    {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
+<meta name="author" content="{{ (partial "author.html" . ) }}">
+<link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
+
+{{- /* Fonts — §7. Preload so the swap happens before first paint where possible. */}}
+<link rel="preload" href="{{ "fonts/space-grotesk-latin-var.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/jetbrains-mono-latin-var.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+
+{{- /* Styles — Tailwind v4 via Hugo Pipes. §3 globals.css is assets/css/main.css. */}}
+{{- /* skipInlineImportsNotFound: the `tailwindcss`, `tw-animate-css` and
+       `shadcn/tailwind.css` imports are bare specifiers resolved from
+       node_modules by Tailwind itself, not by Hugo's CSS import inliner. */}}
+{{- $opts := dict "minify" hugo.IsProduction "skipInlineImportsNotFound" true }}
+{{- $css := resources.Get "css/main.css" | css.TailwindCSS $opts }}
+{{- if hugo.IsProduction }}
+{{- $css = $css | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- else }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{- end }}
+
+{{- /* Search */}}
+{{- if (eq .Layout `search`) -}}
+<link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
+{{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | resources.Minify }}
+{{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
+{{- $search := (slice $fusejs $fastsearch) | resources.Concat "assets/js/search.js" | fingerprint }}
+<script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
+{{- end -}}
+
+{{- /* Favicons */}}
+<link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | relURL }}">
+
+{{- /* §18: themeColor must match the actual --background in each theme.
+       Light  oklch(0.958 0.005 98) = #f2f1ed
+       Dark   oklch(0.18  0.01  98) = #13120d */}}
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f2f1ed">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#13120d">
+
+{{- /* RSS */}}
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .RelPermalink | safeURL }}" title="{{ .Name }}">
+{{ end -}}
+
+{{- /* Theme resolution before first paint.
+       The guide's `next-themes` sets a `.dark` class on <html>; §3's
+       `@custom-variant dark (&:is(.dark *))` matches descendants of that class,
+       so it must land on the root element, not <body>.
+       `defaultTheme: dark` means dark wins unless the user explicitly chose light. */}}
+<script>
+    (function () {
+        var stored = null;
+        try { stored = localStorage.getItem("pref-theme"); } catch (e) {}
+        {{- if (eq site.Params.defaultTheme "light") }}
+        var dark = stored === "dark";
+        {{- else if (eq site.Params.defaultTheme "dark") }}
+        var dark = stored !== "light";
+        {{- else }}
+        var dark = stored === "dark" || (stored !== "light" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        {{- end }}
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+    })();
+</script>
+
+{{- partial "extend_head.html" . -}}
+
+{{- /* Misc */}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+{{- partial "templates/opengraph.html" . }}
+{{- partial "templates/twitter_cards.html" . }}
+{{- partial "templates/schema_json.html" . }}
+{{- end -}}

@@ -1,0 +1,57 @@
+{{- /* §11.11 Floating table of contents — a bottom-right "dynamic island" that
+       morphs between a reading-position pill and a panel.
+
+       The guide drives this with Framer Motion springs; Hugo has no React, so
+       the shell morph, row states and active-indicator travel are CSS
+       transitions, and the reading position comes from an IntersectionObserver
+       (assets/js/toc.js). */ -}}
+{{- $headings := .Fragments.Headings -}}
+{{- if $headings }}
+<nav id="toc" aria-label="Table of contents" data-toc
+    class="fixed z-50 flex items-end gap-2 pointer-events-none right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1.25rem,env(safe-area-inset-bottom))]">
+    <div data-toc-shell data-open="false"
+        class="pointer-events-auto relative origin-bottom-right overflow-hidden rounded-full border bg-background/95 shadow-lg backdrop-blur-xl transition-[border-radius] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] data-[open=true]:rounded-[20px]">
+
+        {{- /* Collapsed pill */}}
+        <button type="button" data-toc-toggle accesskey="c" aria-expanded="false" aria-controls="toc-panel"
+            title="Table of contents (Alt + C)"
+            class="inline-flex h-11 max-w-[min(50vw,18rem)] cursor-pointer items-center gap-2 px-4 outline-none transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring">
+            <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M4 6h16M4 12h10M4 18h14"></path>
+            </svg>
+            <span data-toc-current class="truncate text-sm text-muted-foreground">Contents</span>
+        </button>
+
+        {{- /* Expanded panel */}}
+        <div id="toc-panel" data-toc-panel hidden class="flex w-[min(86vw,20rem)] origin-bottom-right flex-col">
+            <header class="flex items-center justify-between px-4 pt-3 pb-2">
+                <p class="text-[11px] font-medium tracking-[0.08em] text-muted-foreground">ON THIS PAGE</p>
+                <button type="button" data-toc-close aria-label="Close table of contents"
+                    class="inline-flex size-6 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring">
+                    <svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </header>
+
+            <div data-toc-scroll class="relative max-h-[60vh] overflow-y-auto px-2 pb-2">
+                {{- /* §11.11 active indicator: a 1px vertical bar animated between rows. */}}
+                <span data-toc-indicator aria-hidden="true"
+                    class="absolute z-10 w-px rounded-full bg-foreground opacity-0 transition-[top,height,left,opacity] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"></span>
+                <ul class="flex flex-col">
+                    {{- range $headings }}
+                    {{- partial "ui/toc-row.html" (dict "h" . "depth" 0) }}
+                    {{- end }}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{{- $js := resources.Get "js/toc.js" | js.Build (dict "minify" hugo.IsProduction) }}
+<script defer src="{{ $js.RelPermalink }}"></script>
+{{- end }}

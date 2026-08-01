@@ -1,0 +1,28 @@
+{{- /* §14.2: tables are wrapped in `typeset-scroll no-scrollbar` so a wide table
+       scrolls horizontally with hidden scrollbars instead of compressing. The
+       wrapper owns the flow margin; typeset.css widens the table to max-content
+       inside it. */ -}}
+<div class="typeset-scroll no-scrollbar">
+    <table
+        {{- range $k, $v := .Attributes }}{{ if $v }} {{ printf "%s=%q" $k $v | safeHTMLAttr }}{{ end }}{{ end -}}
+        >
+        <thead>
+            {{- range .THead }}
+            <tr>
+                {{- range . }}
+                <th{{ with .Alignment }} align="{{ . }}"{{ end }}>{{ .Text }}</th>
+                {{- end }}
+            </tr>
+            {{- end }}
+        </thead>
+        <tbody>
+            {{- range .TBody }}
+            <tr>
+                {{- range . }}
+                <td{{ with .Alignment }} align="{{ . }}"{{ end }}>{{ .Text }}</td>
+                {{- end }}
+            </tr>
+            {{- end }}
+        </tbody>
+    </table>
+</div>

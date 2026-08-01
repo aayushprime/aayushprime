@@ -1,0 +1,42 @@
+{{- define "main" }}
+{{- /* §8 rhythm + §11.8 hairline rows, one section per year. */}}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-4">
+        {{- partial "ui/section-header.html" (dict
+            "title" .Title
+            "description" (.Description | plainify)
+            "level" "h1") }}
+    </section>
+
+    {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+    {{- if site.Params.ShowAllPagesInArchive }}
+    {{- $pages = site.RegularPages }}
+    {{- end }}
+
+    {{- range $pages.GroupByPublishDate "2006" }}
+    {{- if ne .Key "0001" }}
+    <section class="flex w-full flex-col gap-4">
+        {{- partial "ui/section-header.html" (dict
+            "title" .Key
+            "label" (printf "%d post%s" (len .Pages) (cond (eq (len .Pages) 1) "" "s"))) }}
+        <ul class="flex w-full flex-col divide-y divide-border/60">
+            {{- range .Pages }}
+            {{- if eq .Kind "page" }}
+            <li>
+                <a href="{{ .RelPermalink }}"
+                    class="group flex flex-col gap-0.5 rounded-md py-4 text-sm text-muted-foreground outline-none transition-colors first:pt-1 last:pb-1 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                    <span class="flex-1 text-pretty leading-snug">{{ .Title }}</span>
+                    <time datetime="{{ .Date.Format "2006-01-02" }}"
+                        class="shrink-0 text-xs tracking-wide tabular-nums sm:text-sm">
+                        {{- .Date.Format "Jan 2" -}}
+                    </time>
+                </a>
+            </li>
+            {{- end }}
+            {{- end }}
+        </ul>
+    </section>
+    {{- end }}
+    {{- end }}
+</div>
+{{- end }}

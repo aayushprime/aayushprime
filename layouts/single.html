@@ -1,0 +1,67 @@
+{{- define "main" }}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-4">
+        {{- /* §14 Blog post header. */}}
+        <header class="space-y-4">
+            <div class="space-y-2">
+                <h1 class="text-3xl font-medium md:text-4xl">{{ .Title }}</h1>
+                {{- with .Description }}
+                <p class="text-muted-foreground">{{ . }}</p>
+                {{- end }}
+            </div>
+
+            {{- if not (.Param "hideMeta") }}
+            {{- partial "post_meta.html" . }}
+            {{- end }}
+
+            {{- /* §14: cover wrapper is `overflow-hidden border` with NO radius —
+                   square corners, unlike the cards. aspect-video, not 192/100. */}}
+            {{- $hidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
+            {{- with .Params.cover }}
+            {{- if not $hidden }}
+            <div class="overflow-hidden border">
+                <img src="{{ .image | relURL }}" alt="{{ .alt | default "" }}" class="aspect-video w-full object-cover">
+            </div>
+            {{- with .caption }}
+            <p class="text-sm text-muted-foreground">{{ . | markdownify }}</p>
+            {{- end }}
+            {{- end }}
+            {{- end }}
+        </header>
+
+        {{- if (.Param "ShowToc") }}
+        {{- partial "toc.html" . }}
+        {{- end }}
+
+        {{- /* §14: body copy is text-muted-foreground, not text-foreground.
+               `typeset` pulls headings, links and strong back up to --foreground,
+               giving the two-tier contrast that is a signature of this design. */}}
+        <article class="typeset typeset-article text-pretty text-muted-foreground">
+            {{- if not (.Param "disableAnchoredHeadings") }}
+            {{- partial "anchored_headings.html" .Content -}}
+            {{- else }}{{ .Content }}{{ end }}
+        </article>
+
+        {{- partial "extend_post_content.html" . }}
+
+        <footer class="flex flex-col gap-4 pt-4">
+            {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+            {{- with ($.GetTerms $tags) }}
+            <ul class="flex flex-wrap items-center gap-2">
+                {{- range . }}
+                <li>
+                    <a href="{{ .RelPermalink }}"
+                        class="inline-flex items-center rounded-4xl border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground">
+                        {{- .LinkTitle -}}
+                    </a>
+                </li>
+                {{- end }}
+            </ul>
+            {{- end }}
+            {{- if (.Param "ShowPostNavLinks") }}
+            {{- partial "post_nav_links.html" . }}
+            {{- end }}
+        </footer>
+    </section>
+</div>
+{{- end }}

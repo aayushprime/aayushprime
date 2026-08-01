@@ -1,15 +1,18 @@
 ### Hi there 👋
 
-<!--
-**aayushprime/aayushprime** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Software Engineer. 
 
-Here are some ideas to get you started:
+My interests span data engineering, distributed systems, blockchain systems and applied machine learning, and I like to share what I learn.
+
+- Building backend systems
+- Love Open Source software ❤️
+- Learning about Blockchain 
 
 
+Tryout some games I built
 
+- [Ludo Cards](https://ludo.bhoos.games/)
+- [Crossword](https://play.google.com/store/apps/details?id=com.gilobyte.crossword)
+- [Kitty Card Game](https://play.google.com/store/apps/details?id=com.gilobyte.kitty)
 
--->
-Backend/DevOps engineer at Bhoos Games.
-Sometimes building games.
-
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=aayushprime&show_icons=true&theme=dark)](https://github.com/anuraghazra/github-readme-stats)
+Reach out to me [here](mailto:lamichhaneaayush5@gmail.com)

@@ -1,0 +1,14 @@
+{{- /* §11.14 Soft link — the standard secondary link.
+
+   `decoration-from-font` + `[text-underline-position:from-font]` uses the font's
+   own underline metrics instead of a synthetic line.
+
+   dict: href, text, underline (bool), external (bool), class
+*/ -}}
+{{- $class := "inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground" -}}
+{{- if .underline }}{{ $class = printf "%s underline decoration-from-font underline-offset-4 [text-underline-position:from-font]" $class }}{{ end -}}
+{{- with .class }}{{ $class = printf "%s %s" $class . }}{{ end -}}
+<a href="{{ .href }}" class="{{ $class }}"{{ if .external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+    {{- .text -}}
+    {{- if .external }}{{ partial "icon-external.html" . }}{{ end -}}
+</a>

@@ -1,0 +1,68 @@
+{{- define "main" }}
+{{- /* Serves the home page, /posts, and taxonomy terms — branch on .IsHome/.Kind.
+
+   §8 rhythm: page shell is mt-16 + gap-16, each section is gap-4. Never put
+   margins on section children; all vertical spacing comes from gap-* on flex
+   parents. */}}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-4">
+        {{- if .IsHome }}
+        {{- else }}
+        {{- partial "ui/section-header.html" (dict
+            "label" (cond (eq .Kind "term") (title .Data.Singular) "")
+            "title" .Title
+            "description" (.Description | plainify)
+            "level" "h1") }}
+        {{- end }}
+
+        {{- with .Content }}
+        <div class="typeset">{{ . }}</div>
+        {{- end }}
+
+        {{- $pages := union .RegularPages .Sections }}
+        {{- if .IsHome }}
+        {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+        {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+        {{- end }}
+        {{- $paginator := .Paginate $pages }}
+
+        {{- /* §11.2: sm:auto-rows-fr plus h-full on the cards is what makes every
+               card in a row exactly the same height. */}}
+        <div class="grid gap-4 sm:auto-rows-fr sm:grid-cols-2">
+            {{- range $paginator.Pages }}
+            {{- partial "ui/post-card.html" . }}
+            {{- end }}
+        </div>
+
+        {{- if gt $paginator.TotalPages 1 }}
+        {{- /* The two sides are flex-1 basis-0 so they always claim equal width.
+               With justify-between an absent Previous/Next collapses to zero and
+               drags the counter off-centre; this keeps it on the column's axis
+               whichever buttons are present. */}}
+        <nav aria-label="Pagination" class="flex items-center gap-4 pt-4">
+            <div class="flex flex-1 basis-0 justify-start">
+                {{- if $paginator.HasPrev }}
+                {{- partial "ui/button.html" (dict
+                    "href" ($paginator.Prev.URL | relURL)
+                    "text" "← Previous"
+                    "variant" "ghost"
+                    "size" "sm") }}
+                {{- end }}
+            </div>
+            <p class="shrink-0 text-xs tracking-wide text-muted-foreground tabular-nums sm:text-sm">
+                {{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}
+            </p>
+            <div class="flex flex-1 basis-0 justify-end">
+                {{- if $paginator.HasNext }}
+                {{- partial "ui/button.html" (dict
+                    "href" ($paginator.Next.URL | relURL)
+                    "text" "Next →"
+                    "variant" "ghost"
+                    "size" "sm") }}
+                {{- end }}
+            </div>
+        </nav>
+        {{- end }}
+    </section>
+</div>
+{{- end }}

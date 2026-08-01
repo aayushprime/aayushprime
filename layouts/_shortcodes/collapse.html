@@ -1,0 +1,32 @@
+{{- /* §11.7 Expandable section.
+
+   The guide's rows carry a size-10 logo, which is where its `pl-[3.25rem]`
+   (40px + gap-3) content inset comes from. This shortcode has no logo, so the
+   body aligns with the trigger's own text column at zero inset — the intent of
+   that rule, not its literal value.
+
+   The trigger has no chevron and no visible affordance: the whole row is the
+   target. Motion is §12's two-layer spec, driven by assets/js/accordion.js. */ -}}
+{{- if not (.Get "summary") }}
+{{- warnf "missing value for param 'summary': %s" .Position }}
+{{- end }}
+{{- $id := printf "collapse-%s" (substr (sha1 (printf "%s%s" .Position (.Get "summary"))) 0 8) -}}
+{{- $open := eq (.Get "openByDefault") true -}}
+
+<div data-accordion data-state="{{ cond $open "open" "closed" }}" class="group/item py-4 first:pt-1 last:pb-1">
+    <button type="button" data-accordion-trigger aria-expanded="{{ $open }}" aria-controls="{{ $id }}"
+        class="group/trigger flex w-full cursor-pointer items-start gap-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md">
+        <span class="flex-1 font-medium text-foreground">{{ .Get "summary" | markdownify }}</span>
+    </button>
+    <div id="{{ $id }}" data-accordion-content class="overflow-hidden"{{ if not $open }} hidden{{ end }}>
+        <div data-accordion-inner class="mt-3 flex flex-col gap-3">
+            {{ .Inner | markdownify }}
+        </div>
+    </div>
+</div>
+
+{{- if not (.Page.Store.Get "accordionJS") }}
+{{- .Page.Store.Set "accordionJS" true }}
+{{- $js := resources.Get "js/accordion.js" | js.Build (dict "minify" hugo.IsProduction) }}
+<script defer src="{{ $js.RelPermalink }}"></script>
+{{- end }}

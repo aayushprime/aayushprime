@@ -1,0 +1,38 @@
+{{- /* §14 blog post header meta / §11.15 inline meta row.
+       Container uses the asymmetric gap-x-4 gap-y-2 from §11.15; icons at
+       size-4 per §14. Dates are tabular-nums (§7). */ -}}
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-sm text-muted-foreground">
+    {{- if not .Date.IsZero }}
+    <span class="inline-flex items-center gap-1.5">
+        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+            <path d="M3 10h18M8 2v4M16 2v4"></path>
+        </svg>
+        <time datetime="{{ .Date.Format "2006-01-02" }}" class="tabular-nums">
+            {{- .Date | time.Format (default ":date_long" site.Params.DateFormat) -}}
+        </time>
+    </span>
+    {{- end }}
+
+    {{- if (.Param "ShowReadingTime") }}
+    <span class="inline-flex items-center gap-1.5">
+        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+        </svg>
+        <span class="tabular-nums">{{ .ReadingTime }} min read</span>
+    </span>
+    {{- end }}
+
+    {{- if (.Param "ShowWordCount") }}
+    <span class="inline-flex items-center gap-1.5 tabular-nums">{{ .WordCount }} words</span>
+    {{- end }}
+
+    {{- if not (.Param "hideAuthor") }}
+    {{- with (partial "author.html" .) }}
+    <span class="inline-flex items-center gap-1.5">{{ . }}</span>
+    {{- end }}
+    {{- end }}
+</div>

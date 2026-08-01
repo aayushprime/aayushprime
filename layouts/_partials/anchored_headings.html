@@ -1,0 +1,14 @@
+{{- /* §14.3 Heading anchors: hovering a heading reveals a muted `#`.
+
+   Hugo hands us rendered .Content rather than an AST, so this rewrites the
+   inner HTML of each heading into the guide's anchor structure:
+     <a class="group no-underline" href="#id">
+       <span class="underline-offset-4 group-hover:underline">…</span>
+       <span aria-hidden class="ml-2 text-muted-foreground opacity-0 group-hover:opacity-100">#</span>
+     </a>
+*/ -}}
+{{ . | replaceRE
+    `(?s)<h([1-6]) id="([^"]+)"([^>]*)>(.*?)</h[1-6]>`
+    `<h${1} id="${2}"${3}><a class="group no-underline" href="#${2}"><span class="underline-offset-4 group-hover:underline">${4}</span><span aria-hidden="true" class="ml-2 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">#</span></a></h${1}>`
+    | safeHTML
+}}

@@ -1,0 +1,29 @@
+{{- define "main" }}
+{{- /* §11.18: the giant numeral at text-foreground/10, bottom-aligned in a tall
+       box, is the whole design. Copy is calm and non-apologetic. */}}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-4">
+        <div class="flex min-h-72 items-end p-2 md:min-h-88">
+            <span aria-hidden="true"
+                class="select-none font-medium leading-none tracking-tight text-foreground/10 text-[clamp(6rem,22vw,12rem)]">404</span>
+        </div>
+    </section>
+
+    <section class="flex w-full flex-col gap-4">
+        <header class="flex flex-col gap-3 p-2">
+            <p class="text-sm text-muted-foreground">Page missing</p>
+            <h1 class="text-3xl font-medium tracking-tight md:text-4xl">This page took a different route</h1>
+            <p class="text-base leading-relaxed text-muted-foreground">
+                The link you followed is no longer available.
+            </p>
+        </header>
+    </section>
+
+    <section class="flex w-full flex-col gap-4">
+        <div class="flex flex-wrap items-center gap-2 p-2">
+            {{- partial "ui/button.html" (dict "href" (relLangURL "") "text" "Return home" "size" "sm") }}
+            {{- partial "ui/button.html" (dict "href" (relLangURL "posts/") "text" "Read the blog" "size" "sm" "variant" "outline") }}
+        </div>
+    </section>
+</div>
+{{- end }}

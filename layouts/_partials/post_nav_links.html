@@ -1,0 +1,22 @@
+{{- /* §11.8 hairline rows for prev/next. RelPermalink so the built site works
+       from any origin. Strings are inlined because the i18n bundles were not
+       vendored (English-only site). */ -}}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if and (gt (len $pages) 1) (in $pages .) }}
+<nav aria-label="Post navigation" class="flex w-full flex-col divide-y divide-border/60 pt-2">
+    {{- with $pages.Next . }}
+    <a href="{{ .RelPermalink }}"
+        class="group flex flex-col gap-0.5 rounded-md py-4 text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring">
+        <span class="text-xs tracking-wide">← Previous</span>
+        <span class="text-pretty leading-snug">{{ .Title }}</span>
+    </a>
+    {{- end }}
+    {{- with $pages.Prev . }}
+    <a href="{{ .RelPermalink }}"
+        class="group flex flex-col items-end gap-0.5 rounded-md py-4 text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring">
+        <span class="text-xs tracking-wide">Next →</span>
+        <span class="text-pretty leading-snug">{{ .Title }}</span>
+    </a>
+    {{- end }}
+</nav>
+{{- end }}

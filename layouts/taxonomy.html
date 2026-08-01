@@ -1,0 +1,26 @@
+{{- define "main" }}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-4">
+        {{- partial "ui/section-header.html" (dict
+            "title" .Title
+            "description" (.Description | plainify)
+            "level" "h1") }}
+
+        <ul class="flex flex-wrap items-center gap-2">
+            {{- $type := .Type }}
+            {{- range $key, $value := .Data.Terms.Alphabetical }}
+            {{- $count := .Count }}
+            {{- with site.GetPage (printf "/%s/%s" $type .Name) }}
+            <li>
+                <a href="{{ .RelPermalink }}"
+                    class="inline-flex items-center gap-1.5 rounded-4xl border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground">
+                    {{ .LinkTitle }}
+                    <span class="text-xs tabular-nums opacity-70">{{ $count }}</span>
+                </a>
+            </li>
+            {{- end }}
+            {{- end }}
+        </ul>
+    </section>
+</div>
+{{- end }}

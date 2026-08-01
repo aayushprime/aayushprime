@@ -1,0 +1,23 @@
+{{- /* §8 Section header. Every section on every page opens with this.
+
+   dict:
+     label        optional eyebrow above the title
+     title        required
+     description  optional, one short sentence, sentence case, ending in a period
+     level        "h1" or "h2" (default "h2")
+     class        extra classes on the <header>
+*/ -}}
+{{- $level := .level | default "h2" -}}
+<header class="flex flex-col gap-1.5{{ with .class }} {{ . }}{{ end }}">
+    {{- with .label }}
+    <p class="text-sm text-muted-foreground">{{ . }}</p>
+    {{- end }}
+    {{- if eq $level "h1" }}
+    <h1 class="text-3xl font-medium tracking-tight text-balance leading-[1.1] md:text-4xl">{{ .title }}</h1>
+    {{- else }}
+    <h2 class="text-xl font-medium tracking-tight text-balance leading-[1.15] md:text-2xl">{{ .title }}</h2>
+    {{- end }}
+    {{- with .description }}
+    <p class="max-w-xl text-pretty text-sm leading-relaxed text-muted-foreground">{{ . }}</p>
+    {{- end }}
+</header>

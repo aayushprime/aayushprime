@@ -1,7 +1,8 @@
 baseurl: https://lamichhaneaayush.com.np/
 languageCode: en-us
 title: aayushprime
-theme: hugo-PaperMod
+# Renders layouts/robots.txt. Without this Hugo emits no robots.txt at all.
+enableRobotsTXT: true
 
 languages:
   en:
@@ -81,11 +82,21 @@ markup:
     lineNoStart: 1
     lineNos: true
     lineNumbersInTable: true
-    noClasses: true
-    style: monokai
+    # noClasses: false emits Chroma token classes instead of inline styles, so
+    # assets/css/chroma.css can theme them per light/dark. See STYLE-GUIDE §14.2.
+    noClasses: false
     tabWidth: 4
+# layouts/llms.txt ships with the theme but renders only if the output format
+# is registered and added to the home page's outputs.
+outputFormats:
+  llms:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+
 outputs:
   home:
   - HTML
   - RSS
   - JSON       # is necessary
+  - llms

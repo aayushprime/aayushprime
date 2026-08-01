@@ -1,0 +1,82 @@
+{{- /* §10 Footer: centered, py-8, gap-1. No border, no top rule, no columns,
+       no link lists. Repeats the wordmark at text-lg. */}}
+{{- if not (.Param "hideFooter") }}
+<footer class="flex flex-col items-center gap-1 py-8 text-center">
+    <p class="text-lg font-medium">{{ lower (site.Params.label.text | default site.Title) }}.</p>
+    <p class="text-sm text-muted-foreground">
+        {{- if site.Copyright }}
+        {{ site.Copyright | markdownify }}
+        {{- else }}
+        &copy; {{ now.Year }} {{ site.Title }}
+        {{- end }}
+    </p>
+</footer>
+{{- end }}
+
+{{- partial "extend_footer.html" . }}
+
+<script>
+    // §12/§15: smooth in-page scrolling, off under reduced motion.
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            const id = this.getAttribute("href").substring(1);
+            const target = document.querySelector(`[id='${decodeURIComponent(id)}']`);
+            if (!target) return;
+            e.preventDefault();
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView(reduce ? undefined : { behavior: "smooth" });
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+</script>
+
+<script>
+    // §11.12 copy button: icon swaps to a check for 2000ms.
+    document.querySelectorAll("[data-copy-code]").forEach((btn) => {
+        const figure = btn.closest("figure");
+        const idle = btn.querySelector("[data-copy-idle]");
+        const done = btn.querySelector("[data-copy-done]");
+        btn.addEventListener("click", async () => {
+            // The line-number gutter is a separate cell; take only the source.
+            const cells = figure.querySelectorAll("td.lntd");
+            const source = cells.length > 1 ? cells[cells.length - 1] : figure.querySelector("code");
+            if (!source) return;
+            try {
+                await navigator.clipboard.writeText(source.innerText.replace(/\n$/, ""));
+            } catch (e) {
+                return;
+            }
+            idle.hidden = true;
+            done.hidden = false;
+            setTimeout(() => { idle.hidden = false; done.hidden = true; }, 2000);
+        });
+    });
+</script>
+
+{{- if (not site.Params.disableThemeToggle) }}
+<script>
+    // §9 `disableTransitionOnChange`: suppress every transition for one frame so
+    // the whole page does not cross-fade when the theme flips.
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const root = document.documentElement;
+        const css = document.createElement("style");
+        css.appendChild(document.createTextNode(
+            "*,*::before,*::after{transition:none!important;animation:none!important}"
+        ));
+        document.head.appendChild(css);
+
+        const dark = !root.classList.contains("dark");
+        root.classList.toggle("dark", dark);
+        root.style.colorScheme = dark ? "dark" : "light";
+        try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
+
+        // Force a reflow, then drop the override on the next frame.
+        void window.getComputedStyle(css).opacity;
+        requestAnimationFrame(() => css.remove());
+    });
+</script>
+{{- end }}

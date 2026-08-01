@@ -1,0 +1,43 @@
+{{- if lt hugo.Version "0.146.0" }}
+{{- errorf "=> hugo v0.146.0 or greater is required to build this site" }}
+{{- end -}}
+
+<!DOCTYPE html>
+{{- /* §9: the `.dark` class is set by the pre-paint script in head.html, since
+       `@custom-variant dark (&:is(.dark *))` keys off the root element. */}}
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+
+<head>
+    {{- partial "head.html" . }}
+</head>
+
+<body id="top">
+    {{- /* §9: the skip link is the first focusable element. */}}
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:border focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg focus:ring-2 focus:ring-ring">
+        Skip to main content
+    </a>
+
+    {{- /* Divergence from §9's literal structure, to satisfy §18.
+
+           §9 nests the header inside the max-w-3xl shell and §10 cancels the
+           gutter with -mx-6. But -mx-6 only undoes the 24px padding — it cannot
+           escape max-w-3xl, so the band would stop at 768px and content would
+           scroll past its edges unblurred on wider viewports. §18 requires the
+           band to span the full viewport while its contents align with the
+           column, which is also the only reading under which §10's "inner div
+           re-applies mx-auto max-w-3xl px-6" does anything. So the header sits
+           outside the shell and its inner div owns the column alignment. */}}
+    {{ partialCached "header.html" . .Page }}
+
+    {{- /* §9 shell: flex-1 on main pins the footer on short pages. The header is
+           48px (h-12) and now lives outside, so discount it here. */}}
+    <div class="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-3xl flex-col px-6">
+        <main id="main-content" class="flex flex-1 flex-col">
+            {{- block "main" . }}{{ end }}
+        </main>
+        {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") -}}
+    </div>
+</body>
+
+</html>

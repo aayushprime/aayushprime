@@ -1,0 +1,9 @@
+{{- $.Scratch.Add "index" slice -}}
+{{- range site.RegularPages -}}
+    {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
+    {{- /* RelPermalink so search results navigate within whatever origin is
+           serving the site, not the configured baseURL. */ -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .RelPermalink "summary" .Summary) -}}
+    {{- end }}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

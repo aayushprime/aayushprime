@@ -34,9 +34,10 @@ work:
         startDate: 2024-01-01
         endDate: "present"
         highlights:
-          - Engineered core backend systems in TypeScript/Node.js — a production unified-API framework (runs as either a remote server or a local in-process API via transparent proxying) and an end-to-end-encrypted, local-first payroll accounting backend with sync semantics inspired by the Signal protocol.
           - Built the backend for real-time multiplayer board games on WebSocket servers, load-tested and tuned to sustain sub 100ms p99 latency at 10k concurrent connections.
           - Deployed and operate a Grafana, Prometheus, and Loki observability stack, across 3 game backends, implemented proactive alerting on p95/p99 query latency, enabling issue detection within minutes rather than user-reported incidents.
+          - Engineered core backend framework in TypeScript/Node.js to provide unified-API for games and servers that runs as either a remote server or a local in-process API via transparent proxying.
+          - Built an end-to-end-encrypted, local-first payroll accounting backend with sync semantics inspired by the Signal protocol.
           - Automated server provisioning, deployments, and CI/CD pipelines, reducing release time from \~40 minutes to \~2 minutes.
   - organization: Docsumo
     url: "docsumo.com"
@@ -59,7 +60,7 @@ projects:
     endDate: "present"
     highlights:
       - "Built and launched EaseAnnotate, a document-AI SaaS for annotating and extracting key information from unstructured documents; secured funding through Microsoft for Startups."
-      - "Engineered the extraction pipeline with transformer-based models (LayoutLM), serving [N] users and processing [N] documents."
+      - "Engineered the extraction pipeline with transformer-based models (LayoutLM)"
   - name: Receipt Scanner
     url: "https://www.youtube.com/watch?v=ezt5WxrMHlE"
     affiliation: Personal Project

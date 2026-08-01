@@ -1,0 +1,37 @@
+{{- /* §11.11 TOC row. Recursive — Hugo resolves recursion through partials,
+       not through `define` blocks inside a partial.
+
+       Do NOT wrap this in `with .h`: Hugo's tableofcontents.Heading.IsZero() is
+       true whenever ID and Title are both empty, and a page whose headings start
+       at h2 gets exactly such a synthetic root node holding the real headings as
+       children. `with` would silently skip the whole subtree. Instead, a titleless
+       node renders its children in place, at the same depth.
+
+       dict: h (a Fragments heading), depth (int) */ -}}
+{{- $h := .h -}}
+{{- $depth := .depth -}}
+
+{{- if $h.Title -}}
+<li{{ if gt $depth 0 }} class="relative"{{ end }}>
+    {{- if gt $depth 0 }}
+    {{- /* §11.11: nested groups get a static guide line. */}}
+    <span aria-hidden="true" class="absolute left-0 top-0 h-full w-px bg-border"></span>
+    {{- end }}
+    <a href="#{{ $h.ID }}" data-toc-link data-depth="{{ $depth }}"
+        class="block rounded-md py-1.5 pr-2 text-sm leading-snug text-muted-foreground outline-none transition-colors duration-200 hover:text-foreground focus-visible:bg-accent data-[active=true]:font-medium data-[active=true]:text-foreground {{ if gt $depth 0 }}pl-5{{ else }}pl-4{{ end }}">
+        {{- $h.Title | plainify | htmlUnescape -}}
+    </a>
+    {{- with $h.Headings }}
+    <ul class="flex flex-col">
+        {{- range . }}
+        {{- partial "ui/toc-row.html" (dict "h" . "depth" (add $depth 1)) }}
+        {{- end }}
+    </ul>
+    {{- end }}
+</li>
+{{- else -}}
+{{- /* Synthetic root: emit its children in place. */ -}}
+{{- range $h.Headings }}
+{{- partial "ui/toc-row.html" (dict "h" . "depth" $depth) }}
+{{- end -}}
+{{- end -}}

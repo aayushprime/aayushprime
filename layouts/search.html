@@ -1,0 +1,33 @@
+{{- define "main" }}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-4">
+        {{- partial "ui/section-header.html" (dict
+            "title" .Title
+            "description" (.Description | plainify)
+            "level" "h1") }}
+
+        <div id="searchbox" class="flex w-full flex-col gap-2">
+            <div
+                class="flex items-center gap-2 rounded-4xl border bg-background px-4 transition-colors focus-within:border-ring">
+                <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input id="searchInput" disabled
+                    placeholder="{{ .Params.placeholder | default (printf "%s …" .Title) }}" aria-label="search"
+                    type="search" autocomplete="off" maxlength="64"
+                    class="h-11 w-full flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none">
+                <span class="hidden shrink-0 items-center gap-1 sm:inline-flex">
+                    {{ partial "ui/kbd.html" "Alt" }}{{ partial "ui/kbd.html" "/" }}
+                </span>
+            </div>
+
+            {{- /* §11.8 hairline rows: the divider sits on the container. */}}
+            <ul id="searchResults" aria-label="search results"
+                class="flex w-full flex-col divide-y divide-border/60"></ul>
+        </div>
+    </section>
+</div>
+{{- end }}

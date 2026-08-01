@@ -1,0 +1,55 @@
+{{- /* §10 Sticky header.
+
+   The band spans the full viewport and the inner div re-applies
+   mx-auto/max-w-3xl/px-6 so brand and nav align exactly with the content column
+   below — that split is the point of the pattern. §10 achieves the full-bleed
+   with -mx-6 on a header nested in the shell; that only cancels the gutter, not
+   max-w-3xl, so baseof.html hoists the header out of the shell instead. See the
+   note there. */}}
+<header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+    <div class="mx-auto flex h-12 max-w-3xl items-center justify-between gap-4 px-6">
+        {{- /* Brand: lowercase wordmark with a trailing period. No logo mark. */}}
+        <a href="{{ "" | relLangURL }}" accesskey="h" title="{{ site.Title }} (Alt + H)"
+            class="shrink-0 font-medium tracking-tight text-foreground">
+            {{- lower (site.Params.label.text | default site.Title) -}}.
+        </a>
+
+        {{- $currentPage := . }}
+        <nav aria-label="Main navigation" class="flex items-center gap-1 text-sm">
+            {{- range site.Menus.main }}
+            {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | relLangURL }}
+            {{- $page_url := $currentPage.RelPermalink }}
+            {{- $is_active := eq $menu_item_url $page_url }}
+            {{- $is_external := findRE "://" .URL }}
+            {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
+            <a href="{{ .URL | relLangURL }}"
+                {{- if $is_external }} target="_blank" rel="noopener noreferrer"{{ end }}
+                {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr) }}
+                title="{{ .Title | default .Name }}{{ cond $is_search " (Alt + /)" "" }}"
+                class="rounded-md px-2.5 py-1.5 transition-colors {{ if $is_active }}text-foreground{{ else }}text-muted-foreground hover:text-foreground{{ end }}">
+                {{- lower .Name -}}
+                {{- if $is_external }}{{ partial "icon-external.html" . }}{{ end -}}
+            </a>
+            {{- end }}
+
+            {{- if (not site.Params.disableThemeToggle) }}
+            {{- /* §10: icons swap with pure CSS, no JS branch. */}}
+            <button id="theme-toggle" type="button" accesskey="t" title="Toggle theme (Alt + T)"
+                aria-label="Toggle theme"
+                class="rounded-md p-2 text-muted-foreground transition-colors hover:text-foreground">
+                <svg class="size-4 dark:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                </svg>
+                <svg class="hidden size-4 dark:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+            {{- end }}
+        </nav>
+    </div>
+</header>
