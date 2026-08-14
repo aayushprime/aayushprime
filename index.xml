@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 12:35:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>recover() only works in the panicking goroutine</title><link>https://lamichhaneaayush.com.np/notes/panic-recover/</link><pubDate>Fri, 14 Aug 2026 12:35:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/panic-recover/</guid><description>&lt;p&gt;&lt;code&gt;recover()&lt;/code&gt; is scoped to the goroutine that panicked. A deferred recover in
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 21:04:17 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>Basic Postgres</title><link>https://lamichhaneaayush.com.np/notes/postgres-internals/</link><pubDate>Fri, 14 Aug 2026 21:04:17 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/postgres-internals/</guid><description>&lt;h1 id="pages"&gt;Pages&lt;/h1&gt;
+&lt;p&gt;Space on disk is used in blocks called pages. (8KB by default)&lt;/p&gt;
+&lt;h1 id="tables"&gt;Tables&lt;/h1&gt;
+&lt;p&gt;List of pages (numbered).
+eg. page 1-6 =&amp;gt; table users
+Postgres can jump to the table location.
+Rows are represented by a tuple.&lt;/p&gt;
+&lt;p&gt;Say,
+(id, item_id, price) is a row. then, (100, 2000, 300)&lt;br&gt;
+This is called a tuple. Actual data that lives in the page on disk.&lt;/p&gt;
+&lt;p&gt;The entry is represented by a line pointer.
+(page_no, index_in_the_page)&lt;/p&gt;</description></item><item><title>Recursive CTE</title><link>https://lamichhaneaayush.com.np/notes/recursive-cte/</link><pubDate>Fri, 14 Aug 2026 21:04:17 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/recursive-cte/</guid><description>&lt;figure data-not-typeset data-language="sql"
+class="group/code relative mt-6 -mx-1 overflow-hidden rounded-xl bg-code text-code-foreground"&gt;
+&lt;button type="button" data-copy-code aria-label="Copy code"
+class="absolute top-3 right-2 z-10 inline-flex size-7 shrink-0 items-center justify-center rounded-4xl border border-transparent bg-code bg-clip-padding text-muted-foreground opacity-0 outline-none transition-[background-color,color,opacity] hover:bg-muted hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 group-hover/code:opacity-100 [&amp;_svg]:size-3.5"&gt;
+&lt;svg data-copy-idle xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+&lt;rect width="14" height="14" x="8" y="8" rx="2" ry="2"&gt;&lt;/rect&gt;
+&lt;path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;svg data-copy-done hidden xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+&lt;path d="M20 6 9 17l-5-5"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/button&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sql" data-lang="sql"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;with&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;recursive&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;all_cte_test&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;union&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;all&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;all_cte_test&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;all_cte_test&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;limit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/figure&gt;
+&lt;p&gt;It was really surprising to me how this query even stops.&lt;/p&gt;</description></item><item><title>recover() only works in the panicking goroutine</title><link>https://lamichhaneaayush.com.np/notes/panic-recover/</link><pubDate>Fri, 14 Aug 2026 12:35:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/panic-recover/</guid><description>&lt;p&gt;&lt;code&gt;recover()&lt;/code&gt; is scoped to the goroutine that panicked. A deferred recover in
 &lt;code&gt;main&lt;/code&gt; does nothing for a panic in a goroutine you spawned — that panic unwinds
 its own stack, finds no recover, and takes the whole process down.&lt;/p&gt;
 &lt;p&gt;Which is the correct default. A goroutine that panicked has no idea what
