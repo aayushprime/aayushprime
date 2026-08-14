@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Systems on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/systems/</link><description>Recent content in Systems on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 12:35:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/systems/index.xml" rel="self" type="application/rss+xml"/><item><title>recover() only works in the panicking goroutine</title><link>https://lamichhaneaayush.com.np/notes/panic-recover/</link><pubDate>Fri, 14 Aug 2026 12:35:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/panic-recover/</guid><description>&lt;p&gt;&lt;code&gt;recover()&lt;/code&gt; is scoped to the goroutine that panicked. A deferred recover in
+&lt;code&gt;main&lt;/code&gt; does nothing for a panic in a goroutine you spawned — that panic unwinds
+its own stack, finds no recover, and takes the whole process down.&lt;/p&gt;
+&lt;p&gt;Which is the correct default. A goroutine that panicked has no idea what
+invariants it broke on the way out, and a process that keeps serving after that
+is lying to its callers.&lt;/p&gt;</description></item><item><title>Pseudoterminals</title><link>https://lamichhaneaayush.com.np/notes/pty/</link><pubDate>Fri, 14 Aug 2026 12:00:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/pty/</guid><description>&lt;p&gt;A pty is a pair of character devices that pretend to be a terminal. The master
+end is held by whatever wants to &lt;em&gt;drive&lt;/em&gt; a terminal; the slave end is what the
+child process opens as its controlling terminal, so the child believes it is
+talking to real hardware.&lt;/p&gt;
+&lt;p&gt;That belief is the whole point. It is why a shell spawned under a pty still does
+line editing, still reports a window size, still emits colour — none of which
+happens when you just pipe to it.&lt;/p&gt;</description></item><item><title>Why is my Golang server (not) crashing?</title><link>https://lamichhaneaayush.com.np/posts/golang-silent-panic/</link><pubDate>Tue, 03 Jun 2025 15:47:09 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/golang-silent-panic/</guid><description>&lt;p&gt;I was hit by one of these &amp;ldquo;you didn&amp;rsquo;t know this, now suffer&amp;rdquo; moments today.
+I was working on a websocket server and was gradually adding new functionality. Out of nowhere, the server started disconnecting the client. Without any error whatsoever. I even wasted some time thinking maybe the client was doing something wrong.&lt;/p&gt;
+&lt;p&gt;Then with no luck with anything I tried, I tried to use the debugger. The debugger would execute the last line of a function and then the client would disconnect.
+This is the exact function&lt;/p&gt;</description></item></channel></rss>

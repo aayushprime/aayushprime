@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Tmux on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/tmux/</link><description>Recent content in Tmux on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 12:15:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/tmux/index.xml" rel="self" type="application/rss+xml"/><item><title>Snippet plugin design</title><link>https://lamichhaneaayush.com.np/notes/tmux-snippets/</link><pubDate>Fri, 14 Aug 2026 12:15:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/tmux-snippets/</guid><description>&lt;p&gt;A snippet manager for tmux only needs three things: somewhere to keep the
+snippets, a way to pick one, and a way to inject it.&lt;/p&gt;
+&lt;p&gt;Injection is the interesting constraint. &lt;code&gt;send-keys&lt;/code&gt; types into the target pane
+as if you had typed it, which means it composes with whatever shell, editor or
+REPL happens to be focused — no integration per program.&lt;/p&gt;
+&lt;p&gt;The cost is that you cannot tell whether the paste landed somewhere sensible.
+&lt;code&gt;send-keys&lt;/code&gt; is fire-and-forget; a snippet dropped into a &lt;code&gt;less&lt;/code&gt; pager is just
+keystrokes to &lt;code&gt;less&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>tmux is a server, not a wrapper</title><link>https://lamichhaneaayush.com.np/notes/tmux/</link><pubDate>Fri, 14 Aug 2026 12:05:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/tmux/</guid><description>&lt;p&gt;The mental model that made tmux click: &lt;code&gt;tmux&lt;/code&gt; the command is a &lt;em&gt;client&lt;/em&gt;. The
+first invocation starts a long-lived server process, and every pane in every
+session is a pty owned by that server, not by your shell.&lt;/p&gt;
+&lt;p&gt;This is why detaching loses nothing. Your client dies, the server keeps the ptys
+open, the processes inside never learn anything happened.&lt;/p&gt;
+&lt;p&gt;It also explains the failure mode where a stale server holds an old environment:
+you are not restarting a wrapper, you are talking to a daemon that outlived the
+thing that configured it.&lt;/p&gt;</description></item><item><title>Tmux Snippets (take your commands with you everywhere!)</title><link>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</link><pubDate>Sun, 18 May 2025 17:18:22 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</guid><description>&lt;p&gt;Wouldn&amp;rsquo;t it be great if you could take your commands with you everywhere?
+Sure aliases are great but can you really put a price on the feeling of just getting the command you want when you are in a ssh session?&lt;/p&gt;
+&lt;p&gt;So here it is. Use tmux snippets. Your terminal remembers your commands for you.&lt;/p&gt;
+&lt;h2 id="installation"&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Use tmux plugin manager &lt;code&gt;tpm&lt;/code&gt; to install the plugin.&lt;/p&gt;
+&lt;figure data-not-typeset data-language="bash"
+class="group/code relative mt-6 -mx-1 overflow-hidden rounded-xl bg-code text-code-foreground"&gt;
+&lt;button type="button" data-copy-code aria-label="Copy code"
+class="absolute top-3 right-2 z-10 inline-flex size-7 shrink-0 items-center justify-center rounded-4xl border border-transparent bg-code bg-clip-padding text-muted-foreground opacity-0 outline-none transition-[background-color,color,opacity] hover:bg-muted hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 group-hover/code:opacity-100 [&amp;_svg]:size-3.5"&gt;
+&lt;svg data-copy-idle xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+&lt;rect width="14" height="14" x="8" y="8" rx="2" ry="2"&gt;&lt;/rect&gt;
+&lt;path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;svg data-copy-done hidden xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+&lt;path d="M20 6 9 17l-5-5"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/button&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -g @plugin &lt;span class="s1"&gt;&amp;#39;nyuyuyu/tmux-pet&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/figure&gt;
+&lt;p&gt;Use &lt;code&gt;prefix + I&lt;/code&gt; (Uppercase I) to install the plugin using TPM.&lt;/p&gt;</description></item></channel></rss>

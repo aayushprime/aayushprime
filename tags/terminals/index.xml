@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Terminals on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/terminals/</link><description>Recent content in Terminals on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 12:10:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/terminals/index.xml" rel="self" type="application/rss+xml"/><item><title>xterm.js in the browser</title><link>https://lamichhaneaayush.com.np/notes/xterm-js/</link><pubDate>Fri, 14 Aug 2026 12:10:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/xterm-js/</guid><description>&lt;p&gt;xterm.js is a terminal &lt;em&gt;emulator&lt;/em&gt; — it parses escape sequences and paints cells.
+It does not know where the bytes come from, which is what makes it composable:
+you own the transport.&lt;/p&gt;
+&lt;p&gt;The shape that works: a WebSocket server spawns a pty on connect and bridges
+bytes in both directions. The browser side is then almost trivial — forward
+keystrokes up, write everything received into the emulator.&lt;/p&gt;
+&lt;p&gt;The part that is not trivial is resize. The terminal&amp;rsquo;s dimensions live in the
+browser, but the process that cares about them lives behind the pty, so you have
+to send window size out-of-band and call &lt;code&gt;ioctl&lt;/code&gt; on the master end.&lt;/p&gt;</description></item><item><title>tmux is a server, not a wrapper</title><link>https://lamichhaneaayush.com.np/notes/tmux/</link><pubDate>Fri, 14 Aug 2026 12:05:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/tmux/</guid><description>&lt;p&gt;The mental model that made tmux click: &lt;code&gt;tmux&lt;/code&gt; the command is a &lt;em&gt;client&lt;/em&gt;. The
+first invocation starts a long-lived server process, and every pane in every
+session is a pty owned by that server, not by your shell.&lt;/p&gt;
+&lt;p&gt;This is why detaching loses nothing. Your client dies, the server keeps the ptys
+open, the processes inside never learn anything happened.&lt;/p&gt;
+&lt;p&gt;It also explains the failure mode where a stale server holds an old environment:
+you are not restarting a wrapper, you are talking to a daemon that outlived the
+thing that configured it.&lt;/p&gt;</description></item><item><title>Pseudoterminals</title><link>https://lamichhaneaayush.com.np/notes/pty/</link><pubDate>Fri, 14 Aug 2026 12:00:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/pty/</guid><description>&lt;p&gt;A pty is a pair of character devices that pretend to be a terminal. The master
+end is held by whatever wants to &lt;em&gt;drive&lt;/em&gt; a terminal; the slave end is what the
+child process opens as its controlling terminal, so the child believes it is
+talking to real hardware.&lt;/p&gt;
+&lt;p&gt;That belief is the whole point. It is why a shell spawned under a pty still does
+line editing, still reports a window size, still emits colour — none of which
+happens when you just pipe to it.&lt;/p&gt;</description></item><item><title>Tmux Snippets (take your commands with you everywhere!)</title><link>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</link><pubDate>Sun, 18 May 2025 17:18:22 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/</guid><description>&lt;p&gt;Wouldn&amp;rsquo;t it be great if you could take your commands with you everywhere?
+Sure aliases are great but can you really put a price on the feeling of just getting the command you want when you are in a ssh session?&lt;/p&gt;
+&lt;p&gt;So here it is. Use tmux snippets. Your terminal remembers your commands for you.&lt;/p&gt;
+&lt;h2 id="installation"&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Use tmux plugin manager &lt;code&gt;tpm&lt;/code&gt; to install the plugin.&lt;/p&gt;
+&lt;figure data-not-typeset data-language="bash"
+class="group/code relative mt-6 -mx-1 overflow-hidden rounded-xl bg-code text-code-foreground"&gt;
+&lt;button type="button" data-copy-code aria-label="Copy code"
+class="absolute top-3 right-2 z-10 inline-flex size-7 shrink-0 items-center justify-center rounded-4xl border border-transparent bg-code bg-clip-padding text-muted-foreground opacity-0 outline-none transition-[background-color,color,opacity] hover:bg-muted hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 group-hover/code:opacity-100 [&amp;_svg]:size-3.5"&gt;
+&lt;svg data-copy-idle xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+&lt;rect width="14" height="14" x="8" y="8" rx="2" ry="2"&gt;&lt;/rect&gt;
+&lt;path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;svg data-copy-done hidden xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+&lt;path d="M20 6 9 17l-5-5"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/button&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -g @plugin &lt;span class="s1"&gt;&amp;#39;nyuyuyu/tmux-pet&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/figure&gt;
+&lt;p&gt;Use &lt;code&gt;prefix + I&lt;/code&gt; (Uppercase I) to install the plugin using TPM.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Graphs on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/graphs/</link><description>Recent content in Graphs on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 12:25:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/graphs/index.xml" rel="self" type="application/rss+xml"/><item><title>Atomic notes</title><link>https://lamichhaneaayush.com.np/notes/zettelkasten/</link><pubDate>Fri, 14 Aug 2026 12:25:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/zettelkasten/</guid><description>&lt;p&gt;The rule I am trying to hold to: one note, one idea, and a title that states the
+idea rather than naming the topic. &amp;ldquo;tmux is a server, not a wrapper&amp;rdquo; is a note.
+&amp;ldquo;tmux&amp;rdquo; is a folder pretending to be a note.&lt;/p&gt;
+&lt;p&gt;The reason is mechanical, not aesthetic. Links are only worth drawing if they
+connect &lt;em&gt;claims&lt;/em&gt;. If a note covers six ideas, every link into it is ambiguous —
+you cannot tell which of the six the linker meant, so the edge carries almost no
+information and force-layouts draws you a hairball.&lt;/p&gt;</description></item><item><title>Force-directed layouts</title><link>https://lamichhaneaayush.com.np/notes/force-layouts/</link><pubDate>Fri, 14 Aug 2026 12:20:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/force-layouts/</guid><description>&lt;p&gt;A force layout has no idea what a good drawing looks like. It only knows three
+local rules: nodes repel each other, linked nodes are pulled together by a
+spring, and something weak drags everything toward the centre so the whole thing
+does not drift off screen.&lt;/p&gt;
+&lt;p&gt;Run those to equilibrium and structure falls out for free — clusters become
+visibly clustered, bridges become visibly thin. Nobody designed that; it is just
+what minimising the energy looks like.&lt;/p&gt;</description></item></channel></rss>

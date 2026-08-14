@@ -1,24 +1,7 @@
 <!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Python: Solving slow eval | aayushprime</title><meta name=keywords content><meta name=description content="Welcome to another one of my interesting findings, where I explore some stuff for fun and profit just fun
-A while back I was solving AOC and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a if else  ladder.
-The input file had the following structure
-
-    
-        
-            
-            
-        
-        
-            
-        
-    
-
-      Starting items: 91, 65
-  Operation: new = old * 13
-  Test: divisible by 5
-    If true: throw to monkey 7
-    If false: throw to monkey 4
-
-I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself. And so, I created a variable called old and whenever it needed updating I would use the following line"><meta name=author content><link rel=canonical href=https://lamichhaneaayush.com.np/posts/solveeval/><link rel=preload href=/fonts/space-grotesk-latin-var.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/jetbrains-mono-latin-var.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/main.b65ecd8cc5957c09076323369f2a3afcfbf294174ef74e564c9bf90616aec29a.css integrity="sha256-tl7NjMWVfAkHYyM2nyo6/PvylBdO905WTJv5Bhauwpo=" crossorigin=anonymous><link rel=icon href=/favicon.ico><meta name=theme-color media="(prefers-color-scheme: light)" content="#f2f1ed"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#13120d"><script>(function(){var e,t=null;try{t=localStorage.getItem("pref-theme")}catch{}e=t!=="light",document.documentElement.classList.toggle("dark",e),document.documentElement.style.colorScheme=e?"dark":"light"})()</script><meta property="og:url" content="https://lamichhaneaayush.com.np/posts/solveeval/"><meta property="og:site_name" content="aayushprime"><meta property="og:title" content="Python: Solving slow eval"><meta property="og:description" content="Welcome to another one of my interesting findings, where I explore some stuff for fun and profit just fun
+A while back I was solving AOC and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a if else ladder. The input file had the following structure
+Starting items: 91, 65 Operation: new = old * 13 Test: divisible by 5 If true: throw to monkey 7 If false: throw to monkey 4 I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself. And so, I created a variable called old and whenever it needed updating I would use the following line
+"><meta name=author content><link rel=canonical href=https://lamichhaneaayush.com.np/posts/solveeval/><link rel=preload href=/fonts/space-grotesk-latin-var.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/jetbrains-mono-latin-var.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/main.4896d1f8007e8ea25b24ab410509521f5e0e159ca5fd6cff32c1e1f6fc32ba02.css integrity="sha256-SJbR+AB+jqJbJKtBBQlSH14OFZyl/Wz/MsHh9vwyugI=" crossorigin=anonymous><link rel=icon href=/favicon.ico><meta name=theme-color media="(prefers-color-scheme: light)" content="#f2f1ed"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#13120d"><script>(function(){var e,t=null;try{t=localStorage.getItem("pref-theme")}catch{}e=t!=="light",document.documentElement.classList.toggle("dark",e),document.documentElement.style.colorScheme=e?"dark":"light"})()</script><meta property="og:url" content="https://lamichhaneaayush.com.np/posts/solveeval/"><meta property="og:site_name" content="aayushprime"><meta property="og:title" content="Python: Solving slow eval"><meta property="og:description" content="Welcome to another one of my interesting findings, where I explore some stuff for fun and profit just fun
 A while back I was solving AOC and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a if else ladder. The input file had the following structure
 Starting items: 91, 65 Operation: new = old * 13 Test: divisible by 5 If true: throw to monkey 7 If false: throw to monkey 4 I had to parse the file to get all values, but when parsing the second line I thought why not use the python interpretor itself. And so, I created a variable called old and whenever it needed updating I would use the following line"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-01-10T20:49:42+05:45"><meta property="article:modified_time" content="2023-01-10T20:49:42+05:45"><meta property="og:image" content="https://lamichhaneaayush.com.np/posts/solveeval/cover.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://lamichhaneaayush.com.np/posts/solveeval/cover.png"><meta name=twitter:title content="Python: Solving slow eval"><meta name=twitter:description content="Welcome to another one of my interesting findings, where I explore some stuff for fun and profit just fun
 A while back I was solving AOC and for a problem (day 13), I had this sort of clever idea of using eval to skip writing a if else ladder. The input file had the following structure
@@ -26,6 +9,7 @@ Starting items: 91, 65 Operation: new = old * 13 Test: divisible by 5 If true: t
 </a><a href=/cv/ title=CV class="rounded-md px-2.5 py-1.5 transition-colors text-muted-foreground hover:text-foreground">cv</a>
 <a href=/about/ title=About class="rounded-md px-2.5 py-1.5 transition-colors text-muted-foreground hover:text-foreground">about</a>
 <a href=/posts/ title=Blog class="rounded-md px-2.5 py-1.5 transition-colors text-muted-foreground hover:text-foreground">blog</a>
+<a href=/notes/ title=Notes class="rounded-md px-2.5 py-1.5 transition-colors text-muted-foreground hover:text-foreground">notes</a>
 <a href=/search/ accesskey=/ title="Search (Alt + /)" class="rounded-md px-2.5 py-1.5 transition-colors text-muted-foreground hover:text-foreground">search</a></nav><button id=theme-toggle type=button accesskey=t title="Toggle theme (Alt + T)" aria-label="Toggle theme" class="rounded-md p-2 text-muted-foreground transition-colors hover:text-foreground">
 <svg class="size-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
 <svg class="hidden size-4 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>

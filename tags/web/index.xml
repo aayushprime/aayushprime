@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Web on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/web/</link><description>Recent content in Web on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Aug 2026 12:30:00 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>Why this site's colours are oklch</title><link>https://lamichhaneaayush.com.np/notes/oklch/</link><pubDate>Fri, 14 Aug 2026 12:30:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/oklch/</guid><description>&lt;p&gt;Every colour on this site is &lt;code&gt;oklch(L C H)&lt;/code&gt; — lightness, chroma, hue. The reason
+is that lightness in OKLCH is &lt;em&gt;perceptual&lt;/em&gt;, so two colours with the same &lt;code&gt;L&lt;/code&gt; look
+equally bright to the eye. In HSL they do not: &lt;code&gt;hsl(60 100% 50%)&lt;/code&gt; and
+&lt;code&gt;hsl(240 100% 50%)&lt;/code&gt; are both &amp;ldquo;50% lightness&amp;rdquo; and one of them is yellow while the
+other is nearly black.&lt;/p&gt;
+&lt;p&gt;That makes a theme derivable instead of hand-picked. The whole palette here hangs
+off one &lt;code&gt;--neutral-hue&lt;/code&gt;, and the dark theme is mostly the same chromas with the
+lightness ramp inverted.&lt;/p&gt;</description></item><item><title>Force-directed layouts</title><link>https://lamichhaneaayush.com.np/notes/force-layouts/</link><pubDate>Fri, 14 Aug 2026 12:20:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/force-layouts/</guid><description>&lt;p&gt;A force layout has no idea what a good drawing looks like. It only knows three
+local rules: nodes repel each other, linked nodes are pulled together by a
+spring, and something weak drags everything toward the centre so the whole thing
+does not drift off screen.&lt;/p&gt;
+&lt;p&gt;Run those to equilibrium and structure falls out for free — clusters become
+visibly clustered, bridges become visibly thin. Nobody designed that; it is just
+what minimising the energy looks like.&lt;/p&gt;</description></item><item><title>xterm.js in the browser</title><link>https://lamichhaneaayush.com.np/notes/xterm-js/</link><pubDate>Fri, 14 Aug 2026 12:10:00 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/xterm-js/</guid><description>&lt;p&gt;xterm.js is a terminal &lt;em&gt;emulator&lt;/em&gt; — it parses escape sequences and paints cells.
+It does not know where the bytes come from, which is what makes it composable:
+you own the transport.&lt;/p&gt;
+&lt;p&gt;The shape that works: a WebSocket server spawns a pty on connect and bridges
+bytes in both directions. The browser side is then almost trivial — forward
+keystrokes up, write everything received into the emulator.&lt;/p&gt;
+&lt;p&gt;The part that is not trivial is resize. The terminal&amp;rsquo;s dimensions live in the
+browser, but the process that cares about them lives behind the pty, so you have
+to send window size out-of-band and call &lt;code&gt;ioctl&lt;/code&gt; on the master end.&lt;/p&gt;</description></item></channel></rss>
