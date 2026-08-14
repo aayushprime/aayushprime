@@ -22,6 +22,50 @@
   cursor: help;
 }
 
+/* ---- the note page's "Show related" disclosure --------------------------- */
+
+.note-related__summary {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  transition: color 150ms ease-out;
+  /* Both are needed to drop the native triangle: Firefox honours list-style,
+     WebKit needs its pseudo-element hidden. */
+  list-style: none;
+}
+
+.note-related__summary::-webkit-details-marker {
+  display: none;
+}
+
+.note-related__summary:hover {
+  color: var(--foreground);
+}
+
+.note-related__summary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.note-related__chevron {
+  transition: rotate 150ms ease-out;
+}
+
+.note-related[open] .note-related__chevron {
+  rotate: 180deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-related__chevron {
+    transition: none;
+  }
+}
+
 /* ---- containers ---------------------------------------------------------- */
 
 .graph {

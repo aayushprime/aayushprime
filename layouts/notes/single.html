@@ -3,6 +3,7 @@
 {{- $slug := "" }}{{ with .File }}{{ $slug = lower .ContentBaseName }}{{ end }}
 {{- $outgoing := index $topo.outgoing $slug | default slice -}}
 {{- $backlinks := index $topo.backlinks $slug | default slice -}}
+{{- $tags := .GetTerms "tags" -}}
 
 <div class="flex w-full flex-1 flex-col gap-16 mt-16">
     <section class="flex w-full flex-col gap-4">
@@ -28,78 +29,93 @@
             {{- partial "graph/wikilinks.html" (dict "content" $rendered "page" .) }}
         </article>
 
-        <footer class="flex flex-col gap-8 border-t pt-8">
-            {{- partial "ui/section-header.html" (dict
-                "title" "Connections"
-                "description" "This note and whatever sits one step away from it — links in either direction, and the tags it shares."
-                "level" "h2") }}
+        {{- /* A <details>, not a JS-only toggle: the link lists underneath are the
+               readable fallback, so they have to stay reachable without scripts.
+               Native disclosure gives that for free. JS only adds two things —
+               remembering the open/closed choice across notes, and laying out the
+               graph on first open, since an element inside a closed <details>
+               measures zero. */}}
+        <footer class="border-t pt-6">
+            <details class="note-related" data-related>
+                <summary class="note-related__summary">
+                    <svg class="note-related__chevron size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                    Show related
+                </summary>
 
-            {{- partial "graph/mount.html" (dict
-                "variant" "mini"
-                "focus" $slug
-                "label" (printf "Notes linked to %s" .Title)) }}
+                <div class="flex flex-col gap-5 pt-5">
+                    {{- /* The two links sit inside the graph's top-right corner as plain
+                           text. The wrapper is pointer-events-none with the anchors
+                           re-enabling it, so the empty space around them stays draggable
+                           graph rather than a dead strip across the top. */}}
+                    <div class="relative">
+                        {{- partial "graph/mount.html" (dict
+                            "variant" "mini"
+                            "focus" $slug
+                            "label" (printf "Notes linked to %s" .Title)) }}
 
-            {{- /* Always rendered, graph or no graph. This is the no-JS fallback and
-                   it is also just a better way to actually click through. */}}
-            <div class="grid gap-6 sm:grid-cols-2">
-                <div class="flex flex-col gap-2">
-                    <h3 class="text-sm font-medium">Links from this note</h3>
-                    {{- if $outgoing }}
-                    <ul class="flex flex-col gap-1.5">
-                        {{- range $outgoing }}
-                        {{- with index $topo.bySlug . }}
-                        <li>{{ partial "ui/soft-link.html" (dict "href" .RelPermalink "text" .Title "underline" true) }}</li>
+                        {{- with site.GetPage "/notes" }}
+                        <div
+                            class="pointer-events-none absolute right-3 top-2.5 z-10 flex items-center gap-2 text-xs">
+                            {{- $link := "pointer-events-auto text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline decoration-from-font" }}
+                            <a href="{{ .RelPermalink }}#graph" class="{{ $link }}">Open the full graph</a>
+                            <span class="text-muted-foreground/40" aria-hidden="true">·</span>
+                            <a href="{{ .RelPermalink }}" class="{{ $link }}">All notes</a>
+                        </div>
                         {{- end }}
+                    </div>
+
+                    {{- /* Only rendered when there is something in them — an empty
+                           "None yet." column is noise, and the graph above already
+                           shows an unconnected note as a lone dot. */}}
+                    {{- if or $outgoing $backlinks }}
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        {{- with $outgoing }}
+                        <div class="flex flex-col gap-1.5">
+                            <h2 class="text-sm font-medium">Links to</h2>
+                            <ul class="flex flex-col gap-1.5">
+                                {{- range . }}
+                                {{- with index $topo.bySlug . }}
+                                <li>{{ partial "ui/soft-link.html" (dict "href" .RelPermalink "text" .Title "underline" true) }}</li>
+                                {{- end }}
+                                {{- end }}
+                            </ul>
+                        </div>
                         {{- end }}
-                    </ul>
-                    {{- else }}
-                    <p class="text-sm text-muted-foreground">None yet.</p>
+
+                        {{- with $backlinks }}
+                        <div class="flex flex-col gap-1.5">
+                            <h2 class="text-sm font-medium">Links from</h2>
+                            <ul class="flex flex-col gap-1.5">
+                                {{- range . }}
+                                {{- with index $topo.bySlug . }}
+                                <li>{{ partial "ui/soft-link.html" (dict "href" .RelPermalink "text" .Title "underline" true) }}</li>
+                                {{- end }}
+                                {{- end }}
+                            </ul>
+                        </div>
+                        {{- end }}
+                    </div>
+                    {{- end }}
+
+                    {{- /* Plain inline flow rather than a flex row: the separators are
+                           commas in the text, and they have to sit outside the anchors
+                           so only the tag name itself is clickable. */}}
+                    {{- with $tags }}
+                    <p class="text-sm text-muted-foreground">
+                        Tags:
+                        {{- range $i, $t := . }}
+                        {{- if $i }},{{ end }}
+                        <a href="{{ $t.RelPermalink }}"
+                            class="underline-offset-4 transition-colors hover:text-foreground hover:underline decoration-from-font">{{ lower $t.LinkTitle }}</a>
+                        {{- end }}
+                    </p>
                     {{- end }}
                 </div>
-
-                <div class="flex flex-col gap-2">
-                    <h3 class="text-sm font-medium">Linked from</h3>
-                    {{- if $backlinks }}
-                    <ul class="flex flex-col gap-1.5">
-                        {{- range $backlinks }}
-                        {{- with index $topo.bySlug . }}
-                        <li>{{ partial "ui/soft-link.html" (dict "href" .RelPermalink "text" .Title "underline" true) }}</li>
-                        {{- end }}
-                        {{- end }}
-                    </ul>
-                    {{- else }}
-                    <p class="text-sm text-muted-foreground">Nothing links here yet.</p>
-                    {{- end }}
-                </div>
-            </div>
-
-            {{- with .GetTerms "tags" }}
-            <ul class="flex flex-wrap items-center gap-2">
-                {{- range . }}
-                <li>
-                    <a href="{{ .RelPermalink }}"
-                        class="inline-flex items-center rounded-4xl border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground">
-                        {{- .LinkTitle -}}
-                    </a>
-                </li>
-                {{- end }}
-            </ul>
-            {{- end }}
-
-            {{- with site.GetPage "/notes" }}
-            <div class="flex flex-wrap items-center gap-2">
-                {{- partial "ui/button.html" (dict
-                    "href" (printf "%s#graph" .RelPermalink)
-                    "text" "Open the full graph"
-                    "variant" "outline"
-                    "size" "sm") }}
-                {{- partial "ui/button.html" (dict
-                    "href" .RelPermalink
-                    "text" "All notes"
-                    "variant" "ghost"
-                    "size" "sm") }}
-            </div>
-            {{- end }}
+            </details>
         </footer>
     </section>
 </div>

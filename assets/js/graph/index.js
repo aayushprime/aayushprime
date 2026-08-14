@@ -8,8 +8,44 @@ import { loadGraph } from './data.js';
 import { initExplorer } from './explorer.js';
 import { initMini } from './mini.js';
 
+/* Whether the note page's related section is open, remembered across notes. */
+const RELATED_KEY = 'pref-notes-related';
+
+const readPref = (key) => {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const writePref = (key, value) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* private mode, quota, disabled storage — the toggle still works, it just
+       will not be remembered. */
+  }
+};
+
+/* Laying the graph out while it is not being rendered produces a collapsed,
+   zero-size result, so callers must wait for it to be revealed and re-init.
+ *
+ * The closed-<details> case is asked about directly rather than inferred from
+ * geometry: current Chrome renders closed disclosure content with
+ * `content-visibility: hidden` instead of `display: none`, so the stage still
+ * reports a plausible non-zero width and a width test silently passes. */
+function renderable(mount) {
+  if (mount.hidden) return false;
+  const disclosure = mount.closest('details');
+  if (disclosure && !disclosure.open) return false;
+  const stage = mount.querySelector('[data-graph-stage]');
+  return !!stage && stage.clientWidth > 0;
+}
+
 function initMount(mount) {
   if (mount.dataset.graphReady) return;
+  if (!renderable(mount)) return;
   mount.dataset.graphReady = '1';
 
   const src = mount.dataset.graphSrc;
@@ -18,10 +54,9 @@ function initMount(mount) {
 
   loadGraph(src)
     .then((index) => {
-      // Closed again while the fetch was in flight. A hidden element measures
-      // 0×0, so laying out now would produce a collapsed graph — drop the ready
-      // flag and let the next open try again against the cached response.
-      if (mount.hidden) {
+      // Hidden again while the fetch was in flight. Drop the ready flag so the
+      // next reveal retries against the cached response.
+      if (!renderable(mount)) {
         delete mount.dataset.graphReady;
         return;
       }
@@ -38,6 +73,10 @@ function initMount(mount) {
       }
       console.error('notes graph:', error);
     });
+}
+
+function initInside(root) {
+  for (const mount of root.querySelectorAll('[data-graph]')) initMount(mount);
 }
 
 /* A collapsed mount is not fetched or laid out until someone asks for it, so
@@ -74,7 +113,25 @@ function wireToggle(button) {
   if (window.location.hash === `#${mount.id}`) open({ scroll: true });
 }
 
+/* The note page's "Show related" <details>.
+ *
+ * Toggling is native, so it works without JS. This adds persistence — the choice
+ * carries from one note to the next, which matters because someone who wants the
+ * connections wants them on every note, not once — and lazily lays out the graph
+ * inside on first open. */
+function wireRelated(details) {
+  if (readPref(RELATED_KEY) === '1') details.open = true;
+
+  details.addEventListener('toggle', () => {
+    writePref(RELATED_KEY, details.open ? '1' : '0');
+    if (details.open) initInside(details);
+  });
+
+  if (details.open) initInside(details);
+}
+
 function boot() {
+  for (const details of document.querySelectorAll('[data-related]')) wireRelated(details);
   for (const button of document.querySelectorAll('[data-graph-toggle]')) wireToggle(button);
 
   for (const mount of document.querySelectorAll('[data-graph]')) {

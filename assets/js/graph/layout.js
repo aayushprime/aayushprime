@@ -32,7 +32,7 @@ const EDGE = {
  * they are simply gone until you think to pan — which nobody does, because there
  * is no hint anything is missing. A hard clamp guarantees the whole graph is
  * always on screen at rest; pan and zoom remain available for a closer look. */
-function forceBounds(box) {
+function forceBounds(box, insetTop = 0) {
   let nodes = [];
   function force() {
     for (const n of nodes) {
@@ -43,7 +43,7 @@ function forceBounds(box) {
       // any sane clamp, so the longest few may still clip a little rather than
       // waste 60px of stage on both sides.
       const padX = r + 40;
-      const padTop = r + 18;
+      const padTop = r + 18 + insetTop;
       const padBottom = r + 34;
       n.x = Math.max(padX, Math.min(box.width - padX, n.x));
       n.y = Math.max(padTop, Math.min(box.height - padBottom, n.y));
@@ -98,8 +98,10 @@ export function createLayout({ nodes, links, width, height, variant = 'explorer'
     // recentres the mean every tick, which fights dragging a node to the edge.
     .force('x', forceX(width / 2).strength(0.055))
     .force('y', forceY(height / 2).strength(0.055))
-    // Runs last, so it has the final say on every position.
-    .force('bounds', forceBounds(box))
+    // Runs last, so it has the final say on every position. The mini graph keeps
+    // its top strip clear because the note page overlays "Open the full graph /
+    // All notes" there as plain text, and a node drifting under it would collide.
+    .force('bounds', forceBounds(box, variant === 'mini' ? 22 : 0))
     .stop();
 
   return {
