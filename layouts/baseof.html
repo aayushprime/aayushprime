@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 {{- /* §9: the `.dark` class is set by the pre-paint script in head.html, since
        `@custom-variant dark (&:is(.dark *))` keys off the root element. */}}
-<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+<html lang="{{ site.Language }}" dir="{{ .Language.Direction | default "auto" }}">
 
 <head>
     {{- partial "head.html" . }}

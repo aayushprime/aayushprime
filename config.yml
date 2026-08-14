@@ -1,12 +1,12 @@
 baseurl: https://lamichhaneaayush.com.np/
-languageCode: en-us
+locale: en-us
 title: aayushprime
 # Renders layouts/robots.txt. Without this Hugo emits no robots.txt at all.
 enableRobotsTXT: true
 
 languages:
   en:
-    languageName: English
+    label: English
     weight: 1
     menu:
       main:
@@ -120,3 +120,17 @@ outputs:
   - RSS
   - JSON       # is necessary
   - llms
+
+# Hugo v0.165.0 dropped `^tailwindcss$` from the default security.exec.allow
+# list, which breaks css.TailwindCSS in layouts/_partials/head.html. Setting
+# this key REPLACES the default list rather than extending it, so the other
+# v0.165.0 defaults are restored verbatim alongside tailwindcss.
+security:
+  exec:
+    allow:
+    - ^(dart-)?sass$
+    - ^go$
+    - ^git$
+    - ^node$
+    - ^postcss$
+    - ^tailwindcss$
