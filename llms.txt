@@ -12,7 +12,6 @@
 - [Pseudoterminals](https://lamichhaneaayush.com.np/notes/pty/)
 
 ## Posts
-- [Thoughts on AI](https://lamichhaneaayush.com.np/posts/thoughts-on-ai/)
 - [Flashing AOSP on my old phone](https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/)
 - [Reflections on two years on the industry.](https://lamichhaneaayush.com.np/posts/reflections-on-two-years/)
 - [Cloudflare Tunnels: Expose your local server to the internet.](https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/)
