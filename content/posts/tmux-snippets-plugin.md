@@ -3,6 +3,7 @@ title: "Tmux Snippets (take your commands with you everywhere!)"
 date: 2025-05-18T17:18:22+0545
 draft: false 
 searchHidden: false
+tags: [terminals, tmux]
 ShowBreadCrumbs: true 
 ShowToc: false
 TocOpen: false

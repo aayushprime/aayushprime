@@ -1,0 +1,91 @@
+{{- /* Notes graph topology — the single source of truth for what links to what.
+
+   Returns a dict:
+     bySlug    map[slug]page      every note, keyed by filename
+     notes     []page             notes in section order
+     outgoing  map[slug][]slug    resolved note→note links
+     backlinks map[slug][]slug    the reverse of outgoing
+     broken    []dict             unresolved targets, for warnings
+
+   IMPORTANT: this partial reads only .RawContent, .File and .Params — never
+   .Content, .Summary or .Plain. It is called from layouts/_markup/render-link.html,
+   which runs *during* content rendering, so touching rendered content here would
+   be a circular dependency. Excerpts are added later, in the graph.json template.
+
+   Call it as `partialCached "graph/topology.html" . "notes-topology"` so the O(n²)
+   backlink pass and the broken-link warnings happen once per build, not per page. */ -}}
+
+{{- $notes := slice -}}
+{{- with site.GetPage "/notes" -}}
+  {{- $notes = .RegularPages -}}
+{{- end -}}
+
+{{- /* Filename is the note's permanent id. ContentBaseName rather than
+       BaseFileName so a page bundle (notes/pty/index.md) still keys as "pty". */ -}}
+{{- $s := newScratch -}}
+{{- range $note := $notes -}}
+  {{- with $note.File -}}
+    {{- $s.SetInMap "bySlug" (lower .ContentBaseName) $note -}}
+  {{- end -}}
+{{- end -}}
+{{- $bySlug := $s.Get "bySlug" | default dict -}}
+
+{{- $outgoing := dict -}}
+{{- $broken := slice -}}
+
+{{- range $note := $notes -}}
+  {{- $from := "" -}}
+  {{- with $note.File }}{{ $from = lower .ContentBaseName }}{{ end -}}
+
+  {{- /* Strip code before matching, so a link written inside a fence or inline
+         `code` span does not become a phantom edge. */ -}}
+  {{- $raw := $note.RawContent -}}
+  {{- $raw = replaceRE "(?s)```.*?```" "" $raw -}}
+  {{- $raw = replaceRE "(?s)~~~.*?~~~" "" $raw -}}
+  {{- $raw = replaceRE "`[^`\n]*`" "" $raw -}}
+
+  {{- $targets := slice -}}
+
+  {{- /* [[slug]] and [[slug|label]] */ -}}
+  {{- range findRESubmatch `\[\[\s*([^\[\]|]+?)\s*(?:\|[^\[\]]*?)?\]\]` $raw -}}
+    {{- $targets = $targets | append (lower (index . 1)) -}}
+  {{- end -}}
+
+  {{- /* [label](slug) — a bare token only. Anything with a scheme, slash, dot or
+         hash is an ordinary link and is left alone. A destination that matches
+         this can have no file extension, so it can never be an image. */ -}}
+  {{- range findRESubmatch `\[[^\]]*\]\(\s*([a-z0-9][a-z0-9-]*)\s*\)` $raw -}}
+    {{- $targets = $targets | append (lower (index . 1)) -}}
+  {{- end -}}
+
+  {{- $resolved := slice -}}
+  {{- range $target := ($targets | uniq) -}}
+    {{- if and (index $bySlug $target) (ne $target $from) -}}
+      {{- $resolved = $resolved | append $target -}}
+    {{- else if ne $target $from -}}
+      {{- $broken = $broken | append (dict "from" $from "fromTitle" $note.Title "target" $target) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $outgoing = merge $outgoing (dict $from $resolved) -}}
+{{- end -}}
+
+{{- /* Reverse the edge list once. */ -}}
+{{- $b := newScratch -}}
+{{- range $from, $targets := $outgoing -}}
+  {{- range $target := $targets -}}
+    {{- $seen := index ($b.Get "bl" | default dict) $target | default slice -}}
+    {{- $b.SetInMap "bl" $target ($seen | append $from) -}}
+  {{- end -}}
+{{- end -}}
+{{- $backlinks := $b.Get "bl" | default dict -}}
+
+{{- range $broken -}}
+  {{- warnf "notes graph: %q links to %q, which is not a note in content/notes/" .fromTitle .target -}}
+{{- end -}}
+
+{{- return (dict
+      "bySlug" $bySlug
+      "notes" $notes
+      "outgoing" $outgoing
+      "backlinks" $backlinks
+      "broken" $broken) -}}

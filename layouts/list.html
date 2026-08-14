@@ -4,7 +4,52 @@
    §8 rhythm: page shell is mt-16 + gap-16, each section is gap-4. Never put
    margins on section children; all vertical spacing comes from gap-* on flex
    parents. */}}
+
+{{- /* Paginated here, above the markup, rather than inline further down: the
+       notes section needs to know the page number to render only on page 1, and
+       it is emitted before the post grid. .Paginate can only be called once per
+       page, so the call has to precede both consumers. */}}
+{{- $pages := union .RegularPages .Sections }}
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+{{- end }}
+{{- $paginator := .Paginate $pages }}
+
+{{- /* Home page only, and only on page 1 — /page/2/ is a continuation of the post
+       list, not a place to repeat the site's front matter. */}}
+{{- $notes := "" }}
+{{- if and .IsHome (eq $paginator.PageNumber 1) }}{{ $notes = site.GetPage "/notes" }}{{ end }}
+
 <div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    {{- with $notes }}
+    <section class="flex w-full flex-col gap-4">
+        {{- /* Heading left, action right — the same page-header row /notes/ uses.
+               The wrapper div also stops the button stretching: as a direct child of
+               this flex column it inherits align-items: stretch and spans the full
+               width, which is why it read as a banner rather than a button. */}}
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+            {{- partial "ui/section-header.html" (dict
+                "title" "What I'm working on"
+                "description" "Short notes for myself"
+                "level" "h2") }}
+
+            <div class="flex shrink-0 items-center gap-2">
+                {{- partial "ui/button.html" (dict
+                    "href" .RelPermalink
+                    "text" "All Notes"
+                    "variant" "outline"
+                    "size" "sm") }}
+            </div>
+        </div>
+
+        {{- partial "graph/mount.html" (dict
+            "variant" "preview"
+            "label" "Graph of every note and tag") }}
+
+    </section>
+    {{- end }}
+
     <section class="flex w-full flex-col gap-4">
         {{- if .IsHome }}
         {{- else }}
@@ -18,13 +63,6 @@
         {{- with .Content }}
         <div class="typeset">{{ . }}</div>
         {{- end }}
-
-        {{- $pages := union .RegularPages .Sections }}
-        {{- if .IsHome }}
-        {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
-        {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
-        {{- end }}
-        {{- $paginator := .Paginate $pages }}
 
         {{- /* §11.2: sm:auto-rows-fr plus h-full on the cards is what makes every
                card in a row exactly the same height. */}}
@@ -65,4 +103,5 @@
         {{- end }}
     </section>
 </div>
+{{- with $notes }}{{ partial "graph/scripts.html" . }}{{ end }}
 {{- end }}

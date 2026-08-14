@@ -3,6 +3,7 @@ title: "Why is my Golang server (not) crashing?"
 date: 2025-06-03T15:47:09+0545
 draft: false 
 searchHidden: false
+tags: [golang, systems]
 ShowBreadCrumbs: true 
 ShowToc: false
 TocOpen: false

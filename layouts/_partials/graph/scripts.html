@@ -1,0 +1,17 @@
+{{- /* Bundles assets/js/graph/index.js and its d3-force import.
+
+   Hugo extended ships esbuild, so js.Build resolves the bare `d3-force` specifier
+   out of node_modules — the same npm install CI already runs for Tailwind. Only
+   the force maths is pulled in; pan, zoom, drag and rendering are hand-written,
+   which keeps d3-selection and d3-zoom out of the bundle.
+
+   Emitted by the notes templates rather than by footer.html, because the footer
+   is partialCached on .Layout/.Kind and a section-specific script would be served
+   to — or withheld from — the wrong pages. */ -}}
+
+{{- with resources.Get "js/graph/index.js" -}}
+  {{- $js := . | js.Build (dict "minify" hugo.IsProduction "target" "es2020") -}}
+  {{- if hugo.IsProduction }}{{ $js = $js | fingerprint }}{{ end -}}
+  <script defer src="{{ $js.RelPermalink }}"
+    {{- with $js.Data.Integrity }} integrity="{{ . }}" crossorigin="anonymous"{{ end }}></script>
+{{- end -}}

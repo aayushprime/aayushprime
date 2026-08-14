@@ -1,0 +1,90 @@
+{{- define "main" }}
+{{- /* 30 per page, not the site-wide 10: these rows are single lines, so a page
+       that would hold ten post cards comfortably holds three times as many notes.
+       The graph stays on every page — it is the whole map regardless of which
+       slice of the list you are on, and collapsed it costs nothing. */}}
+{{- $paginator := .Paginate .RegularPages 30 }}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-6">
+        {{- /* Title left, primary action right — the conventional page-header row.
+               Below the description the button read as a floating, indented stray;
+               on the title's line it is clearly the page's one action, and the list
+               starts higher. Stacks on narrow screens. */}}
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+            {{- partial "ui/section-header.html" (dict
+                "title" .Title
+                "description" (.Description | plainify)
+                "level" "h1") }}
+
+            {{- partial "graph/toggle.html" (dict
+                "target" "graph"
+                "text" "Explore the graph"
+                "open" "Hide the graph"
+                "class" "sm:pt-1.5") }}
+        </div>
+
+        {{- with .Content }}
+        <div class="typeset">{{ . }}</div>
+        {{- end }}
+
+        {{- /* The graph and the list are two views of one set, so they live on one
+               page. Collapsed by default: the list answers "what is here?" faster,
+               and nothing is fetched until someone actually asks for the map. */}}
+        {{- partial "graph/mount.html" (dict
+            "variant" "explorer"
+            "collapsed" true
+            "id" "graph"
+            "label" "Explorable graph of every note and tag") }}
+
+        {{- /* §11.8 hairline rows: title left, date right, and no summary — a note's
+               title states its whole idea, so an excerpt underneath repeats it at
+               greater length. py-4 matches the row rhythm used elsewhere on the
+               site; tighter and eight one-line rows read as a cramped block rather
+               than a list. Dates are tabular-nums (§7) so the column lines up. */}}
+        <ul class="flex w-full flex-col divide-y divide-border/60">
+            {{- range $paginator.Pages }}
+            <li>
+                <a href="{{ .RelPermalink }}"
+                    class="group flex items-baseline justify-between gap-4 py-4 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+                    <span
+                        class="text-pretty underline-offset-4 group-hover:underline decoration-from-font">{{ .Title }}</span>
+                    <time datetime="{{ .Date.Format "2006-01-02" }}"
+                        class="shrink-0 text-xs text-muted-foreground tabular-nums sm:text-sm">
+                        {{- .Date.Format "Jan 2, 2006" -}}
+                    </time>
+                </a>
+            </li>
+            {{- end }}
+        </ul>
+
+        {{- if gt $paginator.TotalPages 1 }}
+        {{- /* Same control as the blog list: both sides flex-1 basis-0 so the
+               counter stays on the column's axis whichever buttons are present. */}}
+        <nav aria-label="Pagination" class="flex items-center gap-4 pt-2">
+            <div class="flex flex-1 basis-0 justify-start">
+                {{- if $paginator.HasPrev }}
+                {{- partial "ui/button.html" (dict
+                    "href" ($paginator.Prev.URL | relURL)
+                    "text" "← Previous"
+                    "variant" "ghost"
+                    "size" "sm") }}
+                {{- end }}
+            </div>
+            <p class="shrink-0 text-xs tracking-wide text-muted-foreground tabular-nums sm:text-sm">
+                {{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}
+            </p>
+            <div class="flex flex-1 basis-0 justify-end">
+                {{- if $paginator.HasNext }}
+                {{- partial "ui/button.html" (dict
+                    "href" ($paginator.Next.URL | relURL)
+                    "text" "Next →"
+                    "variant" "ghost"
+                    "size" "sm") }}
+                {{- end }}
+            </div>
+        </nav>
+        {{- end }}
+    </section>
+</div>
+{{- partial "graph/scripts.html" . }}
+{{- end }}

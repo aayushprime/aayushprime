@@ -4,6 +4,7 @@
 @import "./typeset.css";
 @import "./fonts.css";
 @import "./chroma.css";
+@import "./graph.css";
 
 /* Hugo addition: the guide's source project gets content scanning from Next.js.
    Tailwind's auto-detection does not reach Hugo's template tree, so name it. */
@@ -135,6 +136,16 @@
   html {
     @apply min-h-full bg-background font-sans antialiased;
     font-synthesis: none;
+
+    /* Reserve the scrollbar gutter on every page, scrolling or not.
+       The `*::-webkit-scrollbar` rules above give the scrollbar an explicit
+       width, and styling that pseudo-element opts out of the platform's overlay
+       scrollbars — so on scrolling pages the bar takes 8px of layout. A short
+       page like /notes/ does not scroll and gets none, which moved every
+       mx-auto-centred element (the header band included) ~4px sideways between
+       one page and the next. Reserving it unconditionally holds the column
+       still. No effect where scrollbars genuinely overlay. */
+    scrollbar-gutter: stable;
   }
 
   body {

@@ -13,6 +13,9 @@ languages:
       - name: Search
         url: search/
         weight: 40
+      - name: Notes
+        url: notes/
+        weight: 35
       - name: Blog
         url: posts/
         weight: 30
@@ -26,7 +29,12 @@ languages:
         url: https://github.com/aayushprime
         weight: 2
 
+# Only posts feed the home page list. Without this Hugo infers mainSections from
+# whichever section has the most pages, so a growing content/notes/ would
+# silently take the home page over.
 params:
+  mainSections:
+  - posts
   defaultTheme: dark
   favicon: favicon.ico
   assets:
@@ -72,6 +80,11 @@ params:
   #   ShowPostNavLinks: true
   #   ShowCodeCopyButtons: true
 
+# Declared explicitly so `categories` stays off — the site only uses tags, and
+# tags double as node types in the notes graph.
+taxonomies:
+  tag: tags
+
 markup:
   highlight:
     anchorLineNos: false
@@ -92,6 +105,13 @@ outputFormats:
   llms:
     mediaType: text/plain
     baseName: llms
+    isPlainText: true
+  # Renders layouts/notes/section.graph.json to /notes/graph.json — the single
+  # data file both the explorer and the per-note mini-graph fetch. isPlainText
+  # keeps Go's text/template engine, so JSON is not HTML-escaped.
+  graph:
+    mediaType: application/json
+    baseName: graph
     isPlainText: true
 
 outputs:

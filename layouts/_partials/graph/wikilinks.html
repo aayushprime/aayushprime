@@ -1,0 +1,67 @@
+{{- /* Resolves [[slug]] and [[slug|label]] in already-rendered HTML.
+
+   Call with: (dict "content" <rendered HTML> "page" <page>)
+
+   Goldmark has no wikilink syntax, so `[[tmux]]` survives the Markdown pass as
+   literal text and is rewritten here. The catch with post-processing HTML is code
+   samples: a naive regex would happily mangle `[[foo]]` inside a fenced block.
+
+   So the HTML is first cut into code and non-code segments by splitting on
+   `<code` … `</code>`, and only the non-code segments are rewritten. Splitting on
+   `<code` covers both cases in one rule — Chroma wraps highlighted blocks in
+   <code> (including each cell of its line-number table), plain fences render as
+   <pre><code>, and inline spans are <code> too.
+
+   Replacement is a literal `replace` of the whole matched `[[…]]` string rather
+   than a regex substitution, because the href has to come from a slug lookup and
+   replaceRE cannot call a function. */ -}}
+
+{{- $html := .content | string -}}
+{{- $topo := partialCached "graph/topology.html" .page "notes-topology" -}}
+{{- $bySlug := $topo.bySlug -}}
+
+{{- /* Pass 1: cut into segments. Every `</code>` is preceded by its own `<code`,
+       so each chunk after the split holds exactly one closing tag: the part
+       before it is code, the part after it is prose. */ -}}
+{{- $segments := slice -}}
+{{- range $i, $chunk := split $html "<code" -}}
+  {{- if eq $i 0 -}}
+    {{- $segments = $segments | append (dict "code" false "text" $chunk) -}}
+  {{- else -}}
+    {{- $parts := split $chunk "</code>" -}}
+    {{- if gt (len $parts) 1 -}}
+      {{- $segments = $segments | append (dict "code" true "text" (printf "<code%s</code>" (index $parts 0))) -}}
+      {{- $segments = $segments | append (dict "code" false "text" (delimit (after 1 $parts) "</code>")) -}}
+    {{- else -}}
+      {{- /* Unclosed <code> — malformed, but pass it through untouched rather
+             than risk rewriting inside it. */ -}}
+      {{- $segments = $segments | append (dict "code" true "text" (printf "<code%s" $chunk)) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Pass 2: rewrite prose segments. */ -}}
+{{- $out := "" -}}
+{{- range $seg := $segments -}}
+  {{- $text := $seg.text -}}
+  {{- if not $seg.code -}}
+    {{- range findRESubmatch `\[\[\s*([^\[\]|]+?)\s*(?:\|\s*([^\[\]]*?)\s*)?\]\]` $text -}}
+      {{- $full := index . 0 -}}
+      {{- $raw := index . 1 -}}
+      {{- $slug := lower $raw -}}
+      {{- $label := index . 2 | default $raw | htmlEscape -}}
+      {{- $replacement := "" -}}
+      {{- with index $bySlug $slug -}}
+        {{- $replacement = printf `<a class="note-ref" href="%s" data-note="%s">%s</a>`
+              .RelPermalink (htmlEscape $slug) $label -}}
+      {{- else -}}
+        {{- $replacement = printf `<span class="note-ref note-ref--broken" title="Unresolved note: %s">%s</span>`
+              (htmlEscape $slug) $label -}}
+      {{- end -}}
+      {{- $text = replace $text $full $replacement -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $out = print $out $text -}}
+{{- end -}}
+
+{{- return ($out | safeHTML) -}}

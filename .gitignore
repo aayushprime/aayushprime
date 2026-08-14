@@ -1,3 +1,6 @@
 public/
 node_modules/
 .hugo_build.lock
+# Written by Hugo whenever js.Build resolves an import from node_modules — an
+# editor hint, not source.
+assets/jsconfig.json

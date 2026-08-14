@@ -31,7 +31,12 @@
     {{ partialCached "header.html" . .Page }}
 
     {{- /* §9 shell: flex-1 on main pins the footer on short pages. The header is
-           48px (h-12) and now lives outside, so discount it here. */}}
+           48px (h-12) and now lives outside, so discount it here.
+
+           Stays max-w-3xl for every page. header.html hardcodes mx-auto/max-w-3xl
+           on its inner div so the brand and nav line up with this column, so a
+           per-page shell width desynchronises the two and the content visibly
+           runs wider than the header above it. */}}
     <div class="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-3xl flex-col px-6">
         <main id="main-content" class="flex flex-1 flex-col">
             {{- block "main" . }}{{ end }}

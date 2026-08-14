@@ -1,0 +1,30 @@
+{{- /* Button that opens/closes a collapsed graph mount.
+
+   dict:
+     target  id of the <figure data-graph collapsed> it controls
+     text    copy when the graph is closed
+     open    copy when the graph is open
+     size    ui/button.html size
+     class   extra classes on the wrapper
+
+   Kept separate from graph/mount.html so the button and the graph can sit in
+   different places on the page — the toggle belongs up in the page header, next
+   to the title, while the graph itself unfolds further down.
+
+   Ships hidden and is revealed by assets/js/graph/index.js: a toggle that cannot
+   toggle anything is worse than no toggle at all. */ -}}
+
+{{- $target := .target | default "graph" -}}
+{{- $text := .text | default "Explore the graph" -}}
+
+<div class="flex shrink-0 flex-wrap items-center gap-2{{ with .class }} {{ . }}{{ end }}"
+    data-graph-toggle-wrap hidden>
+    {{- partial "ui/button.html" (dict
+        "text" $text
+        "variant" "outline"
+        "size" (.size | default "default")
+        "attrs" (printf `data-graph-toggle aria-controls=%q aria-expanded="false" data-graph-label-open=%q data-graph-label-closed=%q`
+            $target
+            (.open | default "Hide the graph")
+            $text | safeHTMLAttr)) }}
+</div>

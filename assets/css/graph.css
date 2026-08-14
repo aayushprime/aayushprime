@@ -1,0 +1,310 @@
+/* Notes graph.
+ *
+ * Every colour here is derived from the existing tokens in main.css, so light and
+ * dark come for free and there is no second palette to keep in sync. Nothing is
+ * hardcoded except geometry.
+ *
+ * The two node types are distinguished by shape, not hue: a note is a solid dot,
+ * a tag is a dashed ring. That survives dimming, greyscale and colour blindness,
+ * which a hue difference does not. */
+
+/* ---- inline note references ---------------------------------------------- */
+
+/* A resolved note reference is styled exactly like any other link — inside a note,
+   linking to another note is the ordinary case and does not need decoration.
+   Only the failure state is marked. */
+
+.note-ref--broken {
+  color: var(--muted-foreground);
+  text-decoration: underline dotted;
+  text-decoration-color: color-mix(in oklab, var(--destructive) 60%, transparent);
+  text-underline-offset: 0.16em;
+  cursor: help;
+}
+
+/* ---- containers ---------------------------------------------------------- */
+
+.graph {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.graph__body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.graph__stage {
+  position: relative;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* Height is applied only once JS has mounted an <svg>, so a page with scripts
+   off or a failed fetch shows no empty frame and suffers no layout shift. */
+.graph__stage--ready {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.4);
+  background:
+    radial-gradient(
+      circle at 1px 1px,
+      color-mix(in oklab, var(--foreground) 9%, transparent) 1px,
+      transparent 0
+    )
+    0 0 / 22px 22px;
+  overflow: hidden;
+}
+
+/* Taller than it is wide-ish: the explorer lives in the same 768px reading column
+   as everything else, so the room it gets has to come from height. */
+.graph--explorer .graph__stage--ready {
+  height: min(76vh, 680px);
+  min-height: 20rem;
+}
+
+.graph--mini .graph__stage--ready {
+  height: 16rem;
+}
+
+/* Home page preview: the whole graph, tall enough to read as a shape rather than
+   a smudge, short enough not to push the post list below the fold. */
+.graph--preview .graph__stage--ready {
+  height: 21rem;
+}
+
+.graph--explorer .graph__body {
+  position: relative;
+}
+
+/* On desktop the panel floats over the graph rather than sitting beside it.
+   Taking width away from the stage would resize it on every selection, which
+   re-runs the layout and makes the graph lurch and clip at its edges every time
+   you click a node. Overlaying costs a corner of the view and keeps the
+   coordinate space stable. Below 48rem it falls back to a block underneath. */
+@media (min-width: 48rem) {
+  .graph--explorer .graph__panel {
+    position: absolute;
+    inset: 0.5rem 0.5rem auto auto;
+    /* 16rem, not 18: in a 720px stage the panel is already covering a third of
+       the graph, and the content fits this width fine. */
+    width: 16rem;
+    max-height: calc(100% - 1rem);
+    box-shadow: 0 8px 24px -12px color-mix(in oklab, var(--foreground) 30%, transparent);
+  }
+}
+
+.graph__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  /* pan-y rather than none: a vertical swipe still scrolls the page, so the
+     graph never becomes a scroll trap on a phone, while horizontal drags pan it
+     and node drags still work. */
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.graph__svg--panning {
+  cursor: grabbing;
+}
+
+/* ---- edges --------------------------------------------------------------- */
+
+/* An authored wikilink is solid and clearly visible; tag membership is a weaker
+   claim and reads as a faint dashed hint. The gap between the two has to be wide
+   enough to tell apart at a glance, or the graph looks uniformly noisy. */
+.graph__link {
+  stroke: color-mix(in oklab, var(--foreground) 42%, transparent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  transition: opacity 200ms ease-out;
+}
+
+.graph__link--tag {
+  stroke: color-mix(in oklab, var(--foreground) 14%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.graph__link[data-dim='true'] {
+  opacity: 0.12;
+}
+
+.graph__link[data-hidden='true'] {
+  opacity: 0;
+}
+
+/* ---- nodes -------------------------------------------------------------- */
+
+.graph__node {
+  cursor: pointer;
+  transition: opacity 200ms ease-out;
+}
+
+.graph__node:focus {
+  outline: none;
+}
+
+.graph__dot {
+  fill: color-mix(in oklab, var(--foreground) 82%, var(--background));
+  stroke: var(--background);
+  stroke-width: 1.5;
+  transition:
+    fill 160ms ease-out,
+    stroke 160ms ease-out,
+    stroke-width 160ms ease-out,
+    transform 160ms ease-out;
+  /* Scales about the node's own centre, because the circle sits at 0,0 inside a
+     translated group. */
+  transform-box: view-box;
+}
+
+/* .graph__sample is the legend's swatch wrapper. It is listed here rather than
+   given the .graph__node class so that querying '.graph__node' only ever returns
+   actual graph nodes — sharing the class made the legend count as two extra
+   nodes in every selector. */
+.graph__node[data-type='tag'] .graph__dot,
+.graph__sample[data-type='tag'] .graph__dot {
+  fill: var(--background);
+  stroke: color-mix(in oklab, var(--foreground) 62%, transparent);
+  stroke-width: 1.6;
+  /* Long enough dashes to still read as a ring at r=5 — at 2.2/2 it degenerated
+     into a handful of specks. */
+  stroke-dasharray: 3.4 2.4;
+}
+
+.graph__label {
+  fill: var(--muted-foreground);
+  font-size: 0.625rem;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  /* A background-coloured stroke painted underneath gives the text a halo, so a
+     label crossing an edge stays readable. */
+  paint-order: stroke;
+  stroke: var(--background);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  transition:
+    fill 160ms ease-out,
+    opacity 200ms ease-out;
+}
+
+/* ---- interaction states -------------------------------------------------- */
+
+.graph__node:hover .graph__dot,
+.graph__node:focus-visible .graph__dot {
+  transform: scale(1.25);
+}
+
+.graph__node:hover .graph__label,
+.graph__node:focus-visible .graph__label {
+  fill: var(--foreground);
+}
+
+/* The focus indicator is the ring on the dot — the <a> has no box to outline. */
+.graph__node:focus-visible .graph__dot {
+  stroke: var(--ring);
+  stroke-width: 3;
+  stroke-dasharray: none;
+}
+
+.graph__node[data-selected='true'] .graph__dot {
+  stroke: var(--ring);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  transform: scale(1.35);
+}
+
+.graph__node[data-selected='true'] .graph__label {
+  fill: var(--foreground);
+  font-weight: 500;
+}
+
+.graph__node[data-dim='true'] {
+  opacity: 0.15;
+}
+
+/* Filtered-out nodes keep a ghost rather than vanishing, so the shape of the
+   whole graph stays legible while you narrow it down. */
+.graph__node[data-hidden='true'] {
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* Past ~55 nodes the labels collide more than they inform, so only the ones you
+   are pointing at keep theirs. */
+.graph__svg--crowded .graph__label {
+  opacity: 0;
+}
+
+.graph__svg--crowded .graph__node[data-anchor='true'] .graph__label,
+.graph__svg--crowded .graph__node[data-selected='true'] .graph__label,
+.graph__svg--crowded .graph__node:hover .graph__label,
+.graph__svg--crowded .graph__node:focus-visible .graph__label {
+  opacity: 1;
+}
+
+/* ---- panel & status ----------------------------------------------------- */
+
+.graph__panel {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.4);
+  background: var(--card);
+  padding: 1rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.graph__status {
+  padding-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* ---- legend -------------------------------------------------------------- */
+
+.graph__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 1rem;
+  padding-top: 0.625rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.graph__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.graph__legend-swatch {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  overflow: visible;
+}
+
+.graph__sample {
+  pointer-events: none;
+}
+
+.graph__legend-note {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .graph__node,
+  .graph__link,
+  .graph__dot,
+  .graph__label {
+    transition: none;
+  }
+}

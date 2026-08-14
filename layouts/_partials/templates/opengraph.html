@@ -8,7 +8,7 @@
   <meta property="og:title" content="{{ . }}">
 {{- end }}
 
-{{- with or .Description .Summary site.Params.description | plainify | htmlUnescape }}
+{{- with or .Description .Summary site.Params.description | plainify | htmlUnescape | partial "graph/plain.html" }}
   <meta property="og:description" content="{{ trim . "\n\r\t " }}">
 {{- end }}
 

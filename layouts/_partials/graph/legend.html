@@ -1,0 +1,29 @@
+{{- /* Legend for the graph's notation.
+
+   The swatches reuse the renderer's own `graph__dot` and `graph__link` classes
+   rather than being redrawn by hand, so restyling a node in graph.css updates the
+   legend too instead of leaving it quietly lying.
+
+   The wrapper is `graph__sample`, not `graph__node`: sharing that class made the
+   legend show up as two extra nodes in every `.graph__node` query. */ -}}
+
+<figcaption class="graph__legend">
+    <span class="graph__legend-item">
+        <svg class="graph__legend-swatch" viewBox="0 0 16 16" aria-hidden="true">
+            <g class="graph__sample" data-type="note">
+                <circle class="graph__dot" cx="8" cy="8" r="5"></circle>
+            </g>
+        </svg>
+        a note
+    </span>
+
+    <span class="graph__legend-item">
+        <svg class="graph__legend-swatch" viewBox="0 0 16 16" aria-hidden="true">
+            <g class="graph__sample" data-type="tag">
+                <circle class="graph__dot" cx="8" cy="8" r="5"></circle>
+            </g>
+        </svg>
+        a tag
+    </span>
+
+</figcaption>

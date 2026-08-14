@@ -1,0 +1,75 @@
+{{- /* Renders /notes/graph.json — the one data file the explorer and every
+   per-note mini-graph fetch.
+
+   Two node types. Note nodes come from content/notes/. Tag nodes are only
+   emitted for tags at least one note actually carries, so blog-only tags do not
+   litter the graph. A tag node carries the blog posts sharing that tag, which is
+   the single bridge between the notes graph and the blog.
+
+   Unlike graph/topology.html this template may touch rendered content — it is an
+   output format, not a render hook, so .Summary is safe here. */ -}}
+
+{{- $topo := partialCached "graph/topology.html" . "notes-topology" -}}
+
+{{- $nodes := slice -}}
+{{- $links := slice -}}
+{{- $tagScratch := newScratch -}}
+
+{{- range $note := $topo.notes -}}
+  {{- $slug := "" -}}
+  {{- with $note.File }}{{ $slug = lower .ContentBaseName }}{{ end -}}
+  {{- $id := printf "note:%s" $slug -}}
+
+  {{- /* .Summary is built from rendered content, which still holds literal
+         [[wikilink]] syntax — that rewrite happens in the page template, after
+         this. Strip it to the label so excerpts read as prose. */ -}}
+  {{- $excerpt := $note.Summary
+        | plainify
+        | htmlUnescape
+        | partial "graph/plain.html"
+        | chomp -}}
+
+  {{- $tags := slice -}}
+  {{- range $term := $note.GetTerms "tags" -}}
+    {{- $tagSlug := urlize $term.LinkTitle -}}
+    {{- $tags = $tags | append $term.LinkTitle -}}
+    {{- $tagScratch.SetInMap "tags" $tagSlug $term -}}
+    {{- $links = $links | append (dict
+          "source" $id
+          "target" (printf "tag:%s" $tagSlug)
+          "kind" "tag") -}}
+  {{- end -}}
+
+  {{- $nodes = $nodes | append (dict
+        "id" $id
+        "type" "note"
+        "slug" $slug
+        "title" $note.Title
+        "url" $note.RelPermalink
+        "date" ($note.Date.Format "2006-01-02")
+        "tags" $tags
+        "excerpt" (truncate 220 $excerpt)) -}}
+
+  {{- range $target := (index $topo.outgoing $slug | default slice) -}}
+    {{- $links = $links | append (dict
+          "source" $id
+          "target" (printf "note:%s" $target)
+          "kind" "wiki") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range $tagSlug, $term := ($tagScratch.Get "tags" | default dict) -}}
+  {{- $posts := slice -}}
+  {{- range $p := (where $term.Pages "Type" "posts") -}}
+    {{- $posts = $posts | append (dict "title" $p.Title "url" $p.RelPermalink) -}}
+  {{- end -}}
+  {{- $nodes = $nodes | append (dict
+        "id" (printf "tag:%s" $tagSlug)
+        "type" "tag"
+        "slug" $tagSlug
+        "title" $term.LinkTitle
+        "url" $term.RelPermalink
+        "posts" $posts) -}}
+{{- end -}}
+
+{{- dict "nodes" $nodes "links" $links | jsonify -}}

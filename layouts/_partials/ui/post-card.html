@@ -28,7 +28,10 @@
                 </span>
             </div>
             <p class="line-clamp-2 min-h-12 text-pretty font-normal leading-relaxed text-muted-foreground">
-                {{- with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 140 }}{{ end -}}
+                {{- /* htmlUnescape because plainify strips tags but leaves entities, so
+                       smartypants' &ldquo;/&rsquo; would otherwise show up literally in
+                       the card excerpt. */ -}}
+                {{- with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlUnescape | partial "graph/plain.html" | truncate 140 }}{{ end -}}
             </p>
             <p class="pt-1 text-xs tracking-wide text-muted-foreground tabular-nums sm:text-sm">
                 {{- .Date.Format "January 2, 2006" -}}

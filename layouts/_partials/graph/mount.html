@@ -1,0 +1,87 @@
+{{- /* Graph mount point. assets/js/graph/index.js picks these up by [data-graph].
+
+   dict:
+     variant     "explorer"  search, tag toggle, detail panel
+                 "preview"   whole graph, compact, click navigates
+                 "mini"      one note's neighbourhood, click navigates
+     focus       slug of the note to centre — mini only
+     label       accessible name for the figure
+     legend      set false to suppress the notation legend (default: on except mini)
+     collapsed   start closed; the graph is only fetched and laid out on first
+                 open. Render graph/toggle.html somewhere on the page to open it —
+                 it is a separate partial so the button can live in the page
+                 header while the graph unfolds further down.
+     id          element id, for the toggle's aria-controls and #fragment links
+                 (default "graph")
+
+   Progressive enhancement: everything here is chrome that only makes sense once
+   the graph exists, so the toolbar, panel and toggle ship hidden and JS reveals
+   them. The readable fallback — a plain list of links — is rendered by the calling
+   template outside this partial, and stays visible whether or not JS runs. */ -}}
+
+{{- $variant := .variant | default "explorer" -}}
+{{- $id := .id | default "graph" -}}
+{{- $collapsed := eq (.collapsed | default false) true -}}
+
+{{- /* Ask Hugo for the output format's URL rather than hardcoding /notes/graph.json,
+       so renaming the format or the section cannot silently break the fetch. */ -}}
+{{- $src := "" -}}
+{{- with site.GetPage "/notes" -}}
+  {{- with .OutputFormats.Get "graph" }}{{ $src = .RelPermalink }}{{ end -}}
+{{- end -}}
+
+{{- if $src -}}
+<figure id="{{ $id }}" class="graph graph--{{ $variant }}" data-graph data-graph-variant="{{ $variant }}"
+    data-graph-src="{{ $src }}"{{ with .focus }} data-graph-focus="{{ . }}"{{ end }}
+    {{- if $collapsed }} data-graph-collapsed hidden{{ end }}>
+
+    {{- if eq $variant "explorer" }}
+    <div class="mb-3 flex flex-wrap items-center gap-2" data-graph-toolbar hidden>
+        <div
+            class="flex min-w-0 flex-1 items-center gap-2 rounded-4xl border bg-background px-4 transition-colors focus-within:border-ring">
+            <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="search" data-graph-search aria-label="Filter notes" placeholder="Filter notes and tags …"
+                autocomplete="off" maxlength="64"
+                class="h-10 w-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none">
+        </div>
+
+        <label
+            class="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-4xl border px-3 py-2 text-xs text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground sm:text-sm">
+            <input type="checkbox" data-graph-tags checked
+                class="size-3.5 accent-foreground">
+            Tags
+        </label>
+
+        {{- partial "ui/button.html" (dict
+            "text" "Reset"
+            "variant" "ghost"
+            "size" "sm"
+            "attrs" "data-graph-reset") }}
+    </div>
+    {{- end }}
+
+    <div class="graph__body">
+        {{- /* JS injects the <svg> here. Empty and zero-height until then, so a
+               page with JS off has no blank box and no layout shift. */}}
+        <div class="graph__stage" data-graph-stage
+            {{ with .label }}aria-label="{{ . }}"{{ end }}></div>
+
+        {{- if eq $variant "explorer" }}
+        {{- /* aria-live so selecting a node is announced rather than silently
+               swapping content out from under a screen reader. */}}
+        <aside class="graph__panel" data-graph-panel aria-live="polite" hidden></aside>
+        {{- end }}
+    </div>
+
+    <p class="graph__status" data-graph-status hidden></p>
+
+    {{- $legend := ne $variant "mini" }}
+    {{- if isset . "legend" }}{{ $legend = .legend }}{{ end }}
+    {{- if $legend }}{{ partial "graph/legend.html" . }}{{ end }}
+</figure>
+{{- end -}}

@@ -1,0 +1,33 @@
+{{- /* Link render hook.
+
+   Its only job beyond Goldmark's default is note references: inside
+   content/notes/, a destination that is a bare token — `[the pty note](pty)` —
+   resolves to that note's URL. Anything with a scheme, slash, dot or hash fails
+   the pattern and falls through to the default anchor, so every existing link on
+   the site renders exactly as it did before this hook existed.
+
+   Scoped to the notes section deliberately: a bare-token destination in a blog
+   post keeps its literal meaning rather than being silently rewritten.
+
+   The [[wikilink]] form cannot be handled here — Goldmark never parses it as a
+   link — so it is post-processed in _partials/graph/wikilinks.html instead. */ -}}
+
+{{- $dest := .Destination -}}
+{{- $isNoteRef := and
+      (eq .Page.Section "notes")
+      (findRE `^[a-z0-9][a-z0-9-]*$` $dest) -}}
+
+{{- if $isNoteRef -}}
+  {{- $topo := partialCached "graph/topology.html" .Page "notes-topology" -}}
+  {{- $slug := lower $dest -}}
+  {{- with index $topo.bySlug $slug -}}
+    <a class="note-ref" href="{{ .RelPermalink }}" data-note="{{ $slug }}">{{ $.Text | safeHTML }}</a>
+  {{- else -}}
+    {{- /* Rendered as a span, not a dead anchor — a broken note reference should
+           be visible to the author but not clickable to a reader. The build
+           warning comes from graph/topology.html, which sees the same target. */ -}}
+    <span class="note-ref note-ref--broken" title="Unresolved note: {{ $slug }}">{{ $.Text | safeHTML }}</span>
+  {{- end -}}
+{{- else -}}
+  <a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- end -}}

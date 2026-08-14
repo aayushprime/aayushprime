@@ -1,0 +1,10 @@
+{{- /* Reduces [[slug]] / [[slug|label]] to just its label in a plain-text string.
+
+   Context is the string. Returns the string.
+
+   Wikilinks are resolved in the page template, after Markdown rendering, so
+   anything derived from .Summary or .Plain — the search index, JSON-LD, meta
+   descriptions, list excerpts — still holds the raw `[[…]]` source. Piping it
+   through here keeps that syntax out of text meant for humans and machines that
+   are not the note page itself. */ -}}
+{{- return (replaceRE `\[\[\s*([^\[\]|]*\|)?\s*([^\[\]]+?)\s*\]\]` "${2}" (. | string)) -}}
