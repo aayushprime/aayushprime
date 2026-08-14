@@ -1,7 +1,7 @@
 ---
 title: "Thoughts on AI"
 date: 2026-08-01T20:19:12+0545
-draft: false 
+draft: true
 searchHidden: false
 ShowBreadCrumbs: true 
 ShowToc: false
