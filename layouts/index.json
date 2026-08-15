@@ -1,15 +1,20 @@
-{{- $.Scratch.Add "index" slice -}}
+{{- /* A plain slice, not .Scratch. .Scratch is attached to the home Page and
+       survives `hugo server`'s incremental rebuilds, so `Scratch.Add` kept
+       appending another full copy of every page on each rebuild — search then
+       listed every hit 3-4 times locally while one-shot builds looked fine.
+       Same accumulation idiom as notes/section.graph.json. */ -}}
+{{- $index := slice -}}
 {{- range site.RegularPages -}}
-    {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
-    {{- /* RelPermalink so search results navigate within whatever origin is
-           serving the site, not the configured baseURL. */ -}}
-    {{- /* graph/plain.html keeps raw [[wikilink]] syntax out of search results —
-           notes resolve those in the page template, so .Plain still has them. */ -}}
-    {{- $.Scratch.Add "index" (dict
-        "title" .Title
-        "content" (partial "graph/plain.html" .Plain)
-        "permalink" .RelPermalink
-        "summary" (partial "graph/plain.html" .Summary)) -}}
-    {{- end }}
+    {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) -}}
+        {{- /* RelPermalink so search results navigate within whatever origin is
+               serving the site, not the configured baseURL. */ -}}
+        {{- /* graph/plain.html keeps raw [[wikilink]] syntax out of search results —
+               notes resolve those in the page template, so .Plain still has them. */ -}}
+        {{- $index = $index | append (dict
+            "title" .Title
+            "content" (partial "graph/plain.html" .Plain)
+            "permalink" .RelPermalink
+            "summary" (partial "graph/plain.html" .Summary)) -}}
+    {{- end -}}
 {{- end -}}
-{{- $.Scratch.Get "index" | jsonify -}}
+{{- $index | jsonify -}}
