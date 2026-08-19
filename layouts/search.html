@@ -19,9 +19,6 @@
                     placeholder="{{ .Params.placeholder | default (printf "%s …" .Title) }}" aria-label="search"
                     type="search" autocomplete="off" maxlength="64"
                     class="h-11 w-full flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none">
-                <span class="hidden shrink-0 items-center gap-1 sm:inline-flex">
-                    {{ partial "ui/kbd.html" "Alt" }}{{ partial "ui/kbd.html" "/" }}
-                </span>
             </div>
 
             {{- /* §11.8 hairline rows: the divider sits on the container. */}}

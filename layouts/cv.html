@@ -1,0 +1,44 @@
+{{- /* /cv/ serves the Typst-built PDF (static/cv/cv.pdf, `make -C cv compile`)
+       rather than a hand-maintained HTML copy, so there is only one CV to keep
+       current. The page frames it: header, actions, then the embed. */}}
+{{- define "main" }}
+{{- $pdf := "cv/cv.pdf" | absURL }}
+<div class="flex w-full flex-1 flex-col gap-16 mt-16">
+    <section class="flex w-full flex-col gap-6">
+        {{- partial "ui/section-header.html" (dict
+            "title" .Title
+            "description" (.Description | plainify)
+            "level" "h1") }}
+
+        <div class="flex flex-wrap items-center gap-2">
+            {{- partial "ui/button.html" (dict
+                "text" "Download PDF"
+                "href" $pdf
+                "attrs" "download=\"aayush-lamichhane-cv.pdf\"") }}
+            {{- partial "ui/button.html" (dict
+                "text" "Open in new tab"
+                "href" $pdf
+                "variant" "outline"
+                "external" true) }}
+        </div>
+
+        {{- /* aspect-[17/22] is us-letter, matching cv.typ's page setup, so the
+               single page renders whole and the reader scrolls the document
+               instead of a nested viewport.
+
+               Hidden below sm: mobile browsers hand <object> off to a plugin
+               stub or a blank frame rather than rendering it, so small screens
+               get the buttons above and nothing broken. */}}
+        <div class="hidden overflow-hidden border bg-muted sm:block">
+            <object data="{{ $pdf }}" type="application/pdf" title="{{ .Title }}"
+                class="block aspect-[17/22] w-full">
+                {{- /* Shown only when the browser cannot render the PDF inline. */}}
+                <div class="flex h-full flex-col items-center justify-center gap-3 p-6 text-center">
+                    <p class="text-sm text-muted-foreground">Your browser can&rsquo;t display the PDF inline.</p>
+                    {{- partial "ui/button.html" (dict "text" "Download PDF" "href" $pdf "size" "sm") }}
+                </div>
+            </object>
+        </div>
+    </section>
+</div>
+{{- end }}

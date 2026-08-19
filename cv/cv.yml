@@ -47,9 +47,11 @@ work:
         startDate: 2023-04-01
         endDate: 2024-01-01
         highlights:
-          - Sustained 99.99% uptime across production APIs on the Site Reliability team by leading on-call incident response, improving alerting coverage, and debugging production failures.
-          - Built Terraform-based infrastructure to provision ephemeral, isolated per-developer environments, eliminating shared-cluster conflicts and reducing testing iteration time by an estimated ~40–50%.
-          - Deployed and operated microservices on Kubernetes with Celery for distributed, asynchronous task processing.
+          - Developed a disaster recovery automation script to streamline recovery procedures and improve operational resilience.
+          - Built an API performance monitoring tool to track endpoint performance and identify potential bottlenecks.
+          - Built Terraform-based infrastructure to provision ephemeral, isolated per-developer environments, eliminating shared-cluster conflicts and reducing testing iteration time by an estimated 40–50%.
+          - Deployed and operated micro-services on Kubernetes with Celery for distributed, asynchronous document processing.
+          - Redesigned the logging and tracing infrastructure to enable end-to-end request tracing across services and follow an action through its entire lifecycle.
           - Investigated recurring production outages caused by Redis saturation and lack of failover, and implemented a Redis Sentinel-based architecture to improve high availability and prevent cache-related downtime.
 
 projects:
@@ -121,6 +123,7 @@ skills:
       - REST APIs
       - WebSockets
       - Celery
+      - Postgres
   - category: DevOps & Cloud
     skills:
       - Docker
