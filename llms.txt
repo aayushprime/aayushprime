@@ -1,5 +1,6 @@
 # aayushprime
 - [About](https://lamichhaneaayush.com.np/about/)
+- [CV](https://lamichhaneaayush.com.np/cv/)
 
 ## Posts
 - [Personalized language learning tool](https://lamichhaneaayush.com.np/posts/language-learning-tool/)
