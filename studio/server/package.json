@@ -1,0 +1,29 @@
+{
+  "name": "studio-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false --ignore \"**/.vite-temp/**\" --ignore \"**/node_modules/**\" src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5",
+    "node-pty": "^0.10.1",
+    "vite": "^8.2.0",
+    "ws": "^8.21.3",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

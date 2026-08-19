@@ -1,0 +1,9 @@
+packages:
+  - server
+  - client
+
+# node-pty compiles a native addon and esbuild fetches a binary on install.
+# pnpm blocks build scripts by default; both of these genuinely need to run.
+allowBuilds:
+  esbuild: true
+  node-pty: true
