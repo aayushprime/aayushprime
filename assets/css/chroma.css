@@ -10,82 +10,100 @@
  *
  * Regenerate the token blocks with:
  *   hugo gen chromastyles --style=github
+ *       (each selector prefixed `:where(html:not(.dark)) ` — see below)
  *   hugo gen chromastyles --style=github-dark   (each selector prefixed `.dark `)
+ *
+ * Both prefixes are load-bearing: the two palettes do not cover the same set
+ * of token classes, so an unprefixed rule from one theme silently paints the
+ * other. `python3 docs/tests/chroma-contrast.py` re-checks that after any
+ * regeneration.
  */
 
-/* ---------- light tokens (github) ---------- */
-/* Background */ .bg { background-color:#f7f7f7; }
-/* PreWrapper */ .chroma { background-color:#f7f7f7;-webkit-text-size-adjust:none; }
-/* Error */ .chroma .err { color:#f6f8fa;background-color:#82071e }
-/* LineLink */ .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
-/* LineTableTD */ .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
-/* LineTable */ .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
-/* LineHighlight */ .chroma .hl { background-color:#dedede }
-/* LineNumbersTable */ .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
-/* LineNumbers */ .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
-/* Line */ .chroma .line { display:flex; }
-/* Keyword */ .chroma .k { color:#cf222e }
-/* KeywordConstant */ .chroma .kc { color:#cf222e }
-/* KeywordDeclaration */ .chroma .kd { color:#cf222e }
-/* KeywordNamespace */ .chroma .kn { color:#cf222e }
-/* KeywordPseudo */ .chroma .kp { color:#cf222e }
-/* KeywordReserved */ .chroma .kr { color:#cf222e }
-/* KeywordType */ .chroma .kt { color:#cf222e }
-/* NameAttribute */ .chroma .na { color:#1f2328 }
-/* NameClass */ .chroma .nc { color:#1f2328 }
-/* NameConstant */ .chroma .no { color:#0550ae }
-/* NameDecorator */ .chroma .nd { color:#0550ae }
-/* NameEntity */ .chroma .ni { color:#6639ba }
-/* NameLabel */ .chroma .nl { color:#900;font-weight:bold }
-/* NameNamespace */ .chroma .nn { color:#24292e }
-/* NameOther */ .chroma .nx { color:#1f2328 }
-/* NameTag */ .chroma .nt { color:#0550ae }
-/* NameBuiltin */ .chroma .nb { color:#6639ba }
-/* NameBuiltinPseudo */ .chroma .bp { color:#6a737d }
-/* NameVariable */ .chroma .nv { color:#953800 }
-/* NameVariableClass */ .chroma .vc { color:#953800 }
-/* NameVariableGlobal */ .chroma .vg { color:#953800 }
-/* NameVariableInstance */ .chroma .vi { color:#953800 }
-/* NameVariableMagic */ .chroma .vm { color:#953800 }
-/* NameFunction */ .chroma .nf { color:#6639ba }
-/* NameFunctionMagic */ .chroma .fm { color:#6639ba }
-/* LiteralString */ .chroma .s { color:#0a3069 }
-/* LiteralStringAffix */ .chroma .sa { color:#0a3069 }
-/* LiteralStringBacktick */ .chroma .sb { color:#0a3069 }
-/* LiteralStringChar */ .chroma .sc { color:#0a3069 }
-/* LiteralStringDelimiter */ .chroma .dl { color:#0a3069 }
-/* LiteralStringDoc */ .chroma .sd { color:#0a3069 }
-/* LiteralStringDouble */ .chroma .s2 { color:#0a3069 }
-/* LiteralStringEscape */ .chroma .se { color:#0a3069 }
-/* LiteralStringHeredoc */ .chroma .sh { color:#0a3069 }
-/* LiteralStringInterpol */ .chroma .si { color:#0a3069 }
-/* LiteralStringOther */ .chroma .sx { color:#0a3069 }
-/* LiteralStringRegex */ .chroma .sr { color:#0a3069 }
-/* LiteralStringSingle */ .chroma .s1 { color:#0a3069 }
-/* LiteralStringSymbol */ .chroma .ss { color:#032f62 }
-/* LiteralNumber */ .chroma .m { color:#0550ae }
-/* LiteralNumberBin */ .chroma .mb { color:#0550ae }
-/* LiteralNumberFloat */ .chroma .mf { color:#0550ae }
-/* LiteralNumberHex */ .chroma .mh { color:#0550ae }
-/* LiteralNumberInteger */ .chroma .mi { color:#0550ae }
-/* LiteralNumberIntegerLong */ .chroma .il { color:#0550ae }
-/* LiteralNumberOct */ .chroma .mo { color:#0550ae }
-/* Operator */ .chroma .o { color:#0550ae }
-/* OperatorWord */ .chroma .ow { color:#0550ae }
-/* Punctuation */ .chroma .p { color:#1f2328 }
-/* Comment */ .chroma .c { color:#57606a }
-/* CommentHashbang */ .chroma .ch { color:#57606a }
-/* CommentMultiline */ .chroma .cm { color:#57606a }
-/* CommentSingle */ .chroma .c1 { color:#57606a }
-/* CommentSpecial */ .chroma .cs { color:#57606a }
-/* CommentPreproc */ .chroma .cp { color:#57606a }
-/* CommentPreprocFile */ .chroma .cpf { color:#57606a }
-/* GenericDeleted */ .chroma .gd { color:#82071e;background-color:#ffebe9 }
-/* GenericEmph */ .chroma .ge { color:#1f2328 }
-/* GenericInserted */ .chroma .gi { color:#116329;background-color:#dafbe1 }
-/* GenericOutput */ .chroma .go { color:#1f2328 }
-/* GenericUnderline */ .chroma .gl { text-decoration:underline }
-/* TextWhitespace */ .chroma .w { color:#fff }
+/* ---------- light tokens (github) ----------
+ *
+ * Scoped to light mode. github-dark defines fewer token classes than github —
+ * Punctuation, NameBuiltin, NameAttribute, NameBuiltinPseudo and GenericEmph
+ * are left to inherit its #e6edf3 base. Unscoped, the near-black github values
+ * below won the cascade in dark mode instead, so brackets, SQL types and TS
+ * identifiers rendered at ~1.1:1 against --code and disappeared.
+ *
+ * :where() contributes zero specificity, so each selector keeps the exact
+ * weight `hugo gen chromastyles` emitted: `.dark` rules still override it, and
+ * the chrome block at the foot of this file still overrides the palette's
+ * background. Regenerated output can be pasted back in with the prefix added.
+ */
+/* Background */ :where(html:not(.dark)) .bg { background-color:#f7f7f7; }
+/* PreWrapper */ :where(html:not(.dark)) .chroma { background-color:#f7f7f7;-webkit-text-size-adjust:none; }
+/* Error */ :where(html:not(.dark)) .chroma .err { color:#f6f8fa;background-color:#82071e }
+/* LineLink */ :where(html:not(.dark)) .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
+/* LineTableTD */ :where(html:not(.dark)) .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
+/* LineTable */ :where(html:not(.dark)) .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
+/* LineHighlight */ :where(html:not(.dark)) .chroma .hl { background-color:#dedede }
+/* LineNumbersTable */ :where(html:not(.dark)) .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+/* LineNumbers */ :where(html:not(.dark)) .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+/* Line */ :where(html:not(.dark)) .chroma .line { display:flex; }
+/* Keyword */ :where(html:not(.dark)) .chroma .k { color:#cf222e }
+/* KeywordConstant */ :where(html:not(.dark)) .chroma .kc { color:#cf222e }
+/* KeywordDeclaration */ :where(html:not(.dark)) .chroma .kd { color:#cf222e }
+/* KeywordNamespace */ :where(html:not(.dark)) .chroma .kn { color:#cf222e }
+/* KeywordPseudo */ :where(html:not(.dark)) .chroma .kp { color:#cf222e }
+/* KeywordReserved */ :where(html:not(.dark)) .chroma .kr { color:#cf222e }
+/* KeywordType */ :where(html:not(.dark)) .chroma .kt { color:#cf222e }
+/* NameAttribute */ :where(html:not(.dark)) .chroma .na { color:#1f2328 }
+/* NameClass */ :where(html:not(.dark)) .chroma .nc { color:#1f2328 }
+/* NameConstant */ :where(html:not(.dark)) .chroma .no { color:#0550ae }
+/* NameDecorator */ :where(html:not(.dark)) .chroma .nd { color:#0550ae }
+/* NameEntity */ :where(html:not(.dark)) .chroma .ni { color:#6639ba }
+/* NameLabel */ :where(html:not(.dark)) .chroma .nl { color:#900;font-weight:bold }
+/* NameNamespace */ :where(html:not(.dark)) .chroma .nn { color:#24292e }
+/* NameOther */ :where(html:not(.dark)) .chroma .nx { color:#1f2328 }
+/* NameTag */ :where(html:not(.dark)) .chroma .nt { color:#0550ae }
+/* NameBuiltin */ :where(html:not(.dark)) .chroma .nb { color:#6639ba }
+/* NameBuiltinPseudo */ :where(html:not(.dark)) .chroma .bp { color:#6a737d }
+/* NameVariable */ :where(html:not(.dark)) .chroma .nv { color:#953800 }
+/* NameVariableClass */ :where(html:not(.dark)) .chroma .vc { color:#953800 }
+/* NameVariableGlobal */ :where(html:not(.dark)) .chroma .vg { color:#953800 }
+/* NameVariableInstance */ :where(html:not(.dark)) .chroma .vi { color:#953800 }
+/* NameVariableMagic */ :where(html:not(.dark)) .chroma .vm { color:#953800 }
+/* NameFunction */ :where(html:not(.dark)) .chroma .nf { color:#6639ba }
+/* NameFunctionMagic */ :where(html:not(.dark)) .chroma .fm { color:#6639ba }
+/* LiteralString */ :where(html:not(.dark)) .chroma .s { color:#0a3069 }
+/* LiteralStringAffix */ :where(html:not(.dark)) .chroma .sa { color:#0a3069 }
+/* LiteralStringBacktick */ :where(html:not(.dark)) .chroma .sb { color:#0a3069 }
+/* LiteralStringChar */ :where(html:not(.dark)) .chroma .sc { color:#0a3069 }
+/* LiteralStringDelimiter */ :where(html:not(.dark)) .chroma .dl { color:#0a3069 }
+/* LiteralStringDoc */ :where(html:not(.dark)) .chroma .sd { color:#0a3069 }
+/* LiteralStringDouble */ :where(html:not(.dark)) .chroma .s2 { color:#0a3069 }
+/* LiteralStringEscape */ :where(html:not(.dark)) .chroma .se { color:#0a3069 }
+/* LiteralStringHeredoc */ :where(html:not(.dark)) .chroma .sh { color:#0a3069 }
+/* LiteralStringInterpol */ :where(html:not(.dark)) .chroma .si { color:#0a3069 }
+/* LiteralStringOther */ :where(html:not(.dark)) .chroma .sx { color:#0a3069 }
+/* LiteralStringRegex */ :where(html:not(.dark)) .chroma .sr { color:#0a3069 }
+/* LiteralStringSingle */ :where(html:not(.dark)) .chroma .s1 { color:#0a3069 }
+/* LiteralStringSymbol */ :where(html:not(.dark)) .chroma .ss { color:#032f62 }
+/* LiteralNumber */ :where(html:not(.dark)) .chroma .m { color:#0550ae }
+/* LiteralNumberBin */ :where(html:not(.dark)) .chroma .mb { color:#0550ae }
+/* LiteralNumberFloat */ :where(html:not(.dark)) .chroma .mf { color:#0550ae }
+/* LiteralNumberHex */ :where(html:not(.dark)) .chroma .mh { color:#0550ae }
+/* LiteralNumberInteger */ :where(html:not(.dark)) .chroma .mi { color:#0550ae }
+/* LiteralNumberIntegerLong */ :where(html:not(.dark)) .chroma .il { color:#0550ae }
+/* LiteralNumberOct */ :where(html:not(.dark)) .chroma .mo { color:#0550ae }
+/* Operator */ :where(html:not(.dark)) .chroma .o { color:#0550ae }
+/* OperatorWord */ :where(html:not(.dark)) .chroma .ow { color:#0550ae }
+/* Punctuation */ :where(html:not(.dark)) .chroma .p { color:#1f2328 }
+/* Comment */ :where(html:not(.dark)) .chroma .c { color:#57606a }
+/* CommentHashbang */ :where(html:not(.dark)) .chroma .ch { color:#57606a }
+/* CommentMultiline */ :where(html:not(.dark)) .chroma .cm { color:#57606a }
+/* CommentSingle */ :where(html:not(.dark)) .chroma .c1 { color:#57606a }
+/* CommentSpecial */ :where(html:not(.dark)) .chroma .cs { color:#57606a }
+/* CommentPreproc */ :where(html:not(.dark)) .chroma .cp { color:#57606a }
+/* CommentPreprocFile */ :where(html:not(.dark)) .chroma .cpf { color:#57606a }
+/* GenericDeleted */ :where(html:not(.dark)) .chroma .gd { color:#82071e;background-color:#ffebe9 }
+/* GenericEmph */ :where(html:not(.dark)) .chroma .ge { color:#1f2328 }
+/* GenericInserted */ :where(html:not(.dark)) .chroma .gi { color:#116329;background-color:#dafbe1 }
+/* GenericOutput */ :where(html:not(.dark)) .chroma .go { color:#1f2328 }
+/* GenericUnderline */ :where(html:not(.dark)) .chroma .gl { text-decoration:underline }
+/* TextWhitespace */ :where(html:not(.dark)) .chroma .w { color:#fff }
 
 /* ---------- dark tokens (github-dark) ---------- */
 /* Background */ .dark .bg { color:#e6edf3;background-color:#0d1117; }
@@ -112,6 +130,7 @@
 /* NameException */ .dark .chroma .ne { color:#f0883e;font-weight:bold }
 /* NameLabel */ .dark .chroma .nl { color:#79c0ff;font-weight:bold }
 /* NameNamespace */ .dark .chroma .nn { color:#ff7b72 }
+/* NameOther */ .dark .chroma .nx { color:#e6edf3 }
 /* NameProperty */ .dark .chroma .py { color:#79c0ff }
 /* NameTag */ .dark .chroma .nt { color:#7ee787 }
 /* NameVariable */ .dark .chroma .nv { color:#79c0ff }
@@ -146,6 +165,7 @@
 /* LiteralNumberOct */ .dark .chroma .mo { color:#a5d6ff }
 /* Operator */ .dark .chroma .o { color:#ff7b72;font-weight:bold }
 /* OperatorWord */ .dark .chroma .ow { color:#ff7b72;font-weight:bold }
+/* OperatorReserved */ .dark .chroma .or { color:#ff7b72;font-weight:bold }
 /* Comment */ .dark .chroma .c { color:#8b949e;font-style:italic }
 /* CommentHashbang */ .dark .chroma .ch { color:#8b949e;font-style:italic }
 /* CommentMultiline */ .dark .chroma .cm { color:#8b949e;font-style:italic }
@@ -253,6 +273,23 @@
   height: 100%;
   content: "";
   background-color: color-mix(in oklch, var(--muted-foreground) 50%, transparent);
+}
+
+/* Error tokens render as ordinary code.
+ *
+ * Chroma emits Error for valid syntax its lexers cannot model. The TypeScript
+ * lexer has no type-level grammar inside `<…>`, so both of these are flagged:
+ *   function f<T = string>()   generic parameter default
+ *   Foo<A | B>                 union inside a type argument list
+ * github's light palette paints Error white-on-#82071e, which makes correct
+ * code read as broken; github-dark uses a red foreground. Neither is a
+ * trustworthy error signal here, so both are dropped in favour of the
+ * inherited code colour. `inherit` tracks each theme's foreground on its own.
+ */
+.highlight .err,
+.dark .highlight .err {
+  color: inherit;
+  background-color: transparent;
 }
 
 /* §7: JetBrains Mono's =>/!= ligatures must not fire in code. */
