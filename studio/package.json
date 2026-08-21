@@ -5,6 +5,7 @@
   "description": "Local content editor for the Hugo site. Writes markdown into ../content and previews it through a supervised hugo server.",
   "scripts": {
     "dev": "pnpm --filter studio-server dev",
+    "stop": "pnpm --filter studio-server stop",
     "test": "pnpm --filter studio-server test",
     "typecheck": "pnpm --filter studio-server typecheck && pnpm --filter studio-client typecheck"
   },

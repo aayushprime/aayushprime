@@ -50,7 +50,7 @@ class ImageWidget extends WidgetType {
     wrap.className = "cm-image";
 
     const img = document.createElement("img");
-    img.src = toPreviewUrl(this.url);
+    img.src = this.url;
     img.alt = this.alt;
     // A missing image should look missing rather than collapse to nothing.
     img.onerror = () => wrap.classList.add("cm-image--broken");
@@ -90,16 +90,6 @@ class BulletWidget extends WidgetType {
     dot.textContent = this.marker;
     return dot;
   }
-}
-
-/**
- * Site-absolute image paths are served by Hugo, which the editor proxies at
- * /preview. Anything already absolute or external is left alone.
- */
-function toPreviewUrl(url: string): string {
-  if (/^[a-z]+:/i.test(url) || url.startsWith("data:")) return url;
-  if (url.startsWith("/")) return `/preview${url}`;
-  return url;
 }
 
 /** Line numbers the selection touches; these render as source. */

@@ -2,3 +2,4 @@ node_modules/
 dist/
 *.local
 .hugo-studio.pid
+.hugo.log

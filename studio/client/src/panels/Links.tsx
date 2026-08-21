@@ -99,7 +99,7 @@ export function Images({ page }: { page: Page }) {
       <div class="image-grid">
         {page.images.map((img) => (
           <figure key={img.filename}>
-            <img src={`/preview${img.url}`} alt={img.filename} loading="lazy" />
+            <img src={img.url} alt={img.filename} loading="lazy" />
             <figcaption>
               <span class="image-name" title={img.filename}>
                 {img.filename}

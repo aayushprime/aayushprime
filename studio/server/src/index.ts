@@ -1,5 +1,3 @@
-import { execFileSync } from "node:child_process";
-import { readFileSync, rmSync, writeFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, resolve } from "node:path";
@@ -8,47 +6,17 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import { WebSocketServer } from "ws";
 import { createApi } from "./api.ts";
-import { HUGO_PORT, loadConfig, PORT } from "./config.ts";
+import { HUGO_BIND, HUGO_PORT, loadConfig, LOG_FILE, PID_FILE, PORT } from "./config.ts";
 import { ContentIndex } from "./content/index.ts";
-import { Hugo, PREVIEW_PATH } from "./hugo.ts";
+import { Hugo } from "./hugo.ts";
 import { createPtyServer } from "./pty.ts";
+import { EDITOR_PATH, isEditorPath } from "./routes.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const CLIENT_ROOT = resolve(here, "../../client");
-const PID_FILE = resolve(here, "../../.hugo-studio.pid");
 
-/**
- * Kill a Hugo left behind by a previous run that was SIGKILLed.
- *
- * The pid is verified to still be Hugo before anything is signalled — pids get
- * reused, and killing an unrelated process would be a far worse bug than
- * leaving a stray server running.
- */
-function reapStaleHugo(): void {
-  let pid: number;
-  try {
-    pid = Number(readFileSync(PID_FILE, "utf8").trim());
-  } catch {
-    return;
-  }
-
-  if (!Number.isInteger(pid) || pid <= 1) return;
-
-  try {
-    const comm = execFileSync("ps", ["-p", String(pid), "-o", "comm="], {
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
-    }).trim();
-    if (comm.includes("hugo")) {
-      process.kill(pid, "SIGTERM");
-      console.log(`studio: reaped stale hugo (pid ${pid})`);
-    }
-  } catch {
-    // No such process, which is the common case.
-  } finally {
-    rmSync(PID_FILE, { force: true });
-  }
-}
+/** Hugo's own LiveReload socket, which the mirror has to carry. */
+const LIVERELOAD_PATH = "/livereload";
 
 async function main(): Promise<void> {
   const cfg = loadConfig();
@@ -58,32 +26,31 @@ async function main(): Promise<void> {
   await index.scan();
   console.log(`studio: indexed ${index.all().length} pages`);
 
-  reapStaleHugo();
-  const hugo = new Hugo(cfg, PORT, HUGO_PORT);
+  const hugo = new Hugo(cfg, {
+    port: HUGO_PORT,
+    bind: HUGO_BIND,
+    editorPort: PORT,
+    pidFile: PID_FILE,
+    logFile: LOG_FILE,
+  });
 
   const app = express();
   const server = createServer(app);
 
-  app.use("/api", createApi(cfg, index, hugo));
+  // Everything below is ordered by who owns the URL. The editor claims one
+  // prefix; Hugo gets the entire rest of the port, unaltered, so a page reached
+  // through the editor and the same page reached directly on Hugo's own port
+  // are the same bytes at the same paths.
+  app.use(`${EDITOR_PATH}/api`, createApi(cfg, index, hugo));
 
   // The site's own webfonts, so the editor sets text in the same faces the
-  // published page does. Served directly rather than through the preview proxy
-  // so the editor still reads correctly when Hugo is down.
-  app.use("/fonts", express.static(resolve(cfg.staticDir, "fonts"), { maxAge: "1h" }));
+  // published page does. Served from static/ directly rather than through the
+  // mirror so the editor still reads correctly when Hugo is down.
+  app.use(`${EDITOR_PATH}/fonts`, express.static(resolve(cfg.staticDir, "fonts"), { maxAge: "1h" }));
 
-  // Mounted at the root rather than at PREVIEW_PATH on purpose: app.use(path)
-  // strips the prefix before the handler sees it, and Hugo is serving *under*
-  // that prefix because its baseURL says so. Passing the URL through unaltered
-  // is what keeps the proxy free of path rewriting.
-  const preview = hugo.middleware();
-  app.use((req, res, next) => {
-    const isPreview = req.url === PREVIEW_PATH || req.url.startsWith(`${PREVIEW_PATH}/`);
-    if (isPreview) preview(req, res, next);
-    else next();
-  });
-
-  // Vite owns everything the API and the preview did not claim, and its HMR
-  // websocket rides on the same server so the whole editor is one port.
+  // Vite is configured with EDITOR_PATH as its base, so it answers for its own
+  // assets under that prefix and calls next() for everything else. Its HMR
+  // websocket rides on the same server, so the whole editor is one port.
   const vite = await createViteServer({
     configFile: resolve(CLIENT_ROOT, "vite.config.ts"),
     // Node 24 imports TypeScript directly, so the config needs no esbuild
@@ -92,20 +59,23 @@ async function main(): Promise<void> {
     // loop that reloads the config and writes the file again.
     configLoader: "native",
     root: CLIENT_ROOT,
-    // "custom" rather than "spa": the SPA fallback would answer every unmatched
-    // path with index.html, including requests for site assets that belong to
-    // Hugo. The shell is served explicitly below, after those have had a turn.
+    // "custom" rather than "spa": the SPA fallback would answer unmatched
+    // paths with index.html, and every unmatched path here belongs to Hugo.
     appType: "custom",
     server: { middlewareMode: true, hmr: { server } },
   });
   app.use(vite.middlewares);
 
-  // Site assets the theme emitted without the /preview prefix, which Vite just
-  // declined to serve.
-  app.use(hugo.assetFallback());
-
-  // Everything else is the editor itself.
+  // The editor shell, for any path under the prefix that Vite did not claim.
+  // Tested against originalUrl because Vite's base middleware has by now
+  // stripped the prefix from req.url.
   app.use(async (req, res, next) => {
+    if (!isEditorPath(req.originalUrl)) return next();
+
+    // The shell resolves its assets relative to the prefix, which needs the
+    // trailing slash to mean "directory".
+    if (req.originalUrl === EDITOR_PATH) return res.redirect(302, `${EDITOR_PATH}/`);
+
     try {
       const template = await readFile(resolve(CLIENT_ROOT, "index.html"), "utf8");
       const html = await vite.transformIndexHtml(req.originalUrl, template);
@@ -115,6 +85,9 @@ async function main(): Promise<void> {
       next(err);
     }
   });
+
+  // Everything else is the site.
+  app.use(hugo.mirror());
 
   const pty = createPtyServer(cfg.root);
   const events = new WebSocketServer({ noServer: true });
@@ -133,15 +106,18 @@ async function main(): Promise<void> {
     ws.send(JSON.stringify({ type: "hugo", ...hugo.getStatus() }));
   });
 
-  // Route our own websockets by path and leave everything else to Vite, which
-  // attached its own upgrade handler for HMR.
+  // Route our own websockets by path, hand Hugo's LiveReload to the mirror,
+  // and leave everything else to Vite, which attached its own upgrade handler
+  // for HMR.
   server.on("upgrade", (req, socket, head) => {
     const { pathname } = new URL(req.url ?? "/", "http://localhost");
 
-    if (pathname === "/ws/pty") {
+    if (pathname === `${EDITOR_PATH}/ws/pty`) {
       pty.handleUpgrade(req, socket, head, (ws) => pty.emit("connection", ws, req));
-    } else if (pathname === "/ws/events") {
+    } else if (pathname === `${EDITOR_PATH}/ws/events`) {
       events.handleUpgrade(req, socket, head, (ws) => events.emit("connection", ws, req));
+    } else if (pathname === LIVERELOAD_PATH) {
+      hugo.upgrade(req, socket, head);
     }
   });
 
@@ -154,18 +130,18 @@ async function main(): Promise<void> {
   });
 
   server.listen(PORT, () => {
-    console.log(`studio: http://localhost:${PORT}`);
+    console.log(`studio: editor http://localhost:${PORT}${EDITOR_PATH}/`);
+    console.log(`studio: site   http://localhost:${HUGO_PORT}/ (mirrored on ${PORT})`);
     hugo.start();
-    const pid = hugo.pid();
-    if (pid) writeFileSync(PID_FILE, String(pid));
   });
 
   let closing = false;
   const shutdown = () => {
     if (closing) return;
     closing = true;
-    hugo.stop();
-    rmSync(PID_FILE, { force: true });
+    // Hugo is deliberately left running: the pid file it is recorded in is
+    // what lets the next studio adopt it instead of rebuilding from cold.
+    hugo.detach();
     void index.close();
     void vite.close();
     server.close(() => process.exit(0));
@@ -175,7 +151,6 @@ async function main(): Promise<void> {
 
   process.on("SIGINT", shutdown);
   process.on("SIGTERM", shutdown);
-  process.on("exit", () => hugo.stop());
 }
 
 main().catch((err: unknown) => {

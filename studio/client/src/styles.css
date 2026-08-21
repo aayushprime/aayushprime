@@ -8,6 +8,10 @@
 
 /*
  * The site's own webfonts, served by studio/server straight from static/fonts.
+ *
+ * Under the editor's own prefix (EDITOR_PATH in server/src/routes.ts), because
+ * the rest of this origin is a mirror of Hugo. CSS cannot read Vite's base, so
+ * this is the one place that prefix is written out by hand.
  * Loading the real faces is what lets the editor set text the way the page
  * will: assets/css/main.css maps --font-sans to Space Grotesk and --font-mono
  * to JetBrains Mono.
@@ -17,7 +21,7 @@
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url("/fonts/space-grotesk-latin-var.woff2") format("woff2");
+  src: url("/__studio/fonts/space-grotesk-latin-var.woff2") format("woff2");
 }
 
 @font-face {
@@ -25,7 +29,7 @@
   font-style: normal;
   font-weight: 100 800;
   font-display: swap;
-  src: url("/fonts/jetbrains-mono-latin-var.woff2") format("woff2");
+  src: url("/__studio/fonts/jetbrains-mono-latin-var.woff2") format("woff2");
 }
 
 :root {

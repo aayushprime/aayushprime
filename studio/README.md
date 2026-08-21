@@ -8,11 +8,50 @@ studio only produces the files Hugo builds from.
 
 ```
 pnpm install
-pnpm dev          # http://localhost:4000
+pnpm dev          # editor: http://localhost:4000/__studio/
+                  # site:   http://localhost:1313/
+pnpm stop         # stop the hugo server it leaves running
 ```
 
 One command starts everything: the editor UI, the content API, a shell, and a
-`hugo server` child that the editor proxies at `/preview`.
+`hugo server`.
+
+## Two addresses for one Hugo
+
+`hugo server` runs with no `--baseURL`, so port 1313 is an ordinary, browsable
+Hugo — open it, share it on your network, read the site on your phone. There is
+no second Hugo to start, which matters: a preview-only baseURL used to make 1313
+useless, so you would start your own `hugo server` alongside it, and one run of
+that under `sudo` leaves root-owned files in `public/` that block every later
+build.
+
+Port 4000 is the editor. It claims exactly one prefix — `/__studio` — and
+mirrors Hugo, verbatim and unprefixed, on everything else. A slug cannot begin
+with an underscore, so the split can never collide with a page. The mirror is
+what makes the preview frame same-origin, which is what lets the editor script
+it at all; a cross-origin frame is an opaque rectangle.
+
+Two things are rewritten on the way through, both the editor's business rather
+than the site's: the editor's own scroll-keeping script is injected, and
+LiveReload's port is repointed at the mirror — Hugo answers 403 to a LiveReload
+socket whose `Origin` and `Host` disagree, so the frame has to dial the address
+it was served from. The published site carries no trace of either.
+
+`--renderToMemory` is passed as well, so no build — the studio's or one of your
+own — ever writes `public/` again.
+
+## Hugo outlives the editor
+
+The server is spawned detached and recorded in `.hugo-studio.pid` with the flags
+it was started under. Restart the studio and it adopts that process instead of
+paying for a cold rebuild; the dev watcher restarts on every source edit, so
+this is the common case, not the rare one. A server whose flags no longer match
+is replaced rather than adopted.
+
+Its output goes to `.hugo.log` rather than a pipe, because a pipe dies with its
+parent. The editor tails that file, which is how a build error reaches the UI —
+and how the state of an adopted server is recovered rather than guessed. Since
+nothing kills it on exit, `pnpm stop` is how it ends.
 
 ## What it does
 
@@ -31,7 +70,9 @@ One command starts everything: the editor UI, the content API, a shell, and a
 - **Wikilinks** — `[[` completes over note titles and slugs, and a backlinks
   panel shows what points here.
 - **Tag manager** — rename or merge a tag across every file that carries it.
-- **Real preview** — the actual Hugo render, with your theme, reloaded on save.
+- **Real preview** — the actual Hugo render, with your theme. LiveReload
+  refreshes it when a build finishes, so it also follows changes the editor
+  never saw: a layout edited in the terminal pane, or a `git checkout`.
 - **Terminal** — a shell in the site root, which is where you commit and push.
 
 ## Keys
@@ -111,7 +152,9 @@ seconds of staleness rather than lasting until restart.
 server/src/
   index.ts        bootstrap: config → hugo → routes → listen
   config.ts       site root, ports, section and field definitions
-  hugo.ts         spawn, supervise, proxy, asset fallback
+  routes.ts       the one prefix the editor owns; everything else is Hugo
+  hugo.ts         spawn detached, adopt, tail the log, mirror the site
+  stop.ts         end the server the editor left running
   pty.ts          terminal bridge
   api.ts          HTTP routes
   content/
@@ -137,16 +180,18 @@ correspondence; everything that touches both trees goes through it.
 | --- | --- |
 | `STUDIO_PORT` | `4000` |
 | `STUDIO_HUGO_PORT` | `1313` |
+| `STUDIO_HUGO_BIND` | `127.0.0.1` — set `0.0.0.0` to read the site from your phone |
 | `STUDIO_SITE_ROOT` | the repository root |
 | `STUDIO_SHELL` | `$SHELL` |
 
 ## Tests
 
 ```
-pnpm test         # 100 tests
+pnpm test         # 112 tests
 ```
 
 They cover the operations that can lose work — frontmatter round-tripping, path
 mapping, link extraction, rename, tag edits, image collisions — against a
-temporary fixture site. The UI is checked by hand; a single-user local editor
+temporary fixture site, plus the two decisions that broke once: the flags Hugo
+is started with, and which URLs belong to the editor rather than the site. The UI is checked by hand; a single-user local editor
 does not earn a browser suite, but the file operations underneath it do.

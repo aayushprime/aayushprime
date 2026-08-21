@@ -43,9 +43,12 @@
             </div>
         </div>
 
+        {{- /* Notes only, so the legend goes too: its two entries are a note and
+               a tag, and one swatch saying a dot is a note earns nothing. */}}
         {{- partial "graph/mount.html" (dict
             "variant" "preview"
-            "label" "Graph of every note and tag") }}
+            "legend" false
+            "label" "Graph of every note") }}
 
     </section>
     {{- end }}

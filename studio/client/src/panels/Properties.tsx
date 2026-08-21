@@ -147,7 +147,7 @@ function CoverField({ page, def }: { page: Page; def: FieldDef }) {
       ) : (
         <div class="cover-set">
           <button class="cover-thumb" onClick={() => setOpen(!open)} title={value}>
-            <img src={`/preview${value}`} alt="" />
+            <img src={value} alt="" />
           </button>
           <button class="cover-clear" onClick={clear} title="Remove cover">
             ✕
@@ -170,7 +170,7 @@ function CoverField({ page, def }: { page: Page; def: FieldDef }) {
                     onClick={() => choose(img.url)}
                     title={img.filename}
                   >
-                    <img src={`/preview${img.url}`} alt="" loading="lazy" />
+                    <img src={img.url} alt="" loading="lazy" />
                   </button>
                 ))}
               </div>

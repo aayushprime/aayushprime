@@ -95,12 +95,13 @@ export function initExplorer(mount, index) {
     tagsToggle.addEventListener('change', () => renderer.setTagsVisible(tagsToggle.checked));
   }
 
+  renderer.setTagsVisible(false);
   if (resetButton) {
     resetButton.addEventListener('click', () => {
       if (search) search.value = '';
-      if (tagsToggle) tagsToggle.checked = true;
+      if (tagsToggle) tagsToggle.checked = false;
       renderer.setFilter('');
-      renderer.setTagsVisible(true);
+      renderer.setTagsVisible(false);
       renderer.resetView();
       clear();
       layout.reheat(0.5);

@@ -2,6 +2,7 @@ import { FitAddon } from "@xterm/addon-fit";
 import { Terminal as Xterm } from "@xterm/xterm";
 import "@xterm/xterm/css/xterm.css";
 import { useEffect, useRef } from "preact/hooks";
+import { BASE } from "../lib/api.ts";
 
 /**
  * A shell in the site root.
@@ -37,7 +38,7 @@ export function Terminal({ visible }: { visible: boolean }) {
     fitAddon.fit();
 
     const proto = location.protocol === "https:" ? "wss" : "ws";
-    const socket = new WebSocket(`${proto}://${location.host}/ws/pty`);
+    const socket = new WebSocket(`${proto}://${location.host}${BASE}ws/pty`);
 
     const sendResize = () => {
       if (socket.readyState !== WebSocket.OPEN) return;

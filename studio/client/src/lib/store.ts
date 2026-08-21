@@ -1,5 +1,5 @@
 import { computed, signal } from "@preact/signals";
-import { api } from "./api.ts";
+import { api, BASE } from "./api.ts";
 import type {
   HugoStatus,
   Page,
@@ -21,9 +21,6 @@ export type SaveState = "idle" | "saving" | "saved" | "error";
 
 /** How long typing has to pause before the file is written. */
 const AUTOSAVE_MS = 600;
-
-/** Hugo needs a beat to rebuild before the preview is worth reloading. */
-const PREVIEW_REBUILD_MS = 500;
 
 /**
  * Interface preferences, kept in localStorage so the editor opens the way it
@@ -106,7 +103,6 @@ export const sections = computed(() => config.value?.sections ?? []);
 let bodyDraft: string | null = null;
 let savedBody = "";
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
-let previewTimer: ReturnType<typeof setTimeout> | null = null;
 
 export function currentBody(): string {
   return bodyDraft ?? current.value?.body ?? "";
@@ -191,7 +187,6 @@ export async function flushSave(): Promise<void> {
     dirty.value = bodyDraft !== savedBody;
     saveState.value = "saved";
     saveError.value = null;
-    schedulePreviewReload();
   } catch (err) {
     saveState.value = "error";
     saveError.value = err instanceof Error ? err.message : String(err);
@@ -219,16 +214,10 @@ export async function saveFields(fields: Record<string, unknown>): Promise<void>
     saveError.value = null;
     void refreshPages();
     void refreshTags();
-    schedulePreviewReload();
   } catch (err) {
     saveState.value = "error";
     saveError.value = err instanceof Error ? err.message : String(err);
   }
-}
-
-function schedulePreviewReload(): void {
-  if (previewTimer) clearTimeout(previewTimer);
-  previewTimer = setTimeout(() => previewNonce.value++, PREVIEW_REBUILD_MS);
 }
 
 export function reloadPreview(): void {
@@ -243,7 +232,7 @@ export function setInserter(fn: (text: string) => void): void {
 }
 
 export function connectEvents(): () => void {
-  const url = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/events`;
+  const url = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}${BASE}ws/events`;
   let socket: WebSocket | null = null;
   let retry: ReturnType<typeof setTimeout> | null = null;
   let closed = false;

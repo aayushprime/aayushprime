@@ -176,3 +176,18 @@ export function loadConfig(root: string = process.env.STUDIO_SITE_ROOT ?? defaul
 
 export const PORT = Number(process.env.STUDIO_PORT ?? 4000);
 export const HUGO_PORT = Number(process.env.STUDIO_HUGO_PORT ?? 1313);
+
+/** Records the running Hugo, so the next studio adopts it instead of rebuilding. */
+export const PID_FILE = resolve(dirname(fileURLToPath(import.meta.url)), "../../.hugo-studio.pid");
+
+/** Hugo's stdout and stderr. Tailed for the build log the editor shows. */
+export const LOG_FILE = resolve(dirname(fileURLToPath(import.meta.url)), "../../.hugo.log");
+
+/**
+ * What Hugo binds to.
+ *
+ * Loopback by default, as Hugo's own default is. Set this to 0.0.0.0 to read
+ * the site from a phone on the same network — the point of giving Hugo a
+ * normal baseURL is that doing so actually works.
+ */
+export const HUGO_BIND = process.env.STUDIO_HUGO_BIND ?? "127.0.0.1";

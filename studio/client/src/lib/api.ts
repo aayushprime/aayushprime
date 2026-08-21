@@ -11,9 +11,17 @@ import type {
   TagEdit,
 } from "./types.ts";
 
+/**
+ * Where the editor's own routes live.
+ *
+ * Vite's base, which the server sets from EDITOR_PATH. Everything outside it
+ * on this origin is the mirrored site, so the prefix is not optional.
+ */
+export const BASE = import.meta.env.BASE_URL;
+
 /** The server reports failures as `{ error }`; surface that rather than a status code. */
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`/api${path}`, init);
+  const res = await fetch(`${BASE}api${path}`, init);
 
   if (!res.ok) {
     let message = `${res.status} ${res.statusText}`;

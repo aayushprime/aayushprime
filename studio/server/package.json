@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch --clear-screen=false --ignore \"**/.vite-temp/**\" --ignore \"**/node_modules/**\" src/index.ts",
+    "stop": "tsx src/stop.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
