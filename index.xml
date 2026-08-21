@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 21 Aug 2026 22:38:52 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>Making stickman animation in Blender</title><link>https://lamichhaneaayush.com.np/posts/making-stickman-animation-in-blender/</link><pubDate>Fri, 21 Aug 2026 22:38:52 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/making-stickman-animation-in-blender/</guid><description>&lt;p&gt;I made a short animation!&lt;/p&gt;
-&lt;p&gt;Simplest possible setup. I create a few Grease pencil objects. Add keyframes to them.
-For speech I use &lt;a href="https://aistudio.google.com/generate-speech"&gt;google ai studio&lt;/a&gt;.&lt;br&gt;
-For sound I use ElevenLabs (haven&amp;rsquo;t run out of the free credits yet.)&lt;/p&gt;
-&lt;p&gt;Few Gotchas.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;I kept on copying keyframes from one grease pencil layer to another (super confusing); cmd+c and cmd+v only in the intended layer!&lt;/li&gt;
-&lt;li&gt;Audio settings are in the property panel. Added a &lt;code&gt;fadeIn&lt;/code&gt; modifier, and decreased volume but dont know how to add &lt;code&gt;fadeIn&lt;/code&gt; to the decreased volume yet.&lt;/li&gt;
-&lt;li&gt;Render settings has include audio set to None. Make sure to add it otherwise rendering might be wasted.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;So the final animation is &lt;a href="https://www.youtube.com/@moderndaygenie/shorts"&gt;here&lt;/a&gt;
-Hey just like the Chinese Movie thats going viral maybe these will as well (for being bad at animation).&lt;/p&gt;</description></item><item><title>Custom Thenable</title><link>https://lamichhaneaayush.com.np/notes/custom-thenable/</link><pubDate>Thu, 20 Aug 2026 16:44:56 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/custom-thenable/</guid><description>&lt;figure data-not-typeset data-language="ts"
+&lt;p&gt;Simplest possible setup. I create a few Grease pencil objects. Add keyframes to them. Then to not animate all the keyframes, and make it look like animation and not a still picture, I add a noise modifier to the grease pencil object. The result is a line boil effect.&lt;/p&gt;
+&lt;p&gt;For speech I use &lt;a href="https://aistudio.google.com/generate-speech"&gt;google ai studio&lt;/a&gt;.&lt;br&gt;
+For sound I use ElevenLabs (haven&amp;rsquo;t run out of the free credits yet.)&lt;/p&gt;</description></item><item><title>Custom Thenable</title><link>https://lamichhaneaayush.com.np/notes/custom-thenable/</link><pubDate>Thu, 20 Aug 2026 16:44:56 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/custom-thenable/</guid><description>&lt;figure data-not-typeset data-language="ts"
 class="group/code relative mt-6 -mx-1 overflow-hidden rounded-xl bg-code text-code-foreground"&gt;
 &lt;button type="button" data-copy-code aria-label="Copy code"
 class="absolute top-3 right-2 z-10 inline-flex size-7 shrink-0 items-center justify-center rounded-4xl border border-transparent bg-code bg-clip-padding text-muted-foreground opacity-0 outline-none transition-[background-color,color,opacity] hover:bg-muted hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 group-hover/code:opacity-100 [&amp;_svg]:size-3.5"&gt;
