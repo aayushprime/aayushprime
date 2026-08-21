@@ -3,6 +3,7 @@
 - [CV](https://lamichhaneaayush.com.np/cv/)
 
 ## Posts
+- [Making stickman animation in Blender](https://lamichhaneaayush.com.np/posts/making-stickman-animation-in-blender/)
 - [Personalized language learning tool](https://lamichhaneaayush.com.np/posts/language-learning-tool/)
 - [Flashing AOSP on my old phone](https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/)
 - [Reflections on two years on the industry.](https://lamichhaneaayush.com.np/posts/reflections-on-two-years/)
@@ -17,6 +18,7 @@
 - [First](https://lamichhaneaayush.com.np/posts/first/)
 
 ## Notes
+- [Custom Thenable](https://lamichhaneaayush.com.np/notes/custom-thenable/)
 - [Basic Postgres](https://lamichhaneaayush.com.np/notes/postgres-internals/)
 - [Recursive CTE](https://lamichhaneaayush.com.np/notes/recursive-cte/)
 - [recover() only works in the panicking goroutine](https://lamichhaneaayush.com.np/notes/panic-recover/)
