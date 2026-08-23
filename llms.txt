@@ -2,6 +2,20 @@
 - [About](https://lamichhaneaayush.com.np/about/)
 - [CV](https://lamichhaneaayush.com.np/cv/)
 
+## Notes
+- [Anxious People Book Review](https://lamichhaneaayush.com.np/notes/anxious-people-book-review/)
+- [Custom Thenable](https://lamichhaneaayush.com.np/notes/custom-thenable/)
+- [Basic Postgres](https://lamichhaneaayush.com.np/notes/postgres-internals/)
+- [Recursive CTE](https://lamichhaneaayush.com.np/notes/recursive-cte/)
+- [recover() only works in the panicking goroutine](https://lamichhaneaayush.com.np/notes/panic-recover/)
+- [Why this site's colours are oklch](https://lamichhaneaayush.com.np/notes/oklch/)
+- [Atomic notes](https://lamichhaneaayush.com.np/notes/zettelkasten/)
+- [Force-directed layouts](https://lamichhaneaayush.com.np/notes/force-layouts/)
+- [Snippet plugin design](https://lamichhaneaayush.com.np/notes/tmux-snippets/)
+- [xterm.js in the browser](https://lamichhaneaayush.com.np/notes/xterm-js/)
+- [tmux is a server, not a wrapper](https://lamichhaneaayush.com.np/notes/tmux/)
+- [Pseudoterminals](https://lamichhaneaayush.com.np/notes/pty/)
+
 ## Posts
 - [Making stickman animation in Blender](https://lamichhaneaayush.com.np/posts/making-stickman-animation-in-blender/)
 - [Personalized language learning tool](https://lamichhaneaayush.com.np/posts/language-learning-tool/)
@@ -16,16 +30,3 @@
 - [Google Sheets as Database?](https://lamichhaneaayush.com.np/posts/google-sheets/)
 - [String Bug](https://lamichhaneaayush.com.np/posts/string-bug/)
 - [First](https://lamichhaneaayush.com.np/posts/first/)
-
-## Notes
-- [Custom Thenable](https://lamichhaneaayush.com.np/notes/custom-thenable/)
-- [Basic Postgres](https://lamichhaneaayush.com.np/notes/postgres-internals/)
-- [Recursive CTE](https://lamichhaneaayush.com.np/notes/recursive-cte/)
-- [recover() only works in the panicking goroutine](https://lamichhaneaayush.com.np/notes/panic-recover/)
-- [Why this site's colours are oklch](https://lamichhaneaayush.com.np/notes/oklch/)
-- [Atomic notes](https://lamichhaneaayush.com.np/notes/zettelkasten/)
-- [Force-directed layouts](https://lamichhaneaayush.com.np/notes/force-layouts/)
-- [Snippet plugin design](https://lamichhaneaayush.com.np/notes/tmux-snippets/)
-- [xterm.js in the browser](https://lamichhaneaayush.com.np/notes/xterm-js/)
-- [tmux is a server, not a wrapper](https://lamichhaneaayush.com.np/notes/tmux/)
-- [Pseudoterminals](https://lamichhaneaayush.com.np/notes/pty/)
