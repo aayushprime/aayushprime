@@ -2,6 +2,22 @@
 - [About](https://lamichhaneaayush.com.np/about/)
 - [CV](https://lamichhaneaayush.com.np/cv/)
 
+## Posts
+- [Designing E2E encrypted financial application: The technical side.](https://lamichhaneaayush.com.np/posts/designing-e2e-encrypted-financial-application-the-technical-side/)
+- [Making stickman animation in Blender](https://lamichhaneaayush.com.np/posts/making-stickman-animation-in-blender/)
+- [Personalized language learning tool](https://lamichhaneaayush.com.np/posts/language-learning-tool/)
+- [Flashing AOSP on my old phone](https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/)
+- [Reflections on two years on the industry.](https://lamichhaneaayush.com.np/posts/reflections-on-two-years/)
+- [Cloudflare Tunnels: Expose your local server to the internet.](https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/)
+- [Why is my Golang server (not) crashing?](https://lamichhaneaayush.com.np/posts/golang-silent-panic/)
+- [Tmux Snippets (take your commands with you everywhere!)](https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/)
+- [Where are my bits getting lost?](https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/)
+- [Python: Solving slow eval](https://lamichhaneaayush.com.np/posts/solveeval/)
+- [Why does my drive mount as read only?](https://lamichhaneaayush.com.np/posts/fstab-problem/)
+- [Google Sheets as Database?](https://lamichhaneaayush.com.np/posts/google-sheets/)
+- [String Bug](https://lamichhaneaayush.com.np/posts/string-bug/)
+- [First](https://lamichhaneaayush.com.np/posts/first/)
+
 ## Notes
 - [Async Local Storage in Node.JS](https://lamichhaneaayush.com.np/notes/async-local-storage-in-node-js/)
 - [Anxious People Book Review](https://lamichhaneaayush.com.np/notes/anxious-people-book-review/)
@@ -18,18 +34,3 @@
 - [xterm.js in the browser](https://lamichhaneaayush.com.np/notes/xterm-js/)
 - [tmux is a server, not a wrapper](https://lamichhaneaayush.com.np/notes/tmux/)
 - [Pseudoterminals](https://lamichhaneaayush.com.np/notes/pty/)
-
-## Posts
-- [Making stickman animation in Blender](https://lamichhaneaayush.com.np/posts/making-stickman-animation-in-blender/)
-- [Personalized language learning tool](https://lamichhaneaayush.com.np/posts/language-learning-tool/)
-- [Flashing AOSP on my old phone](https://lamichhaneaayush.com.np/posts/flashing-aosp-on-my-old-phone/)
-- [Reflections on two years on the industry.](https://lamichhaneaayush.com.np/posts/reflections-on-two-years/)
-- [Cloudflare Tunnels: Expose your local server to the internet.](https://lamichhaneaayush.com.np/posts/cloudflare-tunnels/)
-- [Why is my Golang server (not) crashing?](https://lamichhaneaayush.com.np/posts/golang-silent-panic/)
-- [Tmux Snippets (take your commands with you everywhere!)](https://lamichhaneaayush.com.np/posts/tmux-snippets-plugin/)
-- [Where are my bits getting lost?](https://lamichhaneaayush.com.np/posts/snowflake-max-int-problem/)
-- [Python: Solving slow eval](https://lamichhaneaayush.com.np/posts/solveeval/)
-- [Why does my drive mount as read only?](https://lamichhaneaayush.com.np/posts/fstab-problem/)
-- [Google Sheets as Database?](https://lamichhaneaayush.com.np/posts/google-sheets/)
-- [String Bug](https://lamichhaneaayush.com.np/posts/string-bug/)
-- [First](https://lamichhaneaayush.com.np/posts/first/)
