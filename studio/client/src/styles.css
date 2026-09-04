@@ -35,19 +35,27 @@
 :root {
   --bg: #14161c;
   --bg-sunken: #101218;
-  --bg-raised: #1b1e26;
-  --bg-hover: #22262f;
+  --bg-raised: #21252e;
+  --bg-hover: #2e333f;
 
   --fg: #c9ced9;
   --fg-bright: #eef1f6;
-  --fg-dim: #7d8494;
-  --fg-faint: #5a606e;
+  --fg-dim: #9aa1b1;
+  --fg-faint: #7f8698;
 
-  --border: #262a34;
-  --border-strong: #343a47;
+  --border: #3d4453;
+  --border-strong: #5b6274;
 
   --accent: #7aa2f7;
   --accent-soft: #7aa2f71f;
+  /*
+   * Solid accent buttons carry near-black ink, so their fill is a lighter step
+   * than --accent itself: #7aa2f7 only reaches 7.5:1 against that ink, and the
+   * hover step has to climb rather than wash out.
+   */
+  --accent-fill: #9ab8fa;
+  --accent-fill-hover: #bdd0fc;
+  --on-accent: #0a0d13;
   --danger: #f7768e;
   --ok: #9ece6a;
   --warn: #e0af68;
@@ -61,7 +69,7 @@
   --syn-constant: #ff9e64;
   --syn-type: #2ac3de;
   --syn-operator: #89ddff;
-  --syn-comment: #5a606e;
+  --syn-comment: #7f8698;
   --syn-string: #9ece6a;
 
   --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -190,15 +198,21 @@ code {
 }
 
 .btn--primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #0f1116;
+  background: var(--accent-fill);
+  border-color: var(--accent-fill);
+  color: var(--on-accent);
   font-weight: 600;
 }
 
+/*
+ * An explicit lighter fill, not filter: brightness(). A filter lightens the
+ * label along with the background, which is exactly the wrong direction for a
+ * dark-on-light button.
+ */
 .btn--primary:hover {
-  filter: brightness(1.1);
-  color: #0f1116;
+  background: var(--accent-fill-hover);
+  border-color: var(--accent-fill-hover);
+  color: var(--on-accent);
 }
 
 .btn--danger {
@@ -694,6 +708,15 @@ code {
   border-bottom: 1px solid var(--border);
   font-size: 12px;
   color: var(--fg-dim);
+}
+
+/* Stands in for .doc-meta until the page has a file, keeping the same rhythm. */
+.doc-pending {
+  margin: 10px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--fg-faint);
 }
 
 .meta-item {

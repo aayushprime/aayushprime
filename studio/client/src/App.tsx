@@ -149,6 +149,9 @@ export function App() {
 
   const page = current.value;
   const section = sections.value.find((s) => s.name === page?.section);
+  // Preview, links and images all address the page by its path, so they have
+  // nothing to show until it has one.
+  const onDisk = page && page.slug !== "" ? page : null;
 
   if (view.value === "tags") {
     return (
@@ -184,12 +187,14 @@ export function App() {
           </button>
 
           <div class="top-bar-id">
-            {page ? (
+            {!page ? (
+              <code class="muted">studio</code>
+            ) : page.slug === "" ? (
+              <code class="muted">content/{page.section}/…</code>
+            ) : (
               <code>
                 content/{page.section}/{page.slug}.md
               </code>
-            ) : (
-              <code class="muted">studio</code>
             )}
             {page?.draft && <span class="badge">draft</span>}
           </div>
@@ -242,15 +247,15 @@ export function App() {
 
         <div class="dock-body">
           <div class="dock-pane" hidden={tab !== "preview"}>
-            {page ? <Preview page={page} /> : <p class="empty">Open a page to preview it.</p>}
+            {onDisk ? <Preview page={onDisk} /> : <p class="empty">Open a page to preview it.</p>}
           </div>
 
           <div class="dock-pane" hidden={tab !== "links"}>
-            {page ? <Links page={page} /> : <p class="empty">Open a page to see its links.</p>}
+            {onDisk ? <Links page={onDisk} /> : <p class="empty">Open a page to see its links.</p>}
           </div>
 
           <div class="dock-pane" hidden={tab !== "images"}>
-            {page ? <Images page={page} /> : <p class="empty">Open a page to see its images.</p>}
+            {onDisk ? <Images page={onDisk} /> : <p class="empty">Open a page to see its images.</p>}
           </div>
 
           <div class="dock-pane dock-pane--fill" hidden={tab !== "terminal"}>

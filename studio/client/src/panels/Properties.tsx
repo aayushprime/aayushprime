@@ -97,7 +97,8 @@ export function TagEditor({
 /** Tags live at the end of the document, where you reach for them last. */
 export function TagFooter({ page, section }: { page: Page; section: SectionDef }) {
   const def = section.fields.find((f) => f.slot === "tags");
-  if (!def) return null;
+  // Tags cannot be written before the page has a file to write them into.
+  if (!def || page.slug === "") return null;
 
   const value = page.fields[def.key];
 
@@ -300,9 +301,18 @@ export function DocHeader({ page, section }: { page: Page; section: SectionDef }
             onCommit={(v) => commitFields(titleDef.key, v)}
           />
         )}
-        {coverDef && <CoverField page={page} def={coverDef} />}
+        {coverDef && page.slug !== "" && <CoverField page={page} def={coverDef} />}
       </div>
 
+      {/*
+       * A page with no file yet has no archetype defaults to show, and guessing
+       * them would only have the real values snap in over the guesses a moment
+       * later. The title box keeps its place so typing into it is not
+       * interrupted when the file does appear.
+       */}
+      {page.slug === "" ? (
+        <p class="doc-pending">Not saved yet — give it a title, or just start writing.</p>
+      ) : (
       <div class="doc-meta">
         {dateDef && (
           <label class="meta-item" title="Publication date">
@@ -354,6 +364,7 @@ export function DocHeader({ page, section }: { page: Page; section: SectionDef }
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }

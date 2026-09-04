@@ -1,31 +1,29 @@
 import { api } from "./api.ts";
-import { askConfirm, askText, slugify, validateSlug } from "./dialogs.ts";
-import { current, openPage, refreshPages, refreshTags, setFilter, filter } from "./store.ts";
+import { askConfirm, askText, validateSlug } from "./dialogs.ts";
+import {
+  current,
+  filter,
+  openDraft,
+  openPage,
+  refreshPages,
+  refreshTags,
+  setFilter,
+} from "./store.ts";
 import type { PageSummary, SectionName } from "./types.ts";
 
-/** What a new page in this section is called, in prose. */
-function noun(section: SectionName): string {
-  return section === "posts" ? "post" : "note";
-}
-
+/**
+ * Open an empty page in this section.
+ *
+ * Nothing is asked for and nothing is written yet: the file appears on the
+ * first thing worth saving, named after the title if one has been typed by
+ * then and `untitled` if the body got there first. See materialize() in
+ * store.ts.
+ */
 export async function createIn(section: SectionName): Promise<void> {
-  const title = await askText({
-    title: `New ${noun(section)}`,
-    label: "Title",
-    initial: "",
-    confirmLabel: "Create",
-    validate: (v) => (v.trim() === "" ? "A title is required" : null),
-  });
-  if (title === null) return;
-
-  const slug = slugify(title);
-  if (validateSlug(slug) !== null) return;
-
-  await api.createPage(section, slug, title);
-  // Show the section the new page landed in, or it would be created into a
-  // list that is filtered to something else and appear to have vanished.
+  // Show the section the new page will land in, or it is composed against a
+  // list that is filtered to something else and appears to have vanished.
   setFilter({ ...filter.value, section, draft: undefined, q: undefined });
-  await openPage(section, slug);
+  await openDraft(section);
 }
 
 export async function duplicatePage(page: PageSummary): Promise<void> {

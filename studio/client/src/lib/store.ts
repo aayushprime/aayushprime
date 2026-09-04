@@ -1,5 +1,6 @@
 import { computed, signal } from "@preact/signals";
 import { api, BASE } from "./api.ts";
+import { slugify, validateSlug } from "./dialogs.ts";
 import type {
   HugoStatus,
   Page,
@@ -138,6 +139,107 @@ export async function openPage(section: SectionName, slug: string): Promise<void
   saveError.value = null;
 }
 
+/**
+ * Whether the open page is still only a buffer.
+ *
+ * `slug: ""` is the marker for a page with no file yet. createIn opens one so
+ * the button lands straight in the editor with nothing to fill in first, and
+ * materialize() writes the file on the first thing worth saving.
+ */
+export const pending = computed(() => current.value?.slug === "");
+
+function blankPage(section: SectionName): Page {
+  return {
+    section,
+    slug: "",
+    title: "",
+    date: null,
+    draft: false,
+    tags: [],
+    mtime: 0,
+    fields: {},
+    frontmatter: "",
+    frontmatterErrors: [],
+    body: "",
+    images: [],
+    backlinks: [],
+    brokenLinks: [],
+    outboundLinks: [],
+    previewUrl: "",
+  };
+}
+
+export async function openDraft(section: SectionName): Promise<void> {
+  await flushSave();
+
+  current.value = blankPage(section);
+  bodyDraft = null;
+  savedBody = "";
+  dirty.value = false;
+  conflict.value = false;
+  saveState.value = "idle";
+  saveError.value = null;
+}
+
+/** Which field carries the page's name, per the section's own definition. */
+function titleKey(section: SectionName): string | null {
+  const def = sections.value.find((s) => s.name === section);
+  return def?.fields.find((f) => f.slot === "title")?.key ?? null;
+}
+
+/**
+ * A free `untitled` slug, for a page whose body was typed before its title.
+ * The sidebar list is filtered, so the section is asked for outright.
+ */
+async function untitledSlug(section: SectionName): Promise<string> {
+  const taken = new Set((await api.pages({ section })).map((p) => p.slug));
+  for (let n = 1; ; n++) {
+    const slug = n === 1 ? "untitled" : `untitled-${n}`;
+    if (!taken.has(slug)) return slug;
+  }
+}
+
+/**
+ * Give the pending page a file.
+ *
+ * Both writers reach this: a title commit names the file after the title, and
+ * a body keystroke that gets there first settles for `untitled`. They share
+ * one in-flight promise, or a title landing at the same moment as an autosave
+ * would create the page twice.
+ */
+let materializing: Promise<Page | null> | null = null;
+
+function materialize(title: string): Promise<Page | null> {
+  materializing ??= write(title).finally(() => {
+    materializing = null;
+  });
+  return materializing;
+}
+
+async function write(title: string): Promise<Page | null> {
+  const draft = current.value;
+  if (!draft) return null;
+  if (draft.slug !== "") return draft;
+
+  const named = title.trim();
+  const slug = named === "" ? await untitledSlug(draft.section) : slugify(named);
+  if (validateSlug(slug) !== null) return null;
+
+  await api.createPage(draft.section, slug, named === "" ? undefined : named);
+  const fresh = await api.page(draft.section, slug);
+
+  // Only the identity is adopted here. The body stays as typed and is written
+  // by whoever called, so the archetype's own body cannot land on top of it.
+  current.value = fresh;
+  savedBody = fresh.body;
+
+  // Show the section it landed in, or the page is created into a list filtered
+  // to something else and appears to have vanished.
+  setFilter({ ...filter.value, section: draft.section, draft: undefined, q: undefined });
+  void refreshTags();
+  return fresh;
+}
+
 export async function reloadCurrent(): Promise<void> {
   const page = current.value;
   if (!page) return;
@@ -175,13 +277,25 @@ export async function flushSave(): Promise<void> {
     saveTimer = null;
   }
 
-  const page = current.value;
+  let page = current.value;
   if (!page || bodyDraft === null || bodyDraft === savedBody) return;
 
   const body = bodyDraft;
   saveState.value = "saving";
 
   try {
+    if (page.slug === "") {
+      // Typed into the body before naming it. Moving from the title box to the
+      // editor blurs it, and blur commits, so by the time this runs the title
+      // really was left empty and `untitled` is the honest name.
+      const made = await materialize(page.title);
+      if (!made) {
+        saveState.value = "idle";
+        return;
+      }
+      page = made;
+    }
+
     await api.saveBody(page.section, page.slug, body);
     savedBody = body;
     dirty.value = bodyDraft !== savedBody;
@@ -194,8 +308,33 @@ export async function flushSave(): Promise<void> {
 }
 
 export async function saveFields(fields: Record<string, unknown>): Promise<void> {
-  const page = current.value;
+  let page = current.value;
   if (!page) return;
+
+  if (page.slug === "") {
+    // The only field a page without a file can offer is its name: the meta row
+    // stays hidden until the archetype has supplied the rest.
+    const key = titleKey(page.section);
+    const name = key && typeof fields[key] === "string" ? (fields[key] as string).trim() : "";
+    // A blurred but untouched title box should not conjure an `untitled` file.
+    if (name === "") return;
+
+    saveState.value = "saving";
+    try {
+      const made = await materialize(name);
+      if (!made) {
+        saveState.value = "idle";
+        return;
+      }
+      page = made;
+    } catch (err) {
+      saveState.value = "error";
+      saveError.value = err instanceof Error ? err.message : String(err);
+      return;
+    }
+    // Fall through: creating the file named it, but an autosave that got here
+    // first would have named it `untitled`, so the title is written either way.
+  }
 
   saveState.value = "saving";
 

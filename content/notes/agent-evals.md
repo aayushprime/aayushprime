@@ -1,7 +1,7 @@
 ---
 title: "Agent Evals"
 date: 2026-08-20T00:54:58+05:45
-draft: true
+draft: false
 searchHidden: false
 # Tags become nodes in the notes graph — a note with no tags and no links shows
 # up as an isolated dot, which is a useful signal that it needs connecting.
