@@ -23,6 +23,16 @@ import {
 
 const HIDDEN = Decoration.replace({});
 
+/*
+ * A just-pasted image is on disk before hugo has finished rebuilding, so the
+ * first request for it can 404 by a few hundred milliseconds — longer the
+ * bigger the file. Without a retry every paste renders as "image not found"
+ * and stays that way, because the widget is only rebuilt when its line is
+ * edited.
+ */
+const IMAGE_RETRIES = 10;
+const IMAGE_RETRY_MS = 400;
+
 class ImageWidget extends WidgetType {
   readonly url: string;
   readonly alt: string;
@@ -50,10 +60,28 @@ class ImageWidget extends WidgetType {
     wrap.className = "cm-image";
 
     const img = document.createElement("img");
-    img.src = this.url;
     img.alt = this.alt;
-    // A missing image should look missing rather than collapse to nothing.
-    img.onerror = () => wrap.classList.add("cm-image--broken");
+
+    // Each retry needs a URL the browser has not already cached a 404 for.
+    let attempt = 0;
+    const load = () => {
+      const sep = this.url.includes("?") ? "&" : "?";
+      img.src = attempt === 0 ? this.url : `${this.url}${sep}reload=${attempt}`;
+    };
+
+    img.onload = () => wrap.classList.remove("cm-image--broken");
+    img.onerror = () => {
+      if (attempt < IMAGE_RETRIES) {
+        attempt += 1;
+        setTimeout(load, IMAGE_RETRY_MS);
+        return;
+      }
+      // Out of retries: a missing image should look missing rather than
+      // collapse to nothing.
+      wrap.classList.add("cm-image--broken");
+    };
+
+    load();
     wrap.appendChild(img);
 
     return wrap;
