@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Memory on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/memory/</link><description>Recent content in Memory on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 20 Aug 2026 01:04:50 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/memory/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent Memory</title><link>https://lamichhaneaayush.com.np/notes/agent-memory/</link><pubDate>Thu, 20 Aug 2026 01:04:50 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-memory/</guid><description>&lt;h3 id="motivation"&gt;Motivation:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Context window is limited.&lt;/li&gt;
+&lt;li&gt;Automatically getting relevant info would also be pretty cool.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There is an external database that stores the relevant information.
+It must support querying, and curating.&lt;/p&gt;
+&lt;p&gt;Some must be never forgotten, some must be forgotten.&lt;/p&gt;
+&lt;p&gt;The important/interesting thing is how curation happens.&lt;/p&gt;
+&lt;p&gt;Quite interesting to realize that &lt;a class="note-ref" href="https://lamichhaneaayush.com.np/notes/agent-evals/" data-note="agent-evals"&gt;evals&lt;/a&gt; must take into account probably a dynamic memory.&lt;/p&gt;</description></item></channel></rss>

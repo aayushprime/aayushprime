@@ -3,8 +3,11 @@
 - [CV](https://lamichhaneaayush.com.np/cv/)
 
 ## Notes
+- [Async Local Storage in Node.JS](https://lamichhaneaayush.com.np/notes/async-local-storage-in-node-js/)
 - [Anxious People Book Review](https://lamichhaneaayush.com.np/notes/anxious-people-book-review/)
 - [Custom Thenable](https://lamichhaneaayush.com.np/notes/custom-thenable/)
+- [Agent Memory](https://lamichhaneaayush.com.np/notes/agent-memory/)
+- [Agent Evals](https://lamichhaneaayush.com.np/notes/agent-evals/)
 - [Basic Postgres](https://lamichhaneaayush.com.np/notes/postgres-internals/)
 - [Recursive CTE](https://lamichhaneaayush.com.np/notes/recursive-cte/)
 - [recover() only works in the panicking goroutine](https://lamichhaneaayush.com.np/notes/panic-recover/)

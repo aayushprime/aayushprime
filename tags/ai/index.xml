@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ai on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/ai/</link><description>Recent content in Ai on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 20 Aug 2026 01:04:50 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent Memory</title><link>https://lamichhaneaayush.com.np/notes/agent-memory/</link><pubDate>Thu, 20 Aug 2026 01:04:50 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-memory/</guid><description>&lt;h3 id="motivation"&gt;Motivation:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Context window is limited.&lt;/li&gt;
+&lt;li&gt;Automatically getting relevant info would also be pretty cool.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There is an external database that stores the relevant information.
+It must support querying, and curating.&lt;/p&gt;
+&lt;p&gt;Some must be never forgotten, some must be forgotten.&lt;/p&gt;
+&lt;p&gt;The important/interesting thing is how curation happens.&lt;/p&gt;
+&lt;p&gt;Quite interesting to realize that &lt;a class="note-ref" href="https://lamichhaneaayush.com.np/notes/agent-evals/" data-note="agent-evals"&gt;evals&lt;/a&gt; must take into account probably a dynamic memory.&lt;/p&gt;</description></item><item><title>Agent Evals</title><link>https://lamichhaneaayush.com.np/notes/agent-evals/</link><pubDate>Thu, 20 Aug 2026 00:54:58 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-evals/</guid><description>&lt;p&gt;notes from &lt;a href="https://www.youtube.com/watch?v=dzVogKf9jIM"&gt;this&lt;/a&gt; short video.&lt;/p&gt;
+&lt;p&gt;We want agents to be reliable.
+Reliability = Observability + Evals&lt;/p&gt;
+&lt;p&gt;Observability means we can see what agent did. What the model response was, what the tool response was.&lt;/p&gt;
+&lt;p&gt;LLM response desired properties:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Relevance: Answer relevance to the user&amp;rsquo;s query&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Groundedness (relates to hallucination as well): uses the particular context provided (as opposed to the generic response)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tool Sequence Accuracy: does not do wasteful tool calls, and follows correct sequence of tool calls&lt;/p&gt;</description></item></channel></rss>
