@@ -9,8 +9,15 @@
 {{- if $headings }}
 <nav id="toc" aria-label="Table of contents" data-toc
     class="fixed z-50 flex items-end gap-2 pointer-events-none right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1.25rem,env(safe-area-inset-bottom))]">
+    {{- /* The radius changes instantly rather than over 300ms. Opening reveals
+           the panel by unsetting `hidden`, so the shell is at its full height
+           immediately while only the radius was transitioning — and since
+           rounded-full is calc(infinity * 1px), interpolating away from it left
+           the tall panel 50%-rounded for most of the transition (still ~2.9e6px
+           at 120ms), with overflow-hidden clipping the rows against the corners.
+           There is no size animation for it to stay in step with anyway. */}}
     <div data-toc-shell data-open="false"
-        class="pointer-events-auto relative origin-bottom-right overflow-hidden rounded-full border bg-background/95 shadow-lg backdrop-blur-xl transition-[border-radius] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] data-[open=true]:rounded-[20px]">
+        class="pointer-events-auto relative origin-bottom-right overflow-hidden rounded-full border bg-background/95 shadow-lg backdrop-blur-xl data-[open=true]:rounded-[20px]">
 
         {{- /* Collapsed pill */}}
         <button type="button" data-toc-toggle accesskey="c" aria-expanded="false" aria-controls="toc-panel"
