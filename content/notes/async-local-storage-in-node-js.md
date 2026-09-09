@@ -5,7 +5,7 @@ draft: false
 searchHidden: false
 # Tags become nodes in the notes graph — a note with no tags and no links shows
 # up as an isolated dot, which is a useful signal that it needs connecting.
-tags: []
+tags: [nodejs, async]
 ---
 
 Say we want to write transactions within transactions. We would like to use the same DB client when calling `client.query` but without the pesky context parameter being passed around to each sub transaction.
