@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Kafka on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/kafka/</link><description>Recent content in Kafka on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 07 Sep 2026 21:34:38 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/kafka/index.xml" rel="self" type="application/rss+xml"/><item><title>AWS Kinesis</title><link>https://lamichhaneaayush.com.np/notes/aws-kinesis/</link><pubDate>Mon, 07 Sep 2026 21:34:38 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/aws-kinesis/</guid><description>&lt;p&gt;Exploring AWS Kinesis for fun.&lt;/p&gt;
+&lt;p&gt;Realtime streaming; ingest, buffer, process
+Think kafka but fully managed, auto scaling.&lt;/p&gt;
+&lt;p&gt;Streams have shards
+Shards are made of records
+&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/notes/aws-kinesis/image.png"&gt;&lt;/p&gt;
+&lt;p&gt;Records have parition key, same partitionkey =&amp;gt; Same shard (just like kafka)&lt;br&gt;
+Max record datablob is 1MB&lt;br&gt;
+Basically,
+MySQL =&amp;gt; AWS RDS,
+Kafka =&amp;gt; AWS Kinesis&lt;/p&gt;
+&lt;p&gt;Two ways to put data into the stream.&lt;br&gt;
+SDK, Kinesis Producer Library(KPL)&lt;br&gt;
+KPL = SDK + Somemore stuff (500 records per call vs SDK&amp;rsquo;s only one per call); only available in Java&lt;/p&gt;</description></item></channel></rss>
