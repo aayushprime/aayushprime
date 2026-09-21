@@ -3,6 +3,7 @@
 - [CV](https://lamichhaneaayush.com.np/cv/)
 
 ## Notes
+- [vlcn.io/cr-sqlite working](https://lamichhaneaayush.com.np/notes/vlcn-io-cr-sqlite-notes/)
 - [AWS Kinesis](https://lamichhaneaayush.com.np/notes/aws-kinesis/)
 - [Async Local Storage in Node.JS](https://lamichhaneaayush.com.np/notes/async-local-storage-in-node-js/)
 - [Anxious People Book Review](https://lamichhaneaayush.com.np/notes/anxious-people-book-review/)
