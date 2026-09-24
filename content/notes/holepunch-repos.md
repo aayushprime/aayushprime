@@ -8,7 +8,6 @@ searchHidden: false
 tags: []
 ---
 
-b4a: JS library for working without `Buffer` by adding methods to the `ArrayBuffer`
-
-bare-events: 
-streamx: 
+- b4a: JS library for working without `Buffer` by adding methods to the `ArrayBuffer`
+- bare-events: events for the 'bare' runtime (alternative node runtime)
+- streamx: stream with better intefaces 

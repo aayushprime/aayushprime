@@ -16,7 +16,7 @@ tags: [agents, ai, memory, graph]
 There is an external database that stores the relevant information.
 It must support querying, and curating.
 
-Some must be never forgotten, some must be forgotten.
+Some must never be forgotten, some must be forgotten.
 
 The important/interesting thing is how curation happens.
 
