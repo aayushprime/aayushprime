@@ -1,11 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Agents on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/agents/</link><description>Recent content in Agents on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 20 Aug 2026 01:04:50 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/agents/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent Memory</title><link>https://lamichhaneaayush.com.np/notes/agent-memory/</link><pubDate>Thu, 20 Aug 2026 01:04:50 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-memory/</guid><description>&lt;h3 id="motivation"&gt;Motivation:&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Agents on aayushprime</title><link>https://lamichhaneaayush.com.np/tags/agents/</link><description>Recent content in Agents on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 23 Sep 2026 01:09:59 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/tags/agents/index.xml" rel="self" type="application/rss+xml"/><item><title>effective ai-agents use</title><link>https://lamichhaneaayush.com.np/notes/notes-for-ai/</link><pubDate>Wed, 23 Sep 2026 01:09:59 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/notes-for-ai/</guid><description>&lt;p&gt;Notes from this &lt;a href="https://x.com/poteto/status/2102050467505430555?s=20"&gt;video&lt;/a&gt;.&lt;br&gt;
+Motivation: build trust in the agent&amp;rsquo;s work&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Custom Tools&lt;/em&gt;: Ask agents to build tools and ask them to use them. (to prevent duplicate work), and build custom tools that even you can run and verify.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Code is Memory&lt;/em&gt;: Enforce strict patterns so that the agent follow them. (make wrong things hard to do). Dont let a wrong patterns spread (like comments everywhere)&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Architecture&lt;/em&gt;: Strict boundaries and conventions about what can run where. Enforce architecture rules strictly. (dont let slow code leak into the hot path)&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>Agent Memory</title><link>https://lamichhaneaayush.com.np/notes/agent-memory/</link><pubDate>Thu, 20 Aug 2026 01:04:50 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-memory/</guid><description>&lt;h3 id="motivation"&gt;Motivation:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Context window is limited.&lt;/li&gt;
 &lt;li&gt;Automatically getting relevant info would also be pretty cool.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;There is an external database that stores the relevant information.
 It must support querying, and curating.&lt;/p&gt;
-&lt;p&gt;Some must be never forgotten, some must be forgotten.&lt;/p&gt;
+&lt;p&gt;Some must never be forgotten, some must be forgotten.&lt;/p&gt;
 &lt;p&gt;The important/interesting thing is how curation happens.&lt;/p&gt;
 &lt;p&gt;Quite interesting to realize that &lt;a class="note-ref" href="https://lamichhaneaayush.com.np/notes/agent-evals/" data-note="agent-evals"&gt;evals&lt;/a&gt; must take into account probably a dynamic memory.&lt;/p&gt;</description></item><item><title>Agent Evals</title><link>https://lamichhaneaayush.com.np/notes/agent-evals/</link><pubDate>Thu, 20 Aug 2026 00:54:58 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-evals/</guid><description>&lt;p&gt;notes from &lt;a href="https://www.youtube.com/watch?v=dzVogKf9jIM"&gt;this&lt;/a&gt; short video.&lt;/p&gt;
 &lt;p&gt;We want agents to be reliable.

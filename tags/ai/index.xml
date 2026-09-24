@@ -5,7 +5,7 @@
 &lt;/ul&gt;
 &lt;p&gt;There is an external database that stores the relevant information.
 It must support querying, and curating.&lt;/p&gt;
-&lt;p&gt;Some must be never forgotten, some must be forgotten.&lt;/p&gt;
+&lt;p&gt;Some must never be forgotten, some must be forgotten.&lt;/p&gt;
 &lt;p&gt;The important/interesting thing is how curation happens.&lt;/p&gt;
 &lt;p&gt;Quite interesting to realize that &lt;a class="note-ref" href="https://lamichhaneaayush.com.np/notes/agent-evals/" data-note="agent-evals"&gt;evals&lt;/a&gt; must take into account probably a dynamic memory.&lt;/p&gt;</description></item><item><title>Agent Evals</title><link>https://lamichhaneaayush.com.np/notes/agent-evals/</link><pubDate>Thu, 20 Aug 2026 00:54:58 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-evals/</guid><description>&lt;p&gt;notes from &lt;a href="https://www.youtube.com/watch?v=dzVogKf9jIM"&gt;this&lt;/a&gt; short video.&lt;/p&gt;
 &lt;p&gt;We want agents to be reliable.

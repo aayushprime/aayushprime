@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 21 Sep 2026 16:18:59 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>vlcn.io/cr-sqlite working</title><link>https://lamichhaneaayush.com.np/notes/vlcn-io-cr-sqlite-notes/</link><pubDate>Mon, 21 Sep 2026 16:18:59 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/vlcn-io-cr-sqlite-notes/</guid><description>&lt;p&gt;It is a sqlite extension built for multiple platforms.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 24 Sep 2026 15:39:15 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>Voice Agents</title><link>https://lamichhaneaayush.com.np/notes/voice-agents/</link><pubDate>Thu, 24 Sep 2026 15:39:15 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/voice-agents/</guid><description>&lt;h1 id="asr-automatic-speech-recognition"&gt;ASR (automatic speech recognition)&lt;/h1&gt;
+&lt;p&gt;We need one model to convert mic input -&amp;gt; text (for llm)
+Voice Activity Detection (VAD) -&amp;gt; is the mic input even voice?&lt;/p&gt;
+&lt;p&gt;Cut waveforms into frames
+Frames =&amp;gt; Mel Spectrogram
+Spectrogram =&amp;gt; Audio tokens =&amp;gt; transformer/model&lt;/p&gt;
+&lt;p&gt;We only hear 8kHz or less. So Nyquist critirion, means 2x8 = 16kHz
+In practice, we assume 20kHz hearing limit, and a small buffer for audio filters to work so record upto 2x20 + 4.1 = 44.1kHz&lt;/p&gt;</description></item><item><title>effective ai-agents use</title><link>https://lamichhaneaayush.com.np/notes/notes-for-ai/</link><pubDate>Wed, 23 Sep 2026 01:09:59 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/notes-for-ai/</guid><description>&lt;p&gt;Notes from this &lt;a href="https://x.com/poteto/status/2102050467505430555?s=20"&gt;video&lt;/a&gt;.&lt;br&gt;
+Motivation: build trust in the agent&amp;rsquo;s work&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Custom Tools&lt;/em&gt;: Ask agents to build tools and ask them to use them. (to prevent duplicate work), and build custom tools that even you can run and verify.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Code is Memory&lt;/em&gt;: Enforce strict patterns so that the agent follow them. (make wrong things hard to do). Dont let a wrong patterns spread (like comments everywhere)&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Architecture&lt;/em&gt;: Strict boundaries and conventions about what can run where. Enforce architecture rules strictly. (dont let slow code leak into the hot path)&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>vlcn.io/cr-sqlite working</title><link>https://lamichhaneaayush.com.np/notes/vlcn-io-cr-sqlite-notes/</link><pubDate>Mon, 21 Sep 2026 16:18:59 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/vlcn-io-cr-sqlite-notes/</guid><description>&lt;p&gt;It is a sqlite extension built for multiple platforms.
 written in rust, uses a C layer to make rust work.&lt;/p&gt;
 &lt;figure data-not-typeset data-language="core/"
 class="group/code relative mt-6 -mx-1 overflow-hidden rounded-xl bg-code text-code-foreground"&gt;
@@ -276,7 +289,7 @@ They are using custom promise objects (that can be awaited) to batch (over the n
 &lt;/ul&gt;
 &lt;p&gt;There is an external database that stores the relevant information.
 It must support querying, and curating.&lt;/p&gt;
-&lt;p&gt;Some must be never forgotten, some must be forgotten.&lt;/p&gt;
+&lt;p&gt;Some must never be forgotten, some must be forgotten.&lt;/p&gt;
 &lt;p&gt;The important/interesting thing is how curation happens.&lt;/p&gt;
 &lt;p&gt;Quite interesting to realize that &lt;a class="note-ref" href="https://lamichhaneaayush.com.np/notes/agent-evals/" data-note="agent-evals"&gt;evals&lt;/a&gt; must take into account probably a dynamic memory.&lt;/p&gt;</description></item><item><title>Agent Evals</title><link>https://lamichhaneaayush.com.np/notes/agent-evals/</link><pubDate>Thu, 20 Aug 2026 00:54:58 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/agent-evals/</guid><description>&lt;p&gt;notes from &lt;a href="https://www.youtube.com/watch?v=dzVogKf9jIM"&gt;this&lt;/a&gt; short video.&lt;/p&gt;
 &lt;p&gt;We want agents to be reliable.

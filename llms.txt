@@ -3,6 +3,8 @@
 - [CV](https://lamichhaneaayush.com.np/cv/)
 
 ## Notes
+- [Voice Agents](https://lamichhaneaayush.com.np/notes/voice-agents/)
+- [effective ai-agents use](https://lamichhaneaayush.com.np/notes/notes-for-ai/)
 - [vlcn.io/cr-sqlite working](https://lamichhaneaayush.com.np/notes/vlcn-io-cr-sqlite-notes/)
 - [AWS Kinesis](https://lamichhaneaayush.com.np/notes/aws-kinesis/)
 - [Async Local Storage in Node.JS](https://lamichhaneaayush.com.np/notes/async-local-storage-in-node-js/)
