@@ -20,4 +20,6 @@ Reliability = Observability + Evals&lt;/p&gt;
 &lt;p&gt;Groundedness (relates to hallucination as well): uses the particular context provided (as opposed to the generic response)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Tool Sequence Accuracy: does not do wasteful tool calls, and follows correct sequence of tool calls&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Tool Sequence Accuracy: does not do wasteful tool calls, and follows correct sequence of tool calls&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
