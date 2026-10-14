@@ -14,7 +14,7 @@ tags: []
 This is a quaint little command that will bring a pane(you can select interactively) to this window. You wont need it often but is such a time saver. 
 
 set -s : Server wide option (not just the pane, window)  
-command-alias[100]: add it to slot 100, 0-99 are already occupied!  
+command-alias[100]: add it to slot 100, 0 to ~90 are already occupied by internal commands.  
 choose-tree -w: Show all options of windows  
 join-tree -v -s: vertical split, s = source from this location  
 %%: Place holder for selection output.
