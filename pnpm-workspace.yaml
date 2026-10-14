@@ -1,2 +1,4 @@
 allowBuilds:
-  '@parcel/watcher': set this to true or false
+  # Prebuilt binaries ship as optional deps (@parcel/watcher-<platform>), so
+  # the native build script isn't needed.
+  '@parcel/watcher': false

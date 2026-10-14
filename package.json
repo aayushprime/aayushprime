@@ -2,6 +2,9 @@
   "name": "aayushprime",
   "private": true,
   "description": "Build tooling for the Hugo site's Tailwind v4 stylesheet.",
+  "scripts": {
+    "postinstall": "ln -sf ../@tailwindcss/cli/dist/index.mjs node_modules/.bin/tailwindcss"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
     "shadcn": "^4.13.1",
