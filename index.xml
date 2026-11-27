@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 28 Sep 2026 21:49:53 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>TMUX get-over-here</title><link>https://lamichhaneaayush.com.np/notes/tmux-get-over-here/</link><pubDate>Mon, 28 Sep 2026 21:49:53 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/tmux-get-over-here/</guid><description>&lt;p&gt;&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/notes/tmux-get-over-here/image.png"&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>aayushprime</title><link>https://lamichhaneaayush.com.np/</link><description>Recent content on aayushprime</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 28 Nov 2026 00:37:13 +0545</lastBuildDate><atom:link href="https://lamichhaneaayush.com.np/index.xml" rel="self" type="application/rss+xml"/><item><title>Jogging memory while jogging</title><link>https://lamichhaneaayush.com.np/posts/jogging-memory-while-jogging/</link><pubDate>Sat, 28 Nov 2026 00:37:13 +0545</pubDate><guid>https://lamichhaneaayush.com.np/posts/jogging-memory-while-jogging/</guid><description>&lt;p&gt;Do you like flash cards?&lt;br&gt;
+Yeah, Anki, SuperMemo 2 and FSRS (Free Spaced Repetition Scheduler). They work.&lt;br&gt;
+But, I never want to review them. I can&amp;rsquo;t read books so I listen to audiobooks. Everyone has their own way of reading, I guess mine is audio.&lt;/p&gt;
+&lt;p&gt;I like to listen to audiobooks when I go for a walk. So, I had this idea why couldn&amp;rsquo;t I port flashcards to audio. But, spaced repetition have the 4 buttons to press for the algorithm(all hail the algorithm) to work.
+&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/posts/jogging-memory-while-jogging/image.png"&gt;&lt;/p&gt;</description></item><item><title>Group relative policy optimization (GRPO)</title><link>https://lamichhaneaayush.com.np/notes/group-rl/</link><pubDate>Wed, 21 Oct 2026 22:49:39 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/group-rl/</guid><description>&lt;p&gt;Notes from &lt;a href="https://www.youtube.com/watch?v=xT4jxQUl0X8"&gt;video&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/notes/group-rl/image.png"&gt;&lt;/p&gt;
+&lt;p&gt;Preference FineTuning&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PPO, GRPO, DPO are all in this stage&lt;/li&gt;
+&lt;li&gt;GRPO is a successor to PPO.&lt;/li&gt;
+&lt;li&gt;More advanced one is DPO (Direct Preference Optimization)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Reasoning-tuned model&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;usually goal is binary so we can use this signal to better train&lt;/li&gt;
+&lt;li&gt;RLVR(RL with Verifiable Rewards)&lt;/li&gt;
+&lt;li&gt;RLVR also uses PPO, GRPO&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/notes/group-rl/image-2.png"&gt;
+Because G(t) and the baseline (Advantage) is probably wrong anyway because we estimate them and for language models it makes sense to embrace fact that the rewards dont come in intermediate steps.&lt;/p&gt;</description></item><item><title>PPO (Proximal Policy Optimization)</title><link>https://lamichhaneaayush.com.np/notes/ppo/</link><pubDate>Wed, 21 Oct 2026 21:56:56 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/ppo/</guid><description>&lt;p&gt;Notes from &lt;a href="https://www.youtube.com/watch?v=8jtAzxUwDj0"&gt;video&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Turn LLM -&amp;gt; Reasoning model
+Align LLM to human preference&lt;/p&gt;
+&lt;p&gt;Reinforcement Learning (agent acts then environment updates state)
+&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/notes/ppo/image.png"&gt;&lt;/p&gt;
+&lt;p&gt;There is a dataset with reasoning traces (gsm8k).&lt;/p&gt;
+&lt;p&gt;RL State update = old tokens + new predicted token (llm decoding step)&lt;/p&gt;
+&lt;p&gt;so new token = action, state = accumulated tokens&lt;/p&gt;
+&lt;p&gt;Rewards = compare final answer to ground truth&lt;/p&gt;
+&lt;p&gt;So all rewards are 0 until the last step (where its 1 if final answer is correct).
+Some projects have external reward models to hand out rewards for each step as well.&lt;/p&gt;</description></item><item><title>TMUX get-over-here</title><link>https://lamichhaneaayush.com.np/notes/tmux-get-over-here/</link><pubDate>Mon, 28 Sep 2026 21:49:53 +0545</pubDate><guid>https://lamichhaneaayush.com.np/notes/tmux-get-over-here/</guid><description>&lt;p&gt;&lt;img class="mt-6 rounded-md border" decoding="async" loading="lazy" src="https://lamichhaneaayush.com.np/notes/tmux-get-over-here/image.png"&gt;
 &lt;code&gt;set -s command-alias[100] get-over-here='choose-tree -w &amp;quot;join-pane -v -s %%&amp;quot;'&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;This is a quaint little command that will bring a pane(you can select interactively) to this window. You wont need it often but is such a time saver.&lt;/p&gt;
 &lt;p&gt;set -s : Server wide option (not just the pane, window)&lt;br&gt;
