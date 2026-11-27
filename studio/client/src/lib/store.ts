@@ -140,6 +140,23 @@ export async function openPage(section: SectionName, slug: string): Promise<void
 }
 
 /**
+ * Re-read the open page's image list, after an upload adds to it.
+ *
+ * The list arrives with the page, so without this an image pasted a moment
+ * ago is missing from the cover picker until the page is reopened.
+ */
+export async function refreshImages(): Promise<void> {
+  const page = current.value;
+  if (!page || page.slug === "") return;
+
+  const images = await api.images(page.section, page.slug);
+  const now = current.value;
+  if (now && now.section === page.section && now.slug === page.slug) {
+    current.value = { ...now, images };
+  }
+}
+
+/**
  * Whether the open page is still only a buffer.
  *
  * `slug: ""` is the marker for a page with no file yet. createIn opens one so

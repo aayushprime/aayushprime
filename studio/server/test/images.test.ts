@@ -67,6 +67,18 @@ describe("saveImage", () => {
     expect(r.url).toBe("/posts/p/{TMUX} Snippets.png");
   });
 
+  it("percent-encodes the markdown so a name with spaces is still an image", async () => {
+    fx = makeSite();
+    const r = await saveImage(fx.cfg, {
+      section: "posts",
+      slug: "p",
+      filename: "Screenshot 2026-11-28 at 12.34.35 AM (1).png",
+      data: bytes("x"),
+    });
+    expect(r.url).toBe("/posts/p/Screenshot 2026-11-28 at 12.34.35 AM (1).png");
+    expect(r.markdown).toBe("![](/posts/p/Screenshot%202026-11-28%20at%2012.34.35%20AM%20%281%29.png)");
+  });
+
   it("strips any path from an incoming filename", async () => {
     fx = makeSite();
     const r = await saveImage(fx.cfg, {

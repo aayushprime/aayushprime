@@ -7,7 +7,7 @@ import { closeBrackets, closeBracketsKeymap, completionKeymap } from "@codemirro
 import { searchKeymap } from "@codemirror/search";
 import { useEffect, useRef } from "preact/hooks";
 import { api } from "../lib/api.ts";
-import { editBody, flushSave, pages, setInserter } from "../lib/store.ts";
+import { editBody, flushSave, pages, refreshImages, setInserter } from "../lib/store.ts";
 import type { Page, SectionDef } from "../lib/types.ts";
 import { imagePaste } from "./imagePaste.ts";
 import { livePreview } from "./livePreview.ts";
@@ -48,6 +48,7 @@ export function Editor({ page, sections }: Props) {
         imagePaste(async (file) => {
           try {
             const saved = await api.uploadImage(page.section, page.slug, file, file.name);
+            void refreshImages();
             return saved.markdown;
           } catch {
             return null;

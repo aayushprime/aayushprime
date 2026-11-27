@@ -85,7 +85,20 @@ export async function saveImage(
   await writeFileAtomic(join(dir, filename), opts.data);
 
   const url = imageUrl(opts.section, opts.slug, filename);
-  return { filename, url, markdown: `![](${url})` };
+  return { filename, url, markdown: `![](${markdownDestination(url)})` };
+}
+
+/**
+ * A URL as it can stand inside `![](…)`.
+ *
+ * The filename on disk keeps its spaces, but a markdown link destination may
+ * not contain one: `![](/p/Screenshot 2026 at 1.png)` is not an image at all,
+ * just text, in the editor and in Hugo alike. Percent-encoding is what both
+ * read back as the same file. Parentheses are encoded too, since an unbalanced
+ * one ends the destination early.
+ */
+export function markdownDestination(url: string): string {
+  return encodeURI(url).replace(/\(/g, "%28").replace(/\)/g, "%29");
 }
 
 export async function listImages(
